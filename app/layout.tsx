@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import Link from 'next/link';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,8 +18,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <Link
+          href="/"
+
+          rel="noopener noreferrer"
+        >
+          <h5 className={`text-l font-semibold`}>
+            Volver
+          </h5>
+        </Link>
         {children}
-        <footer style={{ position: "absolute", bottom: 0, width:"100vw" }} className='text-center mx-auto px-6 pt-10 pb-6'>Hecho por Ulises Cortes</footer>
+        <footer style={{ position: "absolute", bottom: 0, width: "100vw" }} className='text-center mx-auto px-6 pt-10 pb-6'>Hecho por Ulises Cortes</footer>
       </body>
     </html>
   )

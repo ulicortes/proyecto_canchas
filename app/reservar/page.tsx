@@ -3,7 +3,7 @@ export default function Page() {
         <div>
             <form action="" method="" className="m-auto">
                 <div className="pt-12 text-center">
-                    <h1 className="text-base text-4xl font-bold leading-7 text-gray-900">Reservar cancha</h1>
+                    <h1 className="text-base text-5xl font-bold leading-7 text-gray-900">Reservar cancha</h1>
                     <p className="mt-1 text-sm leading-6 text-gray-600">Completa los datos de la cancha</p>
 
                     <div className="mt-10 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-4 w-3/5 m-auto">
