@@ -1,8 +1,8 @@
 // 'use client';
-import ItemCancha from '../componentes/ItemCancha';
-import BarraBusqueda from '../componentes/BarraBusqueda';
+import ItemCancha from '../../componentes/ItemCancha';
+import BarraBusqueda from '../../componentes/BarraBusqueda';
 // import { useSearchParams, usePathname, useRouter } from 'next/navigation';
-import { turnos } from '../lib/db';
+import { turnos } from '../../lib/db';
 
 export default async function Page(
     // {

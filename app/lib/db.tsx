@@ -1,10 +1,5 @@
 import { sql } from '@vercel/postgres';
-type usuario = {
-    id_usuario: string;
-    u_nombre: string;
-    u_password: string;
-    email: string;
-}
+import type { usuario } from '@/app/lib/tipos'
 export async function turnos() {
     try {
         const data = await sql<usuario>`

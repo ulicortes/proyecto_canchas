@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Link
+        {/* <Link
           href="/"
 
           rel="noopener noreferrer"
@@ -26,7 +26,7 @@ export default function RootLayout({
           <h5 className={`text-l font-semibold`}>
             Volver
           </h5>
-        </Link>
+        </Link> */}
         {children}
         <footer style={{ position: "absolute", bottom: 0, width: "100vw" }} className='text-center mx-auto px-6 pt-10 pb-6'>Hecho por Ulises Cortes</footer>
       </body>

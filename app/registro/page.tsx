@@ -1,17 +1,9 @@
-import Link from 'next/link';
+'use client';
+import { registrarUsuario } from "../lib/metodos";
 
 export default function Registro() {
     return <div>
-        <Link
-          href="/"
-
-          rel="noopener noreferrer"
-        >
-          <h5 className={`text-l font-semibold`}>
-            Volver
-          </h5>
-        </Link>
-        <form action="" method="" className="m-auto w-2/4">
+        <form action={registrarUsuario} method="POST" className="m-auto w-2/4">
                 <div className="pt-12 text-center">
                     <h1 className="text-base text-3xl font-bold leading-7 text-gray-900">Registrate</h1>
 
@@ -24,8 +16,8 @@ export default function Registro() {
                             <div className="mt-2">
                                 <input
                                     type="text"
-                                    name="org"
-                                    id="org"
+                                    name="user"
+                                    id="user"
                                     autoComplete="address-level2"
                                     className="text-center block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
@@ -38,9 +30,9 @@ export default function Registro() {
                             </label>
                             <div className="mt-2">
                                 <input
-                                    type="text"
-                                    name="org"
-                                    id="org"
+                                    type="password"
+                                    name="pass"
+                                    id="pass"
                                     autoComplete="address-level2"
                                     className="text-center block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
@@ -53,9 +45,9 @@ export default function Registro() {
                             </label>
                             <div className="mt-2">
                                 <input
-                                    type="text"
-                                    name="org"
-                                    id="org"
+                                    type="email"
+                                    name="mail"
+                                    id="mail"
                                     autoComplete="address-level2"
                                     className="text-center block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
