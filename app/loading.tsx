@@ -1,5 +1,5 @@
-
-
 export default function Loading() {
-    return <h1>CARGANDO...</h1>
+    return <div className="h-96 flex flex-column justify-center align-middle items-center">
+        <h1>CARGANDO INFORMACION, ESPERE UN MOMENTO...</h1>
+    </div>
 }

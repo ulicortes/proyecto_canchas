@@ -3,7 +3,7 @@ import { registrarUsuario } from "../lib/metodos";
 
 export default function Registro() {
     return <div>
-        <form action={registrarUsuario} method="POST" className="m-auto w-2/4">
+        <form action={registrarUsuario} className="m-auto w-2/4">
                 <div className="pt-12 text-center">
                     <h1 className="text-base text-3xl font-bold leading-7 text-gray-900">Registrate</h1>
 

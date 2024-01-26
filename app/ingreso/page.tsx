@@ -1,6 +1,6 @@
 'use client';
 import { useFormState, useFormStatus } from 'react-dom';
-import { authenticate } from '@/app/lib/metodos';
+import { authenticate } from '../lib/metodos';
 
 export default function Ingreso() {
     const [mensajeError, dispatch] = useFormState(authenticate, undefined);

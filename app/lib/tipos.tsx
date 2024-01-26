@@ -4,3 +4,14 @@ export type usuario = {
     u_password: string;
     email: string;
 }
+
+export type turno = {
+    id_turno: string;
+    organizador: string;
+    telefono: string;
+    lugar: string;
+    direccion: string;
+    dia: string;
+    hora: string;
+    cancha: string;
+}

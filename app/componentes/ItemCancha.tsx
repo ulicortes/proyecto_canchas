@@ -1,25 +1,28 @@
-// import dynamic from 'next/dynamic';
+import { ScriptProps } from "next/script";
+import { turno } from "../lib/tipos";
 
-// const MiComponenteDificil = dynamic(
-//     // Utiliza una función anónima que retorna una promesa con el componente importado.
-//     () => import('./ItemCancha'),
-//     // Establece la opción 'ssr' en 'false' para deshabilitar el pre-renderizado en el lado del servidor.
-//     { ssr: false }
-//   );
-
-export default function ItemCancha() {
-    return <div className='flex flex-row justify-around mt-4 mb-4'>
-        <div>
-            Cancha
+export default function ItemCancha({t}:{t:turno}) {
+    return <div className='grid grid-cols-7 text-center mt-2 mb-4. bg-yellow-300 rounded-2xl border-t-4. border-black.'>
+        <div className="col-span-1 p-4">
+            {t.organizador}
         </div>
-        <div>
-            Direccion
+        <div className="col-span-1 p-4">
+            {t.telefono}
         </div>
-        <div>
-            Jugadores
+        <div className="col-span-1 p-4">
+            {t.lugar}
         </div>
-        <div>
-            Horario
+        <div className="col-span-1 p-4">
+            {t.direccion}
+        </div>
+        <div className="col-span-1 p-4">
+            {t.dia}
+        </div>
+        <div className="col-span-1 p-4">
+            {t.hora}
+        </div>
+        <div className="col-span-1 p-4">
+            {t.cancha}
         </div>
     </div>
 }
