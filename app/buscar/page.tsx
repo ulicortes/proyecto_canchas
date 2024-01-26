@@ -1,24 +1,10 @@
 // 'use client';
 import ItemCancha from '../componentes/ItemCancha';
 import BarraBusqueda from '../componentes/BarraBusqueda';
-// import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { listarTurnos } from '../lib/metodos';
-import { log } from 'console';
 
-export default async function Page(
-    // {
-    //     searchParams,
-    // }: {
-    //     searchParams?: {
-    //         query?: string;
-    //         page?: string;
-    //     };
-    // }
-) {
-    // const query = searchParams?.query || '';
-    // const currentPage = Number(searchParams?.page) || 1;
-
-
+export default async function Page() {
+    
     const lista = await listarTurnos();
     console.log(lista[0]);
 
@@ -38,7 +24,7 @@ export default async function Page(
             </div>
             {lista ? lista.map((t) => {
 
-                return <ItemCancha t={t} />
+                return <ItemCancha key={t.id_turno} t={t} />
             }) : ' '}
         </div>
     </div>

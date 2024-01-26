@@ -1,4 +1,3 @@
-import { ScriptProps } from "next/script";
 import { turno } from "../lib/tipos";
 
 export default function ItemCancha({t}:{t:turno}) {
