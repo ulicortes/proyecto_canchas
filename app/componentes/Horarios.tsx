@@ -4,11 +4,11 @@ export default function Horarios({ setTime }: { setTime: Function }) {
         '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30', '00:00'];
         
     return (
-        <div className="text-center mx-10">
+        <div className="text-center xl:mx-10">
             <h1 className="text-3xl font-bold text-gray-900">Turnos disponibles</h1>
-            <div id="carrusel" className="pt-5 px-4 flex flex-row flex-wrap select-none">
+            <div id="carrusel" className="xl:pt-5 xl:px-4 flex flex-row flex-nowrap xl:flex-wrap overflow-scroll xl:overflow-visible select-none">
                 {horas.map((h) =>
-                    <div key={h} onClick={() => setTime({ h })} className="rounded-xl border-2 border-black bg-yellow-300 py-4 w-24 m-2 text-center cursor-pointer" >
+                    <div key={h} onClick={() => setTime({ h })} className="rounded-xl border-2 border-black bg-yellow-300 py-4 px-4 xl:py-4 xl:w-24 xl:px-0 m-2 text-center cursor-pointer" >
                         <h1 className="text-l">{h}</h1>
                     </div>
                 )}

@@ -4,28 +4,43 @@ import BarraBusqueda from '../componentes/BarraBusqueda';
 import { listarTurnos } from '../lib/metodos';
 
 export default async function Page() {
-    
+
     const lista = await listarTurnos();
     console.log(lista[0]);
 
 
     return <div className="pt-4 text-center">
         <BarraBusqueda></BarraBusqueda>
-        <div className="mt-8 px-4">
+        <div className="mt-4 xl:mt-8 xl:px-4.">
             <h1 className="text-4xl">Listado de canchas</h1>
-            <div className='grid grid-cols-7 font-extrabold text-xl mt-4'>
-                <h1 className="col-span-1">Organizador</h1>
-                <h1 className="col-span-1">Telefono</h1>
-                <h1 className="col-span-1">Lugar</h1>
-                <h1 className="col-span-1">Direccion</h1>
-                <h1 className="col-span-1">Dia</h1>
-                <h1 className="col-span-1">Hora</h1>
-                <h1 className="col-span-1">Cancha</h1>
-            </div>
-            {lista ? lista.map((t) => {
+            <div className='overflow-x-scroll xl:overflow-x-visible'>
+                <table className='xl:w-full'>
+                    <thead className='font-extrabold text-xl bg-white'>
+                        <tr>
+                            <td className='px-8 xl:px-0'>Organizador</td>
+                            <td className='px-8 xl:px-0'>Telefono</td>
+                            <td className='px-8 xl:px-0'>Lugar</td>
+                            <td className='px-8 xl:px-0'>Direccion</td>
+                            <td className='px-8 xl:px-0'>Dia</td>
+                            <td className='px-8 xl:px-0'>Hora</td>
+                            <td className='px-8 xl:px-0'>Cancha</td>
+                        </tr>
 
-                return <ItemCancha key={t.id_turno} t={t} />
-            }) : ' '}
+                        {/* <h1 className="col-span-1">Organizador</h1>
+                    <h1 className="col-span-1">Telefono</h1>
+                    <h1 className="col-span-1">Lugar</h1>
+                    <h1 className="col-span-1">Direccion</h1>
+                    <h1 className="col-span-1">Dia</h1>
+                    <h1 className="col-span-1">Hora</h1>
+                    <h1 className="col-span-1">Cancha</h1> */}
+                    </thead>
+                    <tbody className='divide-y. divide-yellow-300'>
+                        {lista ? lista.map((t) => {
+                            return <ItemCancha key={t.id_turno} t={t} />
+                        }) : ' '}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 }

@@ -6,7 +6,8 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
-import { turno } from './tipos'
+import { turno } from './tipos';
+import { unstable_noStore as noStore } from 'next/cache';
 
 const estructuraForm = z.object({
     user: z.string(),
@@ -70,10 +71,10 @@ export async function guardarCancha(formData: FormData) {
 
 
 export async function listarTurnos() {
-    // noStore();
+    noStore();
     try {
       await new Promise((resolve) => setTimeout(resolve, 3000));
-      const data = await sql<turno>`SELECT * FROM turnos`;  
+      const data = await sql<turno>`SELECT * FROM turnos order by dia`;  
       return data.rows;
     } catch (error) {
       console.error('Database Error:', error);

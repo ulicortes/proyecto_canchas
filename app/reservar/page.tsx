@@ -16,10 +16,10 @@ export default function Page() {
         <div className="mt-5">
             <Horarios setTime={setting} />
             <form action={guardarCancha} className="m-auto">
-                <div className="pt-12 text-center">
-                    <h1 className="text-3xl font-bold leading-7. text-gray-900">Reservar cancha</h1>
+                <div className="pt-6 xl:pt-12 text-center">
+                    <h1 className="text-3xl font-bold text-gray-900">Reservar cancha</h1>
 
-                    <div className="mt-10 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-4 w-3/5 m-auto">
+                    <div className="mt-4 xl:mt-10 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-4 w-3/5 m-auto">
 
                         <div className="sm:col-span-2 sm:col-start-2.">
                             <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">

@@ -19,18 +19,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={kanit.className}>
-        <div className='h-max. p-10.'>
+        <div className='h-max p-10.'>
           <Link
             href="/"
             className="w-"
             rel="noopener noreferrer"
           >
-            <h2 className={`absolute top-5 left-5 text-xl text-center font-semibold`}>
+            <h2 className={`absolute top-5 left-5 text-sm xl:text-xl text-center font-semibold`}>
               LOGO
             </h2>
           </Link>
           {children}
-          <footer className='text-center mx-auto pt-24 pb-4'>Hecho por Ulises Cortes</footer>
+          <footer className='text-center mx-auto pt-8 pb-2 xl:pt-24 xl:pb-4'>Hecho por Ulises Cortes</footer>
         </div>
       </body>
     </html>
