@@ -1,12 +1,12 @@
 'use client';
 import { useFormState, useFormStatus } from 'react-dom';
-import { authenticate } from '../lib/metodos';
+// import { authenticate } from '../lib/metodos';
 
 export default function Ingreso() {
-    const [mensajeError, dispatch] = useFormState(authenticate, undefined);
+    // const [mensajeError, dispatch] = useFormState(authenticate, undefined);
 
     return <div>
-        <form action={dispatch} className="m-auto w-2/4">
+        {/* <form action={dispatch} className="m-auto w-2/4">
             <div className="pt-12 text-center">
                 <h1 className="text-base text-3xl font-bold leading-7 text-gray-900">Ingresa</h1>
 
@@ -56,7 +56,7 @@ export default function Ingreso() {
                     )}
                 </div>
             </div>
-        </form>
+        </form> */}
     </div>
 }
 
