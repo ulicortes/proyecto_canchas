@@ -20,7 +20,7 @@ export default function Home() {
         </Link>
 
         <Link
-          href="/reservar"
+          href="/horarios"
           className="xl:w-2/4 group rounded-lg border border-transparent px-5 transition-colors hover:border-yellow-300 hover:bg-yellow-300 hover:dark:border-yellow-300 hover:dark:bg-yellow-300"
           rel="noopener noreferrer"
         >

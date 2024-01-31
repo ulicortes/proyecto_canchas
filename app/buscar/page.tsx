@@ -6,8 +6,6 @@ import { listarTurnos } from '../lib/metodos';
 export default async function Page() {
 
     const lista = await listarTurnos();
-    console.log(lista[0]);
-
 
     return <div className="pt-4 text-center">
         <BarraBusqueda></BarraBusqueda>
@@ -24,6 +22,8 @@ export default async function Page() {
                             <td className='px-8 xl:px-0'>Dia</td>
                             <td className='px-8 xl:px-0'>Hora</td>
                             <td className='px-8 xl:px-0'>Cancha</td>
+                            <td className='px-8 xl:px-0'>Faltan</td>
+                            <td className='px-8 xl:px-0'></td>
                         </tr>
 
                         {/* <h1 className="col-span-1">Organizador</h1>
