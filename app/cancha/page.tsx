@@ -1,5 +1,5 @@
 
 
-export default function Page({cancha} : {cancha:[]}) {
-
+export default function Page() {
+    return <h1>id editar cancha</h1>
 }

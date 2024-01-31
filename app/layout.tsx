@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter, Kanit } from 'next/font/google'
 import './globals.css'
 import Link from 'next/link';
+import Image from 'next/image';
 
 const inter = Inter({ subsets: ['latin'] })
 const kanit = Kanit({ weight: "400", subsets: ['latin'] })
@@ -24,7 +25,7 @@ export default function RootLayout({
             href="/"
             rel="noopener noreferrer"
           >
-            <img src="favicon.ico" alt="Logo" className="w-20 absolute left-0.5 top-0.5" />
+            <Image alt='logo' src='favicon.ico' className="w-20 absolute left-0.5 top-0.5" />
           </Link>
           {children}
           <footer className='text-center mx-auto pt-8 pb-2 xl:pt-16 xl:pb-4'>Hecho por Ulises Cortes</footer>
