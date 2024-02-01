@@ -9,7 +9,7 @@ export default async function Page() {
 
     return <div className="pt-4 text-center">
         <h1 className="text-4xl">Buscar cancha</h1>
-        <BarraBusqueda></BarraBusqueda>
+        {/* <BarraBusqueda></BarraBusqueda> */}
         <div className="mt-4 xl:mt-8 xl:px-4.">
             <h1 className="text-4xl">Listado de canchas</h1>
             <div className='overflow-x-scroll xl:overflow-x-visible'>
