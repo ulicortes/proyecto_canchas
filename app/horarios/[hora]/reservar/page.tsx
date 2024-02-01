@@ -1,14 +1,22 @@
 import { guardarCancha } from "@/app/lib/metodos";
 import Link from "next/link";
 
-export default function Page({ params }: { params: { hora: string } }) {
+export default function Page({ params, searchParams }: { params: { hora: string},
+    searchParams?: {
+        hoy:string
+    };
+  }) {
     let hora = params.hora;
     let h = hora.split("%3A");
     const time = `${h[0]}:${h[1]}`;
-    console.log("time: " + time.toString());
+    let hoy = searchParams?.hoy;
+    if (hoy == undefined) {
+        let today = new Date();
+        hoy = `${today.getFullYear()}-0${today.getMonth() + 1}-0${today.getDate()}`
+    }
 
-    return <div>
-        <form action={guardarCancha} className="m-auto">
+    return <div className="h-screen">
+        <form action={guardarCancha} className="m-auto. mt-4">
             <div className="pt-6 xl:pt-12 text-center">
                 <h1 className="text-3xl font-bold text-gray-900">Reservar cancha</h1>
 
@@ -84,6 +92,8 @@ export default function Page({ params }: { params: { hora: string } }) {
                                 id="dia"
                                 name="dia"
                                 className="text-center block w-full rounded-md border-0 py-1.5 bg-yellow-300 text-black shadow-md shadow-black ring-1. ring-inset. ring-black. placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                defaultValue={hoy}
+                                readOnly
                             />
                         </div>
                     </div>
@@ -100,6 +110,7 @@ export default function Page({ params }: { params: { hora: string } }) {
                                 type="time"
                                 autoComplete="email"
                                 className="text-center block w-full rounded-md border-0 py-1.5 bg-yellow-300 text-black shadow-md shadow-black ring-1. ring-inset. ring-black. placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                readOnly
                             />
                         </div>
                     </div>

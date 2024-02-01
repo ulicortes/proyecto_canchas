@@ -114,14 +114,13 @@ export async function traerTurno(id: string) {
   }
 }
 
-export async function turnosDeHoy() {
+export async function turnosDeHoy(hoy: string) {
   noStore();
-  const hoy = new Date();
-  const diaDeHoy = `${hoy.getFullYear()}-0${hoy.getMonth() + 1}-${hoy.getDate()}`;
+  // const diaDeHoy = `${hoy.getFullYear()}-0${hoy.getMonth() + 1}-${hoy.getDate()}`;
   try {
 
     await new Promise((resolve) => setTimeout(resolve, 3000));
-    const data = await sql<horarios>`SELECT hora FROM turnos where dia=${diaDeHoy}`;
+    const data = await sql<horarios>`SELECT hora FROM turnos where dia=${hoy}`;
     return data.rows;
   } catch (error) {
     console.error('Database Error:', error);

@@ -8,6 +8,7 @@ export default async function Page() {
     const lista = await listarTurnos();
 
     return <div className="pt-4 text-center">
+        <h1 className="text-4xl">Buscar cancha</h1>
         <BarraBusqueda></BarraBusqueda>
         <div className="mt-4 xl:mt-8 xl:px-4.">
             <h1 className="text-4xl">Listado de canchas</h1>

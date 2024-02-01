@@ -34,7 +34,7 @@ export default function ItemCancha({ t }: { t: turno }) {
             >
                 <button
                 type="submit"
-                className="rounded-md bg-black px-2 py-1 text-xl font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="rounded-md bg-black px-2 py-1 text-xl font-semibold text-white shadow-sm hover:bg-yellow-300 hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
                 +
             </button>

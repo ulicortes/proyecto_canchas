@@ -1,29 +1,29 @@
 'use client';
+import Link from 'next/link';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 
-export default function BarraBusqueda() {
-    const searchParams = useSearchParams();
-    const pathname = usePathname();
-    const { replace } = useRouter();
-
-    const handleSearch = useDebouncedCallback((term) => {
-        const params = new URLSearchParams(searchParams);
-        if (term) {
-            params.set('query', term);
-        } else {
-            params.delete('query');
-        }
-        replace(`${pathname}?${params.toString()}`);
-    }, 600);
-    return <div className='flex flex-col w-100 items-center pb-8'>
-        <h3 className='text-xl'>Buscar cancha</h3>
+export default function BarraBusqueda({fechaActual}:{fechaActual : string}) {
+    const [hoy, setHoy] = useState("");
+    const cambiarDia = (h:string) => {
+        setHoy(h);
+    } 
+    
+    return <div className='flex flex-row w-100 items-center pb-8'>
         <input
-            className="peer block w-2/5 rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+            type='date'
+            className="peer block w-max rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
             onChange={(e) => {
-                handleSearch(e.target.value);
+                cambiarDia(e.target.value);
             }}
-            defaultValue={searchParams.get('query')?.toString()}
+            defaultValue={fechaActual}
         />
+        <Link href={{
+            pathname: '/horarios',
+            query: { hoy: `${hoy}`}
+        }}>
+            <button className="rounded-md bg-black px-2 py-1 ml-5 text-xl font-semibold text-white shadow-sm hover:bg-yellow-300 hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Buscar</button>
+        </Link>
     </div>
 }

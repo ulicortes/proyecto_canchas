@@ -25,7 +25,7 @@ export default function RootLayout({
             href="/"
             rel="noopener noreferrer"
           >
-            <Image alt='logo' src='favicon.ico' className="w-20 absolute left-0.5 top-0.5" />
+            <Image alt='logo' src='/favicon.ico' width={80} height={80} className="w-20 absolute left-0.5 top-0.5" />
           </Link>
           {children}
           <footer className='text-center mx-auto pt-8 pb-2 xl:pt-16 xl:pb-4'>Hecho por Ulises Cortes</footer>
