@@ -1,6 +1,3 @@
-import { turnosDeHoy } from "../lib/metodos";
-import { horarios } from "../lib/tipos";
-
 
 export default function Horarios({ setTime }: { setTime: Function }) {
     const horas = ['07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00',
@@ -21,15 +18,3 @@ export default function Horarios({ setTime }: { setTime: Function }) {
         </div>
     );
 }
-
-async function get() {
-    const hor = await turnosDeHoy();
-    return hor;
-}
-
-// function estaOcupado(hs: horarios, h: number) {
-//     hs.map((hora) => {
-//         if (hora == `${h}:00`) return true;
-//     });
-//     return false
-// }
