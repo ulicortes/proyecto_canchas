@@ -1,3 +1,4 @@
+import NavBar from "@/app/componentes/NavBar";
 import { guardarCancha } from "@/app/lib/metodos";
 import Link from "next/link";
 
@@ -15,7 +16,7 @@ export default function Page({ params, searchParams }: { params: { hora: string}
         hoy = `${today.getFullYear()}-0${today.getMonth() + 1}-0${today.getDate()}`
     }
 
-    return <div className="h-screen">
+    return <div className="h-max xl:h-screen">
         <form action={guardarCancha} className="m-auto. mt-4">
             <div className="pt-6 xl:pt-12 text-center">
                 <h1 className="text-3xl font-bold text-gray-900">Reservar cancha</h1>

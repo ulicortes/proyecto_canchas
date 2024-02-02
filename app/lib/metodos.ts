@@ -91,7 +91,7 @@ export async function listarTurnos() {
   noStore();
   try {
     await new Promise((resolve) => setTimeout(resolve, 3000));
-    const data = await sql<turno>`SELECT * FROM turnos order by dia`;
+    const data = await sql<turno>`SELECT * FROM turnos order by dia, hora`;
     console.log("CANTIDAD DE TURNOS: " + data.rowCount);
 
     return data.rows;
@@ -116,7 +116,6 @@ export async function traerTurno(id: string) {
 
 export async function turnosDeHoy(hoy: string) {
   noStore();
-  // const diaDeHoy = `${hoy.getFullYear()}-0${hoy.getMonth() + 1}-${hoy.getDate()}`;
   try {
 
     await new Promise((resolve) => setTimeout(resolve, 3000));
