@@ -2,14 +2,14 @@
 import ItemCancha from '../componentes/ItemCancha';
 import BarraBusqueda from '../componentes/BarraBusqueda';
 import { listarTurnos } from '../lib/metodos';
+import NavBar from '../componentes/NavBar';
 
 export default async function Page() {
 
     const lista = await listarTurnos();
 
-    return <div className="pt-4 text-center">
-        <h1 className="text-4xl">Buscar cancha</h1>
-        {/* <BarraBusqueda></BarraBusqueda> */}
+    return <div className="pt-4 text-center mt-16">
+        <NavBar></NavBar>
         <div className="mt-4 xl:mt-8 xl:px-4.">
             <h1 className="text-4xl">Listado de canchas</h1>
             <div className='overflow-x-scroll xl:overflow-x-visible'>
