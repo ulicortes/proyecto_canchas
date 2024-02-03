@@ -1,4 +1,5 @@
 import NavBar from "@/app/componentes/NavBar";
+import { metadata } from "@/app/layout";
 import { guardarCancha } from "@/app/lib/metodos";
 import Link from "next/link";
 
@@ -15,6 +16,7 @@ export default function Page({ params, searchParams }: { params: { hora: string}
         let today = new Date();
         hoy = `${today.getFullYear()}-0${today.getMonth() + 1}-0${today.getDate()}`
     }
+    metadata.title = 'Reservar'
 
     return <div className="h-max xl:h-screen">
         <form action={guardarCancha} className="m-auto. mt-4">

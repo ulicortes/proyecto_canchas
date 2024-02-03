@@ -1,8 +1,10 @@
 import Image from 'next/image';
 import './globals.css';
 import Link from 'next/link';
+import { metadata } from './layout';
 
 export default function Home() {
+  metadata.title = 'Quien falta';
   return (
     <main className="h-screen flex flex-col items-center justify-evenly.">
       <div className="mx-0 w-full rounded-md border-8 bg-yellow-300 border-yellow-300 p-5">

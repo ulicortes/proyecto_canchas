@@ -3,9 +3,10 @@ import ItemCancha from '../componentes/ItemCancha';
 import BarraBusqueda from '../componentes/BarraBusqueda';
 import { listarTurnos } from '../lib/metodos';
 import NavBar from '../componentes/NavBar';
+import { metadata } from '../layout';
 
 export default async function Page() {
-
+    metadata.title = 'Buscar';
     const lista = await listarTurnos();
 
     return <div className="pt-4 text-center mt-16">
@@ -16,8 +17,8 @@ export default async function Page() {
                 <table className='xl:w-full'>
                     <thead className='font-extrabold text-xl bg-white'>
                         <tr>
-                            <td className='px-8 xl:px-0'>Organizador</td>
-                            <td className='px-8 xl:px-0'>Telefono</td>
+                            {/* <td className='px-8 xl:px-0'>Organizador</td>
+                            <td className='px-8 xl:px-0'>Telefono</td> */}
                             <td className='px-8 xl:px-0'>Lugar</td>
                             <td className='px-8 xl:px-0'>Direccion</td>
                             <td className='px-8 xl:px-0'>Dia</td>

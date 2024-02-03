@@ -9,6 +9,7 @@ import BarraBusqueda from "../componentes/BarraBusqueda";
 import { string } from "zod";
 import { useRouter } from 'next/router'
 import NavBar from "../componentes/NavBar";
+import { metadata } from "../layout";
 
 
 export default async function Page({
@@ -18,6 +19,7 @@ export default async function Page({
         hoy:string
     };
   }) {
+    metadata.title = 'Horarios';
     let hoy = searchParams?.hoy;
     if (hoy == undefined) {
         let today = new Date();
@@ -43,11 +45,11 @@ export default async function Page({
                 {horas.map((h) =>
                     <div key={h}>
                         {estaOcupado(horasHoy, h) ?
-                            <div className="rounded-xl border-2 border-black bg-red-600 py-2 xl:py-4 xl:w-24 xl:px-0 m-2 text-center" >
+                            <div className="rounded-xl border-2 border-black bg-red-600 py-4 px-4 xl:py-4 xl:w-24 xl:px-0 m-2 text-center" >
                                 <h1 className="text-l">{h}</h1>
                             </div>
                             :
-                            <div className="rounded-xl border-2 border-black bg-lime-500 py-4 px-4 w-fit. px-4. xl:py-4 xl:w-24 xl:px-0 m-2 text-center cursor-pointer" >
+                            <div className="rounded-xl border-2 border-black bg-lime-500 py-4 px-4 xl:py-4 xl:w-24 xl:px-0 m-2 text-center cursor-pointer" >
                                 <Link href={{
                                     pathname: `/horarios/${h}/reservar`,
                                     query: {hoy: hoy}
