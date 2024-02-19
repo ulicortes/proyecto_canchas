@@ -1,8 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { useDebouncedCallback } from 'use-debounce';
 
 export default function BarraBusqueda({fechaActual}:{fechaActual : string}) {
     const [hoy, setHoy] = useState("");

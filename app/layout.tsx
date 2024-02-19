@@ -1,13 +1,12 @@
 import type { Metadata } from 'next'
 import { Inter, Kanit } from 'next/font/google'
 import './globals.css'
-import Link from 'next/link';
-import Image from 'next/image';
+import NavBar from '@/app/componentes/NavBar';
 
 const inter = Inter({ subsets: ['latin'] })
 const kanit = Kanit({ weight: "400", subsets: ['latin'] })
 
-export let metadata: Metadata = {
+export const metadata: Metadata = {
   title: 'Quien falta',
   description: 'Busca o reserva una cancha.',
 }
@@ -19,18 +18,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${kanit.className} h-max`}>
-        <div className='h-max.'>
-          <Link
-            href="/"
-            rel="noopener noreferrer"
-          >
-            {/* <Image alt='logo' src='/favicon.ico' width={80} height={80} className="hidden xl:block absolute left-0.5 top-0.5" /> */}
-            {/* <Image alt='logo' src='/favicon.ico' width={50} height={50} className="block xl:hidden absolute left-0.5 top-0.5" /> */}
-          </Link>
-          {children}
-          <footer className='text-center mx-auto pt-2 pb-2 xl:pt-4 xl:pb-4.'>Hecho por Ulises Cortes</footer>
-        </div>
+      <body className={`${kanit.className} min-h-screen`}>
+        <NavBar />
+        {children}
+        <footer className='text-center mx-auto pt-2 pb-2 xl:pt-4 xl:pb-4.'>Hecho por Ulises Cortes</footer>
       </body>
     </html>
   )

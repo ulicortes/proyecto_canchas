@@ -4,10 +4,10 @@ import { z } from 'zod';
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { signIn } from '@/auth';
-import { AuthError } from 'next-auth';
-import { horarios, turno } from './tipos';
+import { horarios, turno, usuario } from './tipos';
 import { unstable_noStore as noStore } from 'next/cache';
+import { cambiar } from '@/app/lib/authenticate';
+import { cookies } from 'next/headers';
 
 const estructuraForm = z.object({
   user: z.string(),
@@ -40,12 +40,41 @@ export async function registrarUsuario(formData: FormData) {
     email: formData.get('mail')
   });
   const hash = await bcrypt.hash(password, 10);
-
-
   await sql`
     INSERT INTO usuarios (u_nombre, u_password, email)
     VALUES (${user}, ${hash}, ${email})
   `;
+  revalidatePath('/');
+  redirect('/')
+}
+
+export async function verificarUsuario(formData: FormData) {
+  const email = formData.get('email')?.toString();
+  const pass = formData.get('pass')?.toString();
+
+  const data = await sql<usuario>`SELECT * FROM usuarios where email=${email}`;
+  const userData = data.rows[0];
+  if (!userData) return null;
+  const passwordsMatch = await bcrypt.compare(pass, userData.u_password);
+  if (passwordsMatch) {
+    setCookies(userData.u_nombre);
+    console.log("USUARIO NUEVO")
+    console.log(cookies().get('usuario'));
+    console.log('\n')
+    revalidatePath('/buscar');
+    redirect('/buscar')
+  } else {
+    revalidatePath('/');
+    redirect('/')
+  }
+}
+
+export async function signOut() {
+  deleteCookies();
+  console.log('cookies supuestamente borradas');
+  cookies().getAll().map((c) => {
+    console.log(c);
+  })
   revalidatePath('/');
   redirect('/')
 }
@@ -72,17 +101,6 @@ export async function guardarCancha(formData: FormData) {
   }
   revalidatePath('/buscar');
   redirect('/buscar')
-  // const consulta = await sql<turno>`SELECT * FROM turnos where dia=${dia} and hora=${hora}`;
-  // if(consulta.rowCount == 0) {
-  //   await sql`
-  //   INSERT INTO turnos (organizador, telefono, lugar, direccion, dia, hora, cancha, jugadores_faltantes)
-  //   VALUES (${org}, ${telefono}, ${lugar}, ${direccion}, ${dia}, ${hora}, ${cancha}, ${jqf})
-  // `;
-  //   revalidatePath('/buscar');
-  //   redirect('/buscar')
-  // } else {
-  //   console.log("NO SE PUEDE GUARDAR ESTE TURNO PORQUE YA EXISTE!");
-  // }
 
 }
 
@@ -92,7 +110,6 @@ export async function listarTurnos() {
   try {
     await new Promise((resolve) => setTimeout(resolve, 3000));
     const data = await sql<turno>`SELECT * FROM turnos order by dia, hora`;
-    console.log("CANTIDAD DE TURNOS: " + data.rowCount);
 
     return data.rows;
   } catch (error) {
@@ -127,21 +144,23 @@ export async function turnosDeHoy(hoy: string) {
   }
 }
 
-// export async function authenticate(
-//     prevState: string | undefined,
-//     formData: FormData,
-// ) {
-//     try {
-//         await signIn('credentials', formData);
-//     } catch (error) {
-//         if (error instanceof AuthError) {
-//             switch (error.type) {
-//                 case 'CredentialsSignin':
-//                     return 'Invalid credentials....';
-//                 default:
-//                     return 'Something went wrong.';
-//             }
-//         }
-//         throw error;
-//     }
-// }
+export async function setCookies(n: string) {
+  async function setTokens() {
+    
+    cookies().set({
+      name: 'usuario',
+      value: n,
+      expires: new Date('2025-05-22'),
+      path: '/', // For all paths
+    })
+  }
+  return setTokens();
+}
+
+export async function deleteCookies() {
+  async function setTokens() {
+    
+    cookies().delete('usuario')
+  }
+  return setTokens();
+}

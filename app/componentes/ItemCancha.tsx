@@ -1,14 +1,10 @@
+import { cookies } from "next/headers";
 import { turno } from "../lib/tipos";
 import Link from 'next/link';
 
 export default function ItemCancha({ t }: { t: turno }) {
-    return <tr className='text-center hover:bg-yellow-300 rounded-full w-max xl:w-full divide-x divide-yellow-300 cursor-pointer'>
-        {/* <td className='py-4'>
-            {t.organizador}
-        </td>
-        <td className='py-4'>
-            {t.telefono}
-        </td> */}
+    const cookie = cookies();
+    return <tr className={`${t.organizador == cookie.get('usuario')?.value ? 'bg-yellow-200' : ''} text-center hover:bg-yellow-300 rounded-full w-max xl:w-full divide-x divide-yellow-300 cursor-pointer`}>
         <td className='py-4'>
             {t.lugar}
         </td>

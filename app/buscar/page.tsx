@@ -1,24 +1,23 @@
-// 'use client';
+'use server'
 import ItemCancha from '../componentes/ItemCancha';
-import BarraBusqueda from '../componentes/BarraBusqueda';
 import { listarTurnos } from '../lib/metodos';
-import NavBar from '../componentes/NavBar';
-import { metadata } from '../layout';
+import { cookies } from 'next/headers'
+import getSession, { logout } from '../lib/authenticate';
+import Session from '../componentes/Session';
+import { usePathname } from 'next/navigation'
+
 
 export default async function Page() {
-    metadata.title = 'Buscar';
+    const cookie = cookies();
     const lista = await listarTurnos();
-
-    return <div className="pt-4 text-center mt-16">
-        <NavBar></NavBar>
+    return <div className="pt-4 h-max text-center mt-16">
+        {cookie.has('usuario') ? <h1 className='text-2xl'>Hola {cookie.get('usuario')?.value}</h1> : <></>}
         <div className="mt-4 xl:mt-8 xl:px-4.">
             <h1 className="text-4xl">Listado de canchas</h1>
             <div className='overflow-x-scroll xl:overflow-x-visible'>
                 <table className='xl:w-full'>
                     <thead className='font-extrabold text-xl bg-white'>
                         <tr>
-                            {/* <td className='px-8 xl:px-0'>Organizador</td>
-                            <td className='px-8 xl:px-0'>Telefono</td> */}
                             <td className='px-8 xl:px-0'>Lugar</td>
                             <td className='px-8 xl:px-0'>Direccion</td>
                             <td className='px-8 xl:px-0'>Dia</td>
@@ -27,14 +26,6 @@ export default async function Page() {
                             <td className='px-8 xl:px-0'>Faltan</td>
                             <td className='px-8 xl:px-0'></td>
                         </tr>
-
-                        {/* <h1 className="col-span-1">Organizador</h1>
-                    <h1 className="col-span-1">Telefono</h1>
-                    <h1 className="col-span-1">Lugar</h1>
-                    <h1 className="col-span-1">Direccion</h1>
-                    <h1 className="col-span-1">Dia</h1>
-                    <h1 className="col-span-1">Hora</h1>
-                    <h1 className="col-span-1">Cancha</h1> */}
                     </thead>
                     <tbody className='divide-y. divide-yellow-300'>
                         {lista ? lista.map((t) => {

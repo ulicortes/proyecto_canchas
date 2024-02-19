@@ -1,3 +1,4 @@
+
 export type usuario = {
     id_usuario: string;
     u_nombre: string;

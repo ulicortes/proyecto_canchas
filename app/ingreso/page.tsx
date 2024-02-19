@@ -1,12 +1,14 @@
 'use client';
-import { useFormState, useFormStatus } from 'react-dom';
-// import { authenticate } from '../lib/metodos';
+// import { useFormState, useFormStatus } from 'react-dom';
+import { verificarUsuario } from '../lib/metodos';
+import Link from 'next/link';
 
 export default function Ingreso() {
     // const [mensajeError, dispatch] = useFormState(authenticate, undefined);
 
     return <div>
-        {/* <form action={dispatch} className="m-auto w-2/4">
+        <Link href={'/'}>VOLVER</Link>
+        <form action={verificarUsuario} className="m-auto w-2/4">
             <div className="pt-12 text-center">
                 <h1 className="text-base text-3xl font-bold leading-7 text-gray-900">Ingresa</h1>
 
@@ -34,8 +36,8 @@ export default function Ingreso() {
                         <div className="mt-2">
                             <input
                                 type="password"
-                                name="password"
-                                id="password"
+                                name="pass"
+                                id="pass"
                                 autoComplete="address-level2"
                                 className="text-center block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
@@ -44,25 +46,12 @@ export default function Ingreso() {
 
                     <LoginButton />
                 </div>
-                <div
-                    className="flex h-8 items-end space-x-1"
-                    aria-live="polite"
-                    aria-atomic="true"
-                >
-                    {mensajeError && (
-                        <>
-                            <p className="text-sm text-black">{mensajeError}</p>
-                        </>
-                    )}
-                </div>
             </div>
-        </form> */}
-    </div>
+        </form>
+    </div> 
 }
 
 function LoginButton() {
-    const { pending } = useFormStatus();
-
     return (
         <div className="sm:col-span-1 self-end">
             <button

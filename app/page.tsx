@@ -1,12 +1,11 @@
-import Image from 'next/image';
 import './globals.css';
 import Link from 'next/link';
-import { metadata } from './layout';
+
 
 export default function Home() {
-  metadata.title = 'Quien falta';
+  
   return (
-    <main className="h-screen flex flex-col items-center justify-evenly.">
+    <main className="h-screen flex flex-col items-center">
       <div className="mx-0 w-full rounded-md border-8 bg-yellow-300 border-yellow-300 p-5">
         <h1 className="font-bold text-black text-center text-2xl">Bienvenido al sitio de reserva de turnos para el fulbito</h1>
       </div>
@@ -28,6 +27,16 @@ export default function Home() {
         >
           <h2 className={`py-2 xl:p-3 text-2xl text-center font-semibold hover:text-3xl.`}>
             Reservar cancha
+          </h2>
+        </Link>
+
+        <Link
+          href="/ingreso"
+          className="xl:w-2/4 group rounded-lg border border-transparent px-5 transition-colors hover:border-yellow-300 hover:bg-yellow-300 hover:dark:border-yellow-300 hover:dark:bg-yellow-300"
+          rel="noopener noreferrer"
+        >
+          <h2 className={`py-2 xl:p-3 text-2xl text-center font-semibold hover:text-3xl.`}>
+            Ingresar
           </h2>
         </Link>
       </div>

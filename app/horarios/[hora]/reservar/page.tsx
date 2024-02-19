@@ -1,7 +1,7 @@
-import NavBar from "@/app/componentes/NavBar";
-import { metadata } from "@/app/layout";
 import { guardarCancha } from "@/app/lib/metodos";
 import Link from "next/link";
+import { cookies } from 'next/headers'
+import PaginaIngreso from '@/app/ingreso/page'
 
 export default function Page({ params, searchParams }: { params: { hora: string},
     searchParams?: {
@@ -16,9 +16,10 @@ export default function Page({ params, searchParams }: { params: { hora: string}
         let today = new Date();
         hoy = `${today.getFullYear()}-0${today.getMonth() + 1}-0${today.getDate()}`
     }
-    metadata.title = 'Reservar'
+    const cookie = cookies();
 
-    return <div className="h-max xl:h-screen">
+    if(!cookie.has('usuario')) return <PaginaIngreso />;
+    else return <div className="h-max xl:h-screen">
         <form action={guardarCancha} className="m-auto. mt-4">
             <div className="pt-6 xl:pt-12 text-center">
                 <h1 className="text-3xl font-bold text-gray-900">Reservar cancha</h1>
@@ -36,6 +37,8 @@ export default function Page({ params, searchParams }: { params: { hora: string}
                                 id="org"
                                 autoComplete="address-level2"
                                 className="text-center block w-full rounded-md border-0 py-1.5 bg-yellow-300 text-black shadow-md shadow-black ring-1. ring-inset. ring-black. placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                defaultValue={cookie.get('usuario')?.value}
+                                readOnly
                             />
                         </div>
                     </div>
