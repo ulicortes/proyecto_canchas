@@ -143,7 +143,7 @@ export async function setCookies(n: string) {
       name: 'usuario',
       value: n,
       expires: today,
-      path: '/', // For all paths
+      path: '/', 
     })
   }
   return setTokens();
