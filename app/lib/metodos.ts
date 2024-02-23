@@ -6,7 +6,12 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { horarios, turno, usuario } from './tipos';
 import { unstable_noStore as noStore } from 'next/cache';
+<<<<<<< HEAD
+=======
+import PaginaIngreso from '@/app/ingreso/page'
+>>>>>>> f273e60ddf5c48239e2a112d4cbd039ff12276c4
 import { cookies } from 'next/headers';
+import { render } from 'react-dom';
 
 const estructuraForm = z.object({
   user: z.string(),
