@@ -1,18 +1,15 @@
 import ListadoJugadores from "../../../componentes/ListadoJugadores";
 import { traerTurno } from "@/app/lib/metodos";
 import Link from "next/link";
-import getSession from '@/app/lib/authenticate';
 import PaginaIngreso from '@/app/ingreso/page'
-import Buscar from '@/app/buscar/page'
 import { cookies } from 'next/headers'
-import { useEffect } from "react";
 import Info from "@/app/componentes/Info";
 
 
 export default async function Page({ params }: { params: { id: string } }) {
     const t = await traerTurno(params.id);
     const cookie = cookies();
-    if(!cookie.has('usuario')) return <PaginaIngreso error=""/>;
+    if(!cookie.has('usuario')) return <PaginaIngreso e=""/>;
     else if(!(cookie.get('usuario')?.value == t[0].organizador)) return <Info />;
     else return <div className="mt-20 content-center">
         <div className="h-max xl:h-screen flex flex-col xl:flex-row">
