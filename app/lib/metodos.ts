@@ -95,7 +95,6 @@ export async function guardarCancha(formData: FormData) {
 
 }
 
-
 export async function listarTurnos() {
   noStore();
   try {
@@ -151,7 +150,6 @@ export async function setCookies(n: string) {
 
 export async function deleteCookies() {
   async function setTokens() {
-
     cookies().delete('usuario')
   }
   return setTokens();
