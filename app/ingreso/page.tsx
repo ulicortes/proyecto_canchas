@@ -1,7 +1,7 @@
 'use client';
 import { verificarUsuario } from '../lib/metodos';
 
-export default function Ingreso( {error}: {error: string} ) {
+export default function Page( {error}: {error: string} ) {
     return <div className='mt-16 h-screen'>
         <form action={verificarUsuario} className="m-auto w-2/4">
             <div className="pt-12 text-center">
