@@ -1,7 +1,7 @@
 'use client';
 import { verificarUsuario } from '../lib/metodos';
 
-export default function Page( {error}: {error: string} ) {
+export default function Page({e}: {e: string} ) {
     return <div className='mt-16 h-screen'>
         <form action={verificarUsuario} className="m-auto w-2/4">
             <div className="pt-12 text-center">
@@ -48,10 +48,10 @@ export default function Page( {error}: {error: string} ) {
                         </button>
                     </div>
 
-                    {error != undefined ?
+                    {e != undefined ?
                         <div className="sm:col-span-1 sm:col-start-2.">
                             <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">
-                                {error}, intente nuevamente
+                                {e}, intente nuevamente
                             </label>
                         </div>
                         : <></>}

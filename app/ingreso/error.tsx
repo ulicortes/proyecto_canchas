@@ -12,6 +12,6 @@ export default function Error(
     }
 ) {
     return <>
-        <Ingreso error={error.message}/>
+        <Ingreso e={error.message}/>
     </>
 }
