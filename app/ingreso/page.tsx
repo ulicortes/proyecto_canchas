@@ -1,17 +1,7 @@
 'use client';
-import { usePathname } from 'next/navigation';
 import { verificarUsuario } from '../lib/metodos';
 
-export default function Ingreso({
-    error,
-    searchParams,
-}: {
-    error: string,
-    searchParams?: {
-        fecha: string,
-        hora: string
-    };
-}) {
+export default function Ingreso( {error}: {error: string} ) {
     return <div className='mt-16 h-screen'>
         <form action={verificarUsuario} className="m-auto w-2/4">
             <div className="pt-12 text-center">

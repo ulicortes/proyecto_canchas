@@ -1,14 +1,10 @@
 'use server'
-import Image from 'next/image';
 import ItemCancha from '../componentes/ItemCancha';
 import { listarTurnos } from '../lib/metodos';
-import { cookies } from 'next/headers'
-import Link from 'next/link';
 import Session from '../componentes/Session';
 
 
 export default async function Page() {
-    // const cookie = cookies();
     const lista = await listarTurnos();
     return <div className="pt-4 h-max text-center mt-16">
         <Session p='buscar' />

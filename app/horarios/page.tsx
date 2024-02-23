@@ -3,7 +3,6 @@ import { horarios } from "../lib/tipos";
 import Link from "next/link";
 import BarraBusqueda from "../componentes/BarraBusqueda";
 import { cookies } from "next/headers";
-import PaginaIngreso from '@/app/ingreso/page'
 import { redirect } from "next/navigation";
 import Session from "../componentes/Session";
 
