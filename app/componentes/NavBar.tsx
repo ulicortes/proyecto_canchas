@@ -2,10 +2,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from 'next/navigation'
-import { logout } from "../lib/authenticate";
-import getSession from "../lib/authenticate";
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 
 export default function NavBar() {
     let path = usePathname();
@@ -30,14 +26,13 @@ export default function NavBar() {
             className="w-full">
             <div className={`py-2 xl:py-5 xl:hover:bg-yellow-500 ${path == '/horarios' ? "bg-yellow-500" : " "}`}>Reservar</div>
         </Link>
-        <div>
-            <button type='submit'
-                onClick={() => {
-                    logout();
-                }}
-                className={`w-full flex h-[48px]. grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3 `}>
-                <div className="hidden md:block">Salir</div>
-            </button>
-        </div>
+        {/* <Link
+            href="/usuario"
+            rel="noopener noreferrer"
+            className="w-max.">
+            <div>
+                <Image alt='user image' src='/user_i.png' width={200} height={200} />
+            </div>
+        </Link> */}
     </nav>
 }

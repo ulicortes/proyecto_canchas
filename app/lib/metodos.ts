@@ -6,8 +6,9 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { horarios, turno, usuario } from './tipos';
 import { unstable_noStore as noStore } from 'next/cache';
-import { cambiar } from '@/app/lib/authenticate';
+import PaginaIngreso from '@/app/ingreso/page'
 import { cookies } from 'next/headers';
+import { render } from 'react-dom';
 
 const estructuraForm = z.object({
   user: z.string(),
@@ -58,23 +59,15 @@ export async function verificarUsuario(formData: FormData) {
   const passwordsMatch = await bcrypt.compare(pass, userData.u_password);
   if (passwordsMatch) {
     setCookies(userData.u_nombre);
-    console.log("USUARIO NUEVO")
-    console.log(cookies().get('usuario'));
-    console.log('\n')
-    revalidatePath('/buscar');
-    redirect('/buscar')
-  } else {
     revalidatePath('/');
     redirect('/')
-  }
+  } else {
+    throw new Error('Usuario o clave erroneos');
+}
 }
 
 export async function signOut() {
   deleteCookies();
-  console.log('cookies supuestamente borradas');
-  cookies().getAll().map((c) => {
-    console.log(c);
-  })
   revalidatePath('/');
   redirect('/')
 }
@@ -146,11 +139,12 @@ export async function turnosDeHoy(hoy: string) {
 
 export async function setCookies(n: string) {
   async function setTokens() {
-    
+    const today = new Date();
+    today.setHours(today.getHours() + 1);
     cookies().set({
       name: 'usuario',
       value: n,
-      expires: new Date('2025-05-22'),
+      expires: today,
       path: '/', // For all paths
     })
   }
@@ -159,7 +153,7 @@ export async function setCookies(n: string) {
 
 export async function deleteCookies() {
   async function setTokens() {
-    
+
     cookies().delete('usuario')
   }
   return setTokens();

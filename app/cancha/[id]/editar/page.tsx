@@ -12,11 +12,11 @@ import Info from "@/app/componentes/Info";
 export default async function Page({ params }: { params: { id: string } }) {
     const t = await traerTurno(params.id);
     const cookie = cookies();
-    if(!cookie.has('usuario')) return <PaginaIngreso />;
+    if(!cookie.has('usuario')) return <PaginaIngreso error=""/>;
     else if(!(cookie.get('usuario')?.value == t[0].organizador)) return <Info />;
     else return <div className="mt-20 content-center">
         <div className="h-max xl:h-screen flex flex-col xl:flex-row">
-            <div className="grid grid-cols-1 xl:grid-cols-2 gap-1 xl:gap-0 text-center w-full xl:w-3/5 h-4/5 pb-0">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 xl:gap-0 text-center w-full xl:w-3/5 h-4/5 pb-0">
                 <div className='col-span-1 xl:col-span-2. xl:col-start-1. self-center'>
                     <div className="text-3xl">{t[0].organizador}</div>
                     <div>Organizador</div>

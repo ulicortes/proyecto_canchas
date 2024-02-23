@@ -1,14 +1,37 @@
-'use client'
-import { logout } from "../lib/authenticate";
-import getSession from "../lib/authenticate";
-export default function Session() {
-    return <div>
-        <button type='submit' 
-        onClick={() => {
-            logout();
-        }}
-        className={`w-full flex h-[48px]. grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3 ${getSession().name == 'guest' ? 'hidden' : ''}`}>
-            <div className="hidden md:block">Salir</div>
-        </button>
-    </div>
+'use session'
+import Link from "next/link";
+import Image from "next/image";
+import { cookies } from "next/headers";
+
+export default function Session({ p }: { p: string }) {
+    const cookie = cookies();
+    return <>
+        {cookie.has('usuario') ?
+            <div className='flex justify-center'>
+                <Link href={{ pathname: '/usuario', query: { usuario: cookie.get('usuario')?.value } }}>
+                    <button type='submit'
+                        className={`flex grow items-center justify-center gap-2 rounded-lg bg-yellow-200 text-black px-1 text-sm font-medium hover:bg-yellow-300 hover:text-black md:flex-none md:justify-start md:p-2 md:px-3 self-center`}>
+                        <div>
+                            <Image alt='user image' src='/user_i.png' width={60} height={60} />
+                        </div>
+                        <div className="hidden. md:block text-black">Ir al perfil personal</div>
+                    </button>
+                </Link>
+            </div> :
+            <div className='flex justify-center'>
+                <Link href={'/ingreso'}>
+                    <button type='submit'
+                        className={`flex grow items-center justify-center gap-2 rounded-lg bg-black text-white p-3 text-sm font-medium hover:bg-yellow-300 hover:text-black md:flex-none md:justify-start md:p-2 md:px-3 self-center mx-2`}>
+                        <div className="hidden. md:block">Ingresar</div>
+                    </button>
+                </Link>
+                <Link href={'/registro'}>
+                    <button type='submit'
+                        className={`flex grow items-center justify-center gap-2 rounded-lg bg-black text-white p-3 text-sm font-medium hover:bg-yellow-300 hover:text-black md:flex-none md:justify-start md:p-2 md:px-3 self-center mx-2`}>
+                        <div className="hidden. md:block">Registrarse</div>
+                    </button>
+                </Link>
+            </div>
+        }
+    </>
 }

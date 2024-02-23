@@ -1,17 +1,17 @@
 'use server'
+import Image from 'next/image';
 import ItemCancha from '../componentes/ItemCancha';
 import { listarTurnos } from '../lib/metodos';
 import { cookies } from 'next/headers'
-import getSession, { logout } from '../lib/authenticate';
+import Link from 'next/link';
 import Session from '../componentes/Session';
-import { usePathname } from 'next/navigation'
 
 
 export default async function Page() {
-    const cookie = cookies();
+    // const cookie = cookies();
     const lista = await listarTurnos();
     return <div className="pt-4 h-max text-center mt-16">
-        {cookie.has('usuario') ? <h1 className='text-2xl'>Hola {cookie.get('usuario')?.value}</h1> : <></>}
+        <Session p='buscar' />
         <div className="mt-4 xl:mt-8 xl:px-4.">
             <h1 className="text-4xl">Listado de canchas</h1>
             <div className='overflow-x-scroll xl:overflow-x-visible'>

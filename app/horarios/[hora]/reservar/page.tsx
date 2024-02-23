@@ -1,7 +1,6 @@
 import { guardarCancha } from "@/app/lib/metodos";
+import { cookies } from "next/headers";
 import Link from "next/link";
-import { cookies } from 'next/headers'
-import PaginaIngreso from '@/app/ingreso/page'
 
 export default function Page({ params, searchParams }: { params: { hora: string},
     searchParams?: {
@@ -18,8 +17,7 @@ export default function Page({ params, searchParams }: { params: { hora: string}
     }
     const cookie = cookies();
 
-    if(!cookie.has('usuario')) return <PaginaIngreso />;
-    else return <div className="h-max xl:h-screen">
+    return <div className="h-max xl:h-screen">
         <form action={guardarCancha} className="m-auto. mt-4">
             <div className="pt-6 xl:pt-12 text-center">
                 <h1 className="text-3xl font-bold text-gray-900">Reservar cancha</h1>

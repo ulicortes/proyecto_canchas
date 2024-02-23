@@ -1,13 +1,18 @@
 'use client';
-// import { useFormState, useFormStatus } from 'react-dom';
+import { usePathname } from 'next/navigation';
 import { verificarUsuario } from '../lib/metodos';
-import Link from 'next/link';
 
-export default function Ingreso() {
-    // const [mensajeError, dispatch] = useFormState(authenticate, undefined);
-
-    return <div>
-        <Link href={'/'}>VOLVER</Link>
+export default function Ingreso({
+    error,
+    searchParams,
+}: {
+    error: string,
+    searchParams?: {
+        fecha: string,
+        hora: string
+    };
+}) {
+    return <div className='mt-16 h-screen'>
         <form action={verificarUsuario} className="m-auto w-2/4">
             <div className="pt-12 text-center">
                 <h1 className="text-base text-3xl font-bold leading-7 text-gray-900">Ingresa</h1>
@@ -44,22 +49,24 @@ export default function Ingreso() {
                         </div>
                     </div>
 
-                    <LoginButton />
+                    <div className="sm:col-span-1 self-end">
+                        <button
+                            type="submit"
+                            className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-yellow-300 hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        >
+                            Ingresar
+                        </button>
+                    </div>
+
+                    {error != undefined ?
+                        <div className="sm:col-span-1 sm:col-start-2.">
+                            <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">
+                                {error}, intente nuevamente
+                            </label>
+                        </div>
+                        : <></>}
                 </div>
             </div>
         </form>
-    </div> 
-}
-
-function LoginButton() {
-    return (
-        <div className="sm:col-span-1 self-end">
-            <button
-                type="submit"
-                className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-                Ingresar
-            </button>
-        </div>
-    );
+    </div>
 }
