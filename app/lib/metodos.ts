@@ -60,7 +60,7 @@ export async function verificarUsuario(formData: FormData) {
     revalidatePath('/');
     redirect('/')
   } else {
-    throw new Error('Usuario o clave erroneos');
+    throw new Error();
 }
 }
 

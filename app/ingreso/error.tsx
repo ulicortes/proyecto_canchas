@@ -15,7 +15,7 @@ export default function Error(
         <Ingreso />
         <div className="relative bottom-64 flex justify-center">
             <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">
-                {error.message}, intente nuevamente
+                Usuario o clave erroneos, intente nuevamente
             </label>
         </div>
 
