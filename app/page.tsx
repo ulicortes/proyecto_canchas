@@ -1,9 +1,7 @@
 import './globals.css';
 import Link from 'next/link';
-import { cookies } from 'next/headers'
 
 export default function Home() {
-  const cookie = cookies();
   return (
     <main className="h-screen flex flex-col items-center">
       <div className="mx-0 w-full rounded-md border-8 bg-yellow-300 border-yellow-300 p-5">

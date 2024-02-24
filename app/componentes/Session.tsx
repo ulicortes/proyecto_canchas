@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { cookies } from "next/headers";
 
-export default function Session({ p }: { p: string }) {
+export default function Session() {
     const cookie = cookies();
     return <>
         {cookie.has('usuario') ?

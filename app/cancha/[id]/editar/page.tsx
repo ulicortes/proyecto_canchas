@@ -9,7 +9,7 @@ import Info from "@/app/componentes/Info";
 export default async function Page({ params }: { params: { id: string } }) {
     const t = await traerTurno(params.id);
     const cookie = cookies();
-    if(!cookie.has('usuario')) return <PaginaIngreso e=""/>;
+    if(!cookie.has('usuario')) return <PaginaIngreso />;
     else if(!(cookie.get('usuario')?.value == t[0].organizador)) return <Info />;
     else return <div className="mt-20 content-center">
         <div className="h-max xl:h-screen flex flex-col xl:flex-row">

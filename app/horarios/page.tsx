@@ -30,7 +30,7 @@ export default async function Page({
     if (!cookie.has('usuario')) redirect('/ingreso');
     else return <div className="text-center h-screen flex flex-col justify-center xl:mt-5">
         <div className="mt-14" >
-            <Session p="" />
+            <Session />
         </div>
 
         <div className="mt-4" >
