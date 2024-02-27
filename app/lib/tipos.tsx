@@ -16,6 +16,9 @@ export type turno = {
     hora: string;
     cancha: string;
     jugadores_faltantes: string;
+    lista: [];
 }
+
+export type jugadores = {lista: string};
 
 export type horarios = {hora: string};

@@ -1,11 +1,12 @@
 'use server'
 import ItemCancha from '../componentes/ItemCancha';
-import { listarTurnos } from '../lib/metodos';
+import { listarJugadores, listarTurnos } from '../lib/metodos';
 import Session from '../componentes/Session';
 
 
 export default async function Page() {
     const lista = await listarTurnos();
+    
     return <div className="pt-4 h-max text-center mt-16">
         <Session />
         <div className="mt-4 xl:mt-8 xl:px-4.">

@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { horarios, turno, usuario } from './tipos';
+import { horarios, jugadores, turno, usuario } from './tipos';
 import { unstable_noStore as noStore } from 'next/cache';
 import { cookies } from 'next/headers';
 
@@ -61,7 +61,7 @@ export async function verificarUsuario(formData: FormData) {
     redirect('/')
   } else {
     throw new Error();
-}
+  }
 }
 
 export async function signOut() {
@@ -110,7 +110,6 @@ export async function listarTurnos() {
 
 export async function traerTurno(id: string) {
   noStore();
-
   try {
     await new Promise((resolve) => setTimeout(resolve, 3000));
     const data = await sql<turno>`SELECT * FROM turnos where id_turno=${id}`;
@@ -134,6 +133,24 @@ export async function turnosDeHoy(hoy: string) {
   }
 }
 
+export async function actualizarCancha(id_turno: string, formData: FormData) {
+  const lista = formData.getAll('jug');
+  let arrayLista = `{${lista[0]}`;
+  for (let i = 1; i < lista.length; i++) {
+    if(lista[i] != '') {
+      arrayLista += `, ${lista[i]}`;
+    }
+  }
+  arrayLista += `}`;
+  await sql`
+      UPDATE turnos SET lista=${arrayLista} WHERE id_turno=${id_turno}
+    `;
+
+  revalidatePath(`/cancha/${id_turno}/editar`);
+  redirect(`/cancha/${id_turno}/editar`)
+
+}
+
 export async function setCookies(n: string) {
   async function setTokens() {
     const today = new Date();
@@ -142,7 +159,7 @@ export async function setCookies(n: string) {
       name: 'usuario',
       value: n,
       expires: today,
-      path: '/', 
+      path: '/',
     })
   }
   return setTokens();
@@ -153,4 +170,17 @@ export async function deleteCookies() {
     cookies().delete('usuario')
   }
   return setTokens();
+}
+
+export async function listarJugadores() {
+  noStore();
+  try {
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    const data = await sql<jugadores>`SELECT * FROM ejemplo`;
+
+    return data.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch revenue data.');
+  }
 }
