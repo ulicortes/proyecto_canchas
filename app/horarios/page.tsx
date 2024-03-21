@@ -3,6 +3,7 @@ import { horarios } from "../lib/tipos";
 import Link from "next/link";
 import BarraBusqueda from "../componentes/BarraBusqueda";
 import { cookies } from "next/headers";
+import PaginaIngreso from '@/app/ingreso/page'
 import { redirect } from "next/navigation";
 import Session from "../componentes/Session";
 
@@ -27,12 +28,9 @@ export default async function Page({
         '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30', '00:00'];
 
     const cookie = cookies();
-    if (!cookie.has('usuario')) redirect('/ingreso');
-    else return <div className="text-center h-screen flex flex-col justify-center xl:mt-5">
-        <div className="mt-14" >
-            <Session />
-        </div>
-
+    if (!cookie.has('usuario')) return <PaginaIngreso />;
+    else return <div className="text-center h-screen flex flex-col justify-center xl:mt-4 xl:mb-44">
+        
         <div className="mt-4" >
             <h1 className="text-3xl font-bold text-gray-900">Selecciona el dia</h1>
             <div className='w-2/5 flex flex-row justify-center m-auto pt-3'>
@@ -61,6 +59,9 @@ export default async function Page({
                 )}
             </div>
         </div>
+        {/* <div className="mt-20" >
+            <Session />
+        </div> */}
     </div>
 }
 function estaOcupado(hs: horarios[], h: string) {

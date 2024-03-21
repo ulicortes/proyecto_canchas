@@ -7,6 +7,7 @@ import { redirect } from 'next/navigation';
 import { horarios, jugadores, turno, usuario } from './tipos';
 import { unstable_noStore as noStore } from 'next/cache';
 import { cookies } from 'next/headers';
+import {SignJWT, jwtVerify} from 'jose';
 
 const estructuraForm = z.object({
   user: z.string(),
@@ -96,9 +97,8 @@ export async function guardarCancha(formData: FormData) {
 }
 
 export async function listarTurnos() {
-  noStore();
+  // noStore();
   try {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
     const data = await sql<turno>`SELECT * FROM turnos order by dia, hora`;
 
     return data.rows;
@@ -111,7 +111,6 @@ export async function listarTurnos() {
 export async function traerTurno(id: string) {
   noStore();
   try {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
     const data = await sql<turno>`SELECT * FROM turnos where id_turno=${id}`;
     return data.rows;
   } catch (error) {
@@ -124,7 +123,6 @@ export async function turnosDeHoy(hoy: string) {
   noStore();
   try {
 
-    await new Promise((resolve) => setTimeout(resolve, 3000));
     const data = await sql<horarios>`SELECT hora FROM turnos where dia=${hoy}`;
     return data.rows;
   } catch (error) {

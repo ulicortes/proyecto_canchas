@@ -4,6 +4,8 @@ import Link from 'next/link';
 
 export default function ItemCancha({ t }: { t: turno }) {
     const cookie = cookies();
+    let newdate = t.dia.split("-").reverse().join("-");
+    let newhour = t.hora.split(":");
     return <tr className={`${t.organizador == cookie.get('usuario')?.value ? 'bg-yellow-200' : ''} text-center hover:bg-yellow-300 rounded-full w-max xl:w-full divide-x divide-yellow-300 cursor-pointer`}>
         <td className='py-4'>
             {t.lugar}
@@ -12,10 +14,10 @@ export default function ItemCancha({ t }: { t: turno }) {
             {t.direccion}
         </td>
         <td className='py-4'>
-            {t.dia}
+            {newdate}
         </td>
         <td className='py-4'>
-            {t.hora}
+            {newhour[0]}:{newhour[1]}
         </td>
         <td className='py-4'>
             {t.cancha}
@@ -23,7 +25,7 @@ export default function ItemCancha({ t }: { t: turno }) {
         <td className='py-4'>
             {t.jugadores_faltantes} jugadores
         </td>
-        <td className='py-4'>
+        <td className={`py-4 ${!cookie.has('usuario') ? 'hidden' : ''}`}>
             <Link
                 href={`/cancha/${t.id_turno}/editar`}
                 rel="noopener noreferrer"
