@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 import PaginaIngreso from '@/app/ingreso/page'
 import { redirect } from "next/navigation";
 import Session from "../componentes/Session";
+import { any } from "zod";
 
 export default async function Page({
     searchParams,
@@ -14,12 +15,13 @@ export default async function Page({
         hoy: string
     };
 }) {
-
+    const cookie = cookies();
     let hoy = searchParams?.hoy;
     if (hoy == undefined) {
         let today = new Date();
         hoy = `${today.getFullYear()}-0${today.getMonth() + 1}-${today.getDate()}`
     }
+    
     let horasHoy = await turnosDeHoy(hoy);
     let f = new Date(hoy);
 
@@ -27,11 +29,11 @@ export default async function Page({
         '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30',
         '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30', '00:00'];
 
-    const cookie = cookies();
+
     if (!cookie.has('usuario')) return <PaginaIngreso />;
     else return <div className="text-center h-screen flex flex-col justify-center xl:mt-4 xl:mb-44">
-        
-        <div className="mt-4" >
+
+        <div className="mt-0" >
             <h1 className="text-3xl font-bold text-gray-900">Selecciona el dia</h1>
             <div className='w-2/5 flex flex-row justify-center m-auto pt-3'>
                 <BarraBusqueda fechaActual={hoy}></BarraBusqueda>

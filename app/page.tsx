@@ -13,7 +13,7 @@ export default function Home() {
           className="xl:w-2/4 group rounded-lg border border-transparent px-5 transition-colors hover:border-yellow-300 hover:bg-yellow-300 hover:dark:border-yellow-300 hover:dark:bg-yellow-300"
           rel="noopener noreferrer"
         >
-          <h2 className={`py-2 xl:p-3 text-2xl text-center font-semibold hover:text-3xl.`}>
+          <h2 className={`py-2 xl:p-3 text-2xl text-center font-semibold`}>
             Buscar canchas
           </h2>
         </Link>
@@ -23,9 +23,17 @@ export default function Home() {
           className="xl:w-2/4 group rounded-lg border border-transparent px-5 transition-colors hover:border-yellow-300 hover:bg-yellow-300 hover:dark:border-yellow-300 hover:dark:bg-yellow-300"
           rel="noopener noreferrer"
         >
-          <h2 className={`py-2 xl:p-3 text-2xl text-center font-semibold hover:text-3xl.`}>
+          <h2 className={`py-2 xl:p-3 text-2xl text-center font-semibold`}>
             Reservar cancha
           </h2>
+        </Link>
+
+        <Link 
+          href={'/registro'}
+          className="xl:w-2/4 group rounded-lg border border-transparent px-5 transition-colors hover:border-yellow-300 hover:bg-yellow-300 hover:dark:border-yellow-300 hover:dark:bg-yellow-300"
+          rel="noopener noreferrer"
+          >
+          <h2 className="py-2 xl:p-3 text-2xl text-center font-semibold">Registrarse</h2>
         </Link>
       </div>
     </main>

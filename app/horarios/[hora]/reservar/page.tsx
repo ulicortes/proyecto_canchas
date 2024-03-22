@@ -18,7 +18,7 @@ export default function Page({ params, searchParams }: { params: { hora: string}
     const cookie = cookies();
 
     return <div className="h-max xl:h-screen">
-        <form action={guardarCancha} className="m-auto. mt-4">
+        <form action={guardarCancha} className="mt-16">
             <div className="pt-6 xl:pt-12 text-center">
                 <h1 className="text-3xl font-bold text-gray-900">Reservar cancha</h1>
 

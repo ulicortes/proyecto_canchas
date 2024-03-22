@@ -25,12 +25,12 @@ export default function Session() {
                         <div className="hidden. md:block">Ingresar</div>
                     </button>
                 </Link>
-                <Link href={'/registro'}>
+                {/* <Link href={'/registro'}>
                     <button type='submit'
                         className={`flex grow items-center justify-center gap-2 rounded-lg bg-black text-white p-3 text-sm font-medium hover:bg-yellow-300 hover:text-black md:flex-none md:justify-start md:p-2 md:px-3 self-center mx-2`}>
                         <div className="hidden. md:block">Registrarse</div>
                     </button>
-                </Link>
+                </Link> */}
             </div>
         }
     </>

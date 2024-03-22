@@ -20,7 +20,7 @@ export default function Registro() {
                                     id="user"
                                     autoComplete="address-level2"
                                     required
-                                    className="text-center block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    className="text-center block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-4 ring-offset ring-black placeholder:text-gray-400 focus:ring-8 focus:ring-offset focus:ring-yellow-500 sm:text-sm sm:leading-6"
                                 />
                             </div>
                         </div>
@@ -36,10 +36,10 @@ export default function Registro() {
                                     id="pass"
                                     autoComplete="address-level2"
                                     required
-                                    className="text-center block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    className="text-center block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-4 ring-offset ring-black placeholder:text-gray-400 focus:ring-8 focus:ring-offset focus:ring-yellow-500 sm:text-sm sm:leading-6"
                                 />
                             </div>
-                            <p className='text-sm'>(minimo 6 caracteres y maximo 20)</p>
+                            <p className='text-sm mt-2 w-72 absolute left-8 xl:relative xl:left-0 xl:w-full'>(minimo 6 caracteres y maximo 20)</p>
                         </div>
 
                         <div className="sm:col-span-1">
@@ -53,7 +53,7 @@ export default function Registro() {
                                     id="mail"
                                     autoComplete="address-level2"
                                     required
-                                    className="text-center block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    className="text-center block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-4 ring-offset ring-black placeholder:text-gray-400 focus:ring-8 focus:ring-offset focus:ring-yellow-500 sm:text-sm sm:leading-6"
                                 />
                             </div>
                         </div>
