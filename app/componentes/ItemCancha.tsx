@@ -1,7 +1,6 @@
 import { cookies } from "next/headers";
 import { turno } from "../lib/tipos";
 import Link from 'next/link';
-import { cuantosFaltan } from "../cancha/[id]/editar/page";
 
 
 export default function ItemCancha({ t }: { t: turno }) {

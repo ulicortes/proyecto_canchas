@@ -77,7 +77,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     </div>
 }
 
-export function cuantosFaltan(turno: [], tipoFutbol: String){
+function cuantosFaltan(turno: [], tipoFutbol: String){
     let cant = 0;
     if(turno!=null) cant = turno.length;
     
