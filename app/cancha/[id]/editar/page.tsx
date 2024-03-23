@@ -15,31 +15,31 @@ export default async function Page({ params }: { params: { id: string } }) {
     // if (!cookie.has('usuario')) return <PaginaIngreso />;
     // else 
     return <div className="mt-20 content-center">
-        <div className="h-max xl:h-screen flex flex-col xl:flex-row mb-10">
+        <div className="h-max xl:h-screen flex flex-col xl:flex-row mb-10 xl:mb-0">
             <div className={`grid grid-cols-1 xl:grid-cols-2 gap-10 xl:gap-0 text-center w-full ${cookie.get('usuario')?.value == t[0].organizador ? 'xl:w-3/5' : 'xl:w-5/5 xl:px-16'}  h-4/5 `}>
                 <div className='col-span-1 xl:col-span-2. xl:col-start-1. self-center'>
                     <div className="text-3xl">{t[0].organizador}</div>
-                    <div className="underline underline-offset-4">Organizador</div>
+                    <div className="underline underline-offset-4 text-greenpitch">Organizador</div>
                 </div>
                 <div className='col-span-1 xl:col-span-2. xl:col-start-3. self-center'>
                     <div className="text-3xl">{t[0].telefono}</div>
-                    <div className="underline underline-offset-4">Telefono</div>
+                    <div className="underline underline-offset-4 text-greenpitch">Telefono</div>
                 </div>
                 <div className='col-span-1 xl:col-span-2. xl:col-start-1. self-center'>
                     <div className="text-3xl">{t[0].lugar}</div>
-                    <div className="underline underline-offset-4">Lugar</div>
+                    <div className="underline underline-offset-4 text-greenpitch">Lugar</div>
                 </div>
                 <div className='col-span-1 xl:col-span-2. xl:col-start-3. self-center'>
                     <div className="text-3xl">{t[0].direccion}</div>
-                    <div className="underline underline-offset-4">Direccion</div>
+                    <div className="underline underline-offset-4 text-greenpitch">Direccion</div>
                 </div>
                 <div className='col-span-1 xl:col-span-2. xl:col-start-1. self-center'>
                     <div className="text-3xl">{newdate}</div>
-                    <div className="underline underline-offset-4">Dia</div>
+                    <div className="underline underline-offset-4 text-greenpitch">Dia</div>
                 </div>
                 <div className='col-span-1 xl:col-span-2. xl:col-start-3. self-center'>
                     <div className="text-3xl">{newhour[0]}:{newhour[1]}</div>
-                    <div className="underline underline-offset-4">Hora</div>
+                    <div className="underline underline-offset-4 text-greenpitch">Hora</div>
                 </div>
                 <div className='col-span-1 xl:col-span-1. xl:col-start-1. self-center'>
                     <div className="text-3xl">{t[0].cancha}</div>
@@ -56,7 +56,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                     <ListadoJugadores cant={t[0].cancha} jugs={t[0].lista} />
                     <button
                     type="submit"
-                    className="rounded-md bg-black px-2 py-1 text-xl font-semibold text-white mb-16 shadow-sm hover:bg-yellow-300 hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    className="rounded-md bg-black px-2 py-1 text-xl font-semibold text-white mb-16 shadow-sm hover:bg-yellow hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                     Editar
                 </button>
@@ -68,7 +68,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             <Link href={'/buscar'}>
                 <button
                     type="submit"
-                    className="rounded-md bg-black px-2 py-1 text-xl font-semibold text-white shadow-sm hover:bg-yellow-300 hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    className="rounded-md bg-black px-2 py-1 text-xl font-semibold text-white shadow-sm hover:bg-yellow hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                     Volver
                 </button>

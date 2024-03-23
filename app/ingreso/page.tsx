@@ -5,7 +5,7 @@ export default function Page() {
     return <div className='mt-16 h-screen'>
         <form action={verificarUsuario} className="m-auto w-2/4">
             <div className="pt-12 text-center">
-                <h1 className="text-base text-3xl font-bold leading-7 text-gray-900">Ingresa</h1>
+                <h1 className="text-black text-3xl font-bold leading-7 text-gray-900">Ingresar</h1>
 
                 <div className="mt-10 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-1 w-3/5 m-auto">
 
@@ -42,7 +42,7 @@ export default function Page() {
                     <div className="sm:col-span-1 self-end">
                         <button
                             type="submit"
-                            className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-yellow-300 hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-yellow hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >
                             Ingresar
                         </button>

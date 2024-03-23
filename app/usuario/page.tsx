@@ -17,12 +17,12 @@ export default function Page({ searchParams }: {
                     onClick={() => {
                         logout();
                     }}
-                    className={`flex grow items-center justify-center gap-2 m-5 rounded-md bg-black text-center text-white p-3 text-sm font-medium hover:bg-yellow-300 hover:text-black md:flex-none md:justify-start md:p-2 md:px-3`}>
+                    className={`flex grow items-center justify-center gap-2 m-5 rounded-md bg-black text-center text-white p-3 text-sm font-medium hover:bg-yellow hover:text-black md:flex-none md:justify-start md:p-2 md:px-3`}>
                     <div className="md:block">Salir</div>
                 </button>
                 <Link href={'/buscar'}>
                     <button type='submit'
-                        className={`flex grow items-center justify-center gap-2 m-5 rounded-md bg-black text-center text-white p-3 text-sm font-medium hover:bg-yellow-300 hover:text-black md:flex-none md:justify-start md:p-2 md:px-3`}>
+                        className={`flex grow items-center justify-center gap-2 m-5 rounded-md bg-black text-center text-white p-3 text-sm font-medium hover:bg-yellow hover:text-black md:flex-none md:justify-start md:p-2 md:px-3`}>
                         <div className="md:block">Volver</div>
                     </button>
                 </Link>

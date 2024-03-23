@@ -25,7 +25,7 @@ body {
     )
     rgb(var(--background-start-rgb)); */
     /* background: linear-gradient(white, rgb(169, 202, 252)); */
-    background-color: #FEF9EC;
+    background-color: #ffffff;
     /* background-image: url('../public/background.png');
     background-repeat: no-repeat; */
 }

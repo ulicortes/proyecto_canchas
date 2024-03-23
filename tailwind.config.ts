@@ -15,6 +15,13 @@ const config: Config = {
       },
       colors: {
         'violet': '#904E75',
+        'strongblue': '#4A9194',
+        'darkblue': '#2F4858',
+        'greenblue': '#CFFBE2',
+        'greenpitch' : '#007533',
+        'ligthyellow' : '#FFEB3B79',
+        'yellow' : '#FFEB3B',
+        'ligthgreen' : '#D7FADB'
       },
     },
   },
