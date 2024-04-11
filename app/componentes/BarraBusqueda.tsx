@@ -21,7 +21,7 @@ export default function BarraBusqueda({fechaActual}:{fechaActual : string}) {
             pathname: '/horarios',
             query: { hoy: `${hoy}`}
         }}>
-            <button className="rounded-md bg-black px-2 py-1 ml-5 text-xl font-semibold text-white shadow-sm hover:bg-yellow-300 hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Buscar</button>
+            <button className="rounded-md bg-black px-2 py-1 ml-5 text-xl font-semibold text-white shadow-sm hover:bg-yellow hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Buscar</button>
         </Link>
     </div>
 }

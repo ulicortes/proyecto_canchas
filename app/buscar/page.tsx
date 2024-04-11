@@ -11,16 +11,15 @@ export default async function Page() {
         <div className="mt-24 xl:mt-24 text-black">
             <h1 className="text-3xl font-bold pb-4">Listado de canchas</h1>
             <div className='overflow-x-scroll xl:overflow-x-visible'>
-                <table className='xl:w-full'>
-                    <thead className='font-extrabold text-greenpitch text-xl border-b-4 border-b-greenpitch'>
+                <table className='xl:w-full border-separate border-spacing-y-3'>
+                    <thead className='font-extrabold text-greenpitch text-xl bg-greenpitch. border-b-4. border-b-greenpitch.'>
                         <tr>
-                            <td className='px-8 xl:px-0'>Lugar</td>
-                            <td className='px-8 xl:px-0'>Direccion</td>
-                            <td className='px-8 xl:px-0'>Dia</td>
-                            <td className='px-8 xl:px-0'>Hora</td>
-                            <td className='px-8 xl:px-0'>Cancha</td>
-                            {/* <td className='px-8 xl:px-0'>Faltan</td> */}
-                            <td className='px-8 xl:px-0'></td>
+                            <td className='px-12 xl:px-0'>Lugar</td>
+                            <td className='px-12 xl:px-0'>Direccion</td>
+                            <td className='px-12 xl:px-0'>Dia</td>
+                            <td className='px-12 xl:px-0'>Hora</td>
+                            <td className='px-12 xl:px-0'>Cancha</td>
+                            <td className='px-12 xl:px-0'></td>
                         </tr>
                     </thead>
                     <tbody>

@@ -21,7 +21,8 @@ const config: Config = {
         'greenpitch' : '#007533',
         'ligthyellow' : '#FFEB3B79',
         'yellow' : '#FFEB3B',
-        'ligthgreen' : '#D7FADB'
+        'ligthgreen' : '#D7FFBB',
+        'brigthred' : '#FF1744'
       },
     },
   },

@@ -8,7 +8,7 @@ export default function ItemCancha({ t }: { t: turno }) {
     let newdate = t.dia.split("-").reverse().join("-");
     let newhour = t.hora.split(":");
     
-    return <tr className='text-center text-black hover:bg-[#72A37A]. hover:bg-ligthyellow hover:text-white. rounded-full w-max xl:w-full border-b-2 border-b-greenpitch cursor-pointer'>
+    return <tr className='text-center text-black bg-[#E0E0E0]. bg-ligthgreen hover:bg-ligthyellow rounded-full w-max xl:w-full border-b-8 border-b-white cursor-pointer'>
         <td className='py-4'>
             {t.lugar}
         </td>
@@ -24,9 +24,6 @@ export default function ItemCancha({ t }: { t: turno }) {
         <td className='py-4'>
             {t.cancha}
         </td>
-        {/* <td className='py-4'>
-            {cuantosFaltan(t.lista, t.cancha)} jugadores
-        </td> */}
         <td className='py-4'>
             <Link
                 href={`/cancha/${t.id_turno}/editar`}
@@ -34,7 +31,7 @@ export default function ItemCancha({ t }: { t: turno }) {
             >
                 <button
                     type="submit"
-                    className="rounded-md bg-black px-2 py-1 text-xl font-semibold text-white shadow-sm hover:bg-yellow hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    className="rounded-md bg-black px-2 py-1 text-xl font-semibold text-white shadow-sm hover:bg-greenpitch focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                     +
                 </button>
