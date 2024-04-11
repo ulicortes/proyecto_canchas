@@ -138,10 +138,7 @@ export async function turnosDeHoy(hoy: string) {
 }
 
 export async function actualizarCancha(id_turno: string, formData: FormData) {
-  let turno = await sql`
-  SELECT 1 as exist FROM turnos WHERE id_turno=${id_turno};
-  `;
-  if(turno.rows[0] != undefined) throw new Error('Algo salio mal.');
+  noStore();
 
   const lista = formData.getAll('jug');
   let arrayLista = `{${lista[0]}`;
