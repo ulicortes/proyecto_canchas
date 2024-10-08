@@ -62,14 +62,14 @@ export async function verificarUsuario(formData: FormData) {
 
   const data = await sql<usuario>`SELECT u_nombre, u_password FROM usuarios where email=${email}`;
   const userData = data.rows[0];
-  if (!userData) throw new Error('Usuario inexistente');
+  if (!userData) throw new Error("2");
   const passwordsMatch = await bcrypt.compare(pass, userData.u_password);
   if (passwordsMatch) {
     setCookies(userData.u_nombre);
-    revalidatePath('/buscar');
-    redirect('/buscar')
+    revalidatePath('/horarios');
+    redirect('/horarios')
   } else {
-    throw new Error('Usuario o clave erroneos, intente nuevamente');
+    throw new Error("1");
   }
 }
 

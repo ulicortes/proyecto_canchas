@@ -19,7 +19,8 @@ export default async function Page({
     let hoy = searchParams?.hoy;
     if (hoy == undefined) {
         let today = new Date();
-        hoy = `${today.getFullYear()}-0${today.getMonth() + 1}-${today.getDate()}`
+        hoy = today.toISOString().slice(0, 10);
+        // hoy = `${today.getFullYear()}-${today.getMonth() + 1}-0${today.getDate()}`
     }
     
     let horasHoy = await turnosDeHoy(hoy);
@@ -30,18 +31,19 @@ export default async function Page({
         '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30', '00:00'];
 
 
-    if (!cookie.has('usuario')) return <PaginaIngreso />;
-    else return <div className="text-center h-screen flex flex-col justify-center xl:mt-4 xl:mb-44">
+    if (!cookie.has('usuario')) redirect('/ingreso');
+    // if (!cookie.has('usuario')) return <PaginaIngreso />;
+    else return <div className="text-center h-screen flex flex-col justify-center xl:mt-2. xl:mb-44.">
 
-        <div className="mt-0" >
+        <div className="mt-0." >
             <h1 className="text-3xl font-bold text-gray-900">Selecciona el dia</h1>
             <div className='w-2/5 flex flex-row justify-center m-auto pt-3'>
                 <BarraBusqueda fechaActual={hoy}></BarraBusqueda>
             </div>
         </div>
-        <div className="mt-4">
+        <div className="mt-8">
             <h1 className="text-3xl font-bold text-gray-900">Selecciona un horario de la fecha {`${f.getUTCDate()}/${f.getUTCMonth() + 1}/${f.getUTCFullYear()}`}</h1>
-            <div id="carrusel" className="h-60 xl:h-full xl:pt-5 xl:px-4 flex flex-col flex-wrap xl:flex-row xl:flex-wrap overflow-scroll xl:overflow-visible select-none m-auto w-4/5">
+            <div id="carrusel" className="h-50 xl:h-full xl:pt-5 xl:px-4 flex flex-col flex-wrap xl:flex-row xl:flex-wrap overflow-scroll xl:overflow-visible select-none m-auto w-4/5">
                 {horas.map((h) =>
                     <div key={h}>
                         {estaOcupado(horasHoy, h) ?

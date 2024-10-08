@@ -7,7 +7,7 @@ import Session from '../componentes/Session';
 export default async function Page() {
     const lista = await listarTurnos();
 
-    return <div className="pt-4 h-max text-center mb-40">
+    return <div className="pt-4 h-max text-center mb-6">
         <div className="mt-24 xl:mt-24 text-black">
             <h1 className="text-3xl font-bold pb-4">Listado de canchas</h1>
             <div className='overflow-x-scroll xl:overflow-x-visible'>
