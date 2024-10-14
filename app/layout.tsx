@@ -20,7 +20,6 @@ export default function RootLayout({
       <body className={`${roboto.className} min-h-screen`}>
         <NavBar />
         {children}
-        {/* <footer className='text-center mx-auto pt-2 pb-2 xl:pt-4 xl:pb-4.'>Hecho por Ulises Cortes</footer> */}
       </body>
     </html>
   )

@@ -20,7 +20,6 @@ export default async function Page({
     if (hoy == undefined) {
         let today = new Date();
         hoy = today.toISOString().slice(0, 10);
-        // hoy = `${today.getFullYear()}-${today.getMonth() + 1}-0${today.getDate()}`
     }
     
     let horasHoy = await turnosDeHoy(hoy);
@@ -32,7 +31,6 @@ export default async function Page({
 
 
     if (!cookie.has('usuario')) redirect('/ingreso');
-    // if (!cookie.has('usuario')) return <PaginaIngreso />;
     else return <div className="text-center h-screen flex flex-col justify-center xl:mt-2. xl:mb-44.">
 
         <div className="mt-0." >
@@ -63,9 +61,6 @@ export default async function Page({
                 )}
             </div>
         </div>
-        {/* <div className="mt-20" >
-            <Session />
-        </div> */}
     </div>
 }
 function estaOcupado(hs: horarios[], h: string) {

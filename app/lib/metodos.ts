@@ -106,7 +106,7 @@ export async function guardarCancha(formData: FormData) {
 export async function listarTurnos() {
   noStore();
   try {
-    const data = await sql<turno>`SELECT * FROM turnos order by dia, hora`;
+    const data = await sql<turno>`SELECT * FROM turnos WHERE date(dia) >= date(now()) ORDER BY dia, hora `;
 
     return data.rows;
   } catch (error) {

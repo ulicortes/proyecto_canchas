@@ -12,8 +12,6 @@ export default async function Page({ params }: { params: { id: string } }) {
     const actualizar = actualizarCancha.bind(null, t[0].id_turno);
     let newdate = t[0].dia.split("-").reverse().join("-");
     let newhour = t[0].hora.split(":");
-    // if (!cookie.has('usuario')) return <PaginaIngreso />;
-    // else 
     return <div className="mt-20 content-center">
         <div className="h-max xl:h-screen flex flex-col xl:flex-row mb-10 xl:mb-0">
             <div className={`grid grid-cols-1 xl:grid-cols-2 gap-10 xl:gap-0 text-center w-full ${cookie.get('usuario')?.value == t[0].organizador ? 'xl:w-3/5' : 'xl:w-5/5 xl:px-16'}  h-4/5 `}>
