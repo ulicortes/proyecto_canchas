@@ -12,19 +12,15 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({
-  children,
-  session
+  children
 }: {
   children: React.ReactNode
-  session: any
 }) {
   return (
     <html lang="en">
       <body className={`${roboto.className} min-h-screen`}>
         <NavBar />
-        <SessionProvider session={session}>
           {children}
-        </SessionProvider>
       </body>
     </html>
   )
