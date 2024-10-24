@@ -1,8 +1,9 @@
-import { guardarCancha } from "@/app/lib/metodos";
+import { guardarCancha, verificarUsuario } from "@/app/lib/metodos";
 import { cookies } from "next/headers";
+import { redirect } from 'next/navigation';
 import Link from "next/link";
 
-export default function Page({ params, searchParams }: { params: { hora: string},
+export default async function Page({ params, searchParams }: { params: { hora: string},
     searchParams?: {
         hoy:string
     };
@@ -16,8 +17,9 @@ export default function Page({ params, searchParams }: { params: { hora: string}
         hoy = `${today.getFullYear()}-0${today.getMonth() + 1}-0${today.getDate()}`
     }
     const cookie = cookies();
-
-    return <div className="h-max xl:h-screen mt-20">
+    const session = await verificarUsuario(cookie);
+    if(session == undefined) redirect('/ingreso');
+    else return <div className="h-max xl:h-screen mt-20">
         <form action={guardarCancha} className="w-4/6 m-auto">
             <div className="pt-6 xl:pt-12 text-center bg-[#E0E0E0] p-6 rounded-md">
                 <h1 className="text-3xl font-bold text-black">Reservar cancha</h1>
@@ -35,7 +37,7 @@ export default function Page({ params, searchParams }: { params: { hora: string}
                                 id="org"
                                 autoComplete="address-level2"
                                 className="text-center block w-full rounded-md border-0 py-1.5 bg-white text-black ring-4 ring-inset ring-greenpitch placeholder:text-black focus:ring-2 focus:ring-offset focus:ring-black sm:text-sm sm:leading-6"
-                                defaultValue={cookie.get('usuario')?.value}
+                                defaultValue={session || ""}
                                 readOnly
                             />
                         </div>

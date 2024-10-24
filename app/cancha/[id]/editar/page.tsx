@@ -1,14 +1,13 @@
 import ListadoJugadores from "../../../componentes/ListadoJugadores";
-import { traerTurno, actualizarCancha } from "@/app/lib/metodos";
+import { traerTurno, actualizarCancha, verificarUsuario } from "@/app/lib/metodos";
 import Link from "next/link";
-import PaginaIngreso from '@/app/ingreso/page'
 import { cookies } from 'next/headers'
-import Info from "@/app/componentes/Info";
 
 
 export default async function Page({ params }: { params: { id: string } }) {
     const t = await traerTurno(params.id);
     const cookie = cookies();
+    const session = await verificarUsuario(cookie);
     const actualizar = actualizarCancha.bind(null, t[0].id_turno);
     let newdate = t[0].dia.split("-").reverse().join("-");
     let newhour = t[0].hora.split(":");
@@ -56,7 +55,8 @@ export default async function Page({ params }: { params: { id: string } }) {
                     </Link>
                 </div>
             </div>
-            <div className={`${cookie.get('usuario')?.value == t[0].organizador ? '' : 'hidden'} w-full xl:w-2/5 h-fit text-center mt-16 xl:mt-0 flex flex-col`}>
+            {session == t[0].organizador ? <>
+               <div className="w-full xl:w-2/5 h-fit text-center mt-16 xl:mt-0 flex flex-col">
                 <div>
                     <h1>LISTADO DE JUGADORES</h1>
                 </div>
@@ -69,19 +69,11 @@ export default async function Page({ params }: { params: { id: string } }) {
                         Editar
                     </button>
                 </form>
-
-            </div>
+            </div> 
+            </>: <>
+            </>}
+            
         </div>
-        {/* <div className="w-full flex justify-center">
-            <Link href={'/buscar'}>
-                <button
-                    type="submit"
-                    className="rounded-md bg-black px-2 py-1 text-xl font-semibold text-white shadow-sm hover:bg-yellow hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                    Volver
-                </button>
-            </Link>
-        </div> */}
     </div>
 }
 

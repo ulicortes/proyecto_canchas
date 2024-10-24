@@ -1,13 +1,14 @@
 'use server';
 import { redirect } from 'next/navigation';
-import { verificarUsuario } from '../lib/metodos';
+import { ingresarUsuario, verificarUsuario } from '../lib/metodos';
 import { cookies } from "next/headers";
 
 export default async function Page() {
     const cookie = cookies();
-    if(cookie.has('usuario')) redirect('/buscar');
+    const session = await verificarUsuario(cookie);
+    if (session != undefined) redirect('/horarios');
     else return <div className='mt-16 h-screen'>
-        <form action={verificarUsuario} className="m-auto w-2/4">
+        <form action={ingresarUsuario} method='POST' className="m-auto w-2/4">
             <div className="pt-12 text-center">
                 <h1 className="text-black text-3xl font-bold leading-7 text-gray-900">Ingresar</h1>
 

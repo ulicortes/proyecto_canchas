@@ -7,7 +7,9 @@ import { redirect } from 'next/navigation';
 import { horarios, jugadores, turno, usuario } from './tipos';
 import { unstable_noStore as noStore } from 'next/cache';
 import { cookies } from 'next/headers';
-import { SignJWT, jwtVerify } from 'jose';
+import { signToken, verifyToken } from '../api/auth/auth';
+import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
+import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
 
 const estructuraForm = z.object({
   user: z.string(),
@@ -55,7 +57,7 @@ export async function registrarUsuario(formData: FormData) {
   }
 }
 
-export async function verificarUsuario(formData: FormData) {
+export async function ingresarUsuario(formData: FormData) {
   noStore();
   const email = formData.get('email')?.toString();
   const pass = formData.get('pass')?.toString();
@@ -64,19 +66,53 @@ export async function verificarUsuario(formData: FormData) {
   const userData = data.rows[0];
   if (!userData) throw new Error("2");
   const passwordsMatch = await bcrypt.compare(pass, userData.u_password);
+  
   if (passwordsMatch) {
-    setCookies(userData.u_nombre);
-    revalidatePath('/horarios');
-    redirect('/horarios')
+    await setCookies(userData.u_nombre);
   } else {
     throw new Error("1");
   }
 }
 
+export async function verificarUsuario(cookie: ReadonlyRequestCookies) {
+  const token = cookie.get('authToken');
+  
+  try {
+    const decoded = verifyToken(token?.value);
+    return decoded;
+  } catch (error) {
+    return false;
+  }
+}
+
 export async function signOut() {
-  deleteCookies();
+  await deleteCookies();
   revalidatePath('/');
   redirect('/')
+}
+
+export async function deleteCookies() {
+  function setTokens() {
+    cookies().delete('authToken')
+  }
+  return setTokens();
+}
+
+export async function setCookies(n: string) { 
+  const token = await signToken({ sub: n });
+  function setTokens() {
+    cookies().set({
+      name: 'authToken',
+      value: token,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 3600,
+      path:'/'
+    })
+  }
+  
+  return setTokens();
 }
 
 export async function guardarCancha(formData: FormData) {
@@ -155,27 +191,6 @@ export async function actualizarCancha(id_turno: string, formData: FormData) {
   revalidatePath(`/cancha/${id_turno}/editar`);
   redirect(`/cancha/${id_turno}/editar`)
 
-}
-
-export async function setCookies(n: string) {
-  async function setTokens() {
-    const today = new Date();
-    today.setHours(today.getHours() + 1);
-    cookies().set({
-      name: 'usuario',
-      value: n,
-      expires: today,
-      path: '/',
-    })
-  }
-  return setTokens();
-}
-
-export async function deleteCookies() {
-  async function setTokens() {
-    cookies().delete('usuario')
-  }
-  return setTokens();
 }
 
 export async function listarJugadores() {

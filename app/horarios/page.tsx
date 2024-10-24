@@ -1,12 +1,9 @@
-import { turnosDeHoy } from "../lib/metodos";
+import { turnosDeHoy, verificarUsuario } from "../lib/metodos";
 import { horarios } from "../lib/tipos";
 import Link from "next/link";
 import BarraBusqueda from "../componentes/BarraBusqueda";
 import { cookies } from "next/headers";
-import PaginaIngreso from '@/app/ingreso/page'
 import { redirect } from "next/navigation";
-import Session from "../componentes/Session";
-import { any } from "zod";
 
 export default async function Page({
     searchParams,
@@ -15,7 +12,6 @@ export default async function Page({
         hoy: string
     };
 }) {
-    const cookie = cookies();
     let hoy = searchParams?.hoy;
     if (hoy == undefined) {
         let today = new Date();
@@ -30,11 +26,12 @@ export default async function Page({
     //     '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30', '00:00'];
 
     const horas = ['07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00',
-        '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', 
-        '20:00', '21:00', '22:00', '23:00', '00:00'];
-
-
-    if (!cookie.has('usuario')) redirect('/ingreso');
+        '14:00', '15:00', '16:00', '17:00', '18:00', '19:00',
+        '20:00', '21:00', '22:00', '23:00', '00:00'
+    ];
+    const cookie = cookies();
+    const session = await verificarUsuario(cookie);
+    if (session == undefined) redirect('/ingreso');
     else return <div className="text-center h-full xl:h-screen flex flex-col justify-center mt-20 xl:mt-0 xl:mb-44.">
 
         <div className="mt-0." >
