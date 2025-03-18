@@ -5,14 +5,14 @@ import Link from 'next/link';
 
 export default function ItemCancha({ t }: { t: turno }) {
     const cookie = cookies();
-    let newdate = t.dia.split("-").reverse().join("-");
+    let newdate = t.dia.split("-").reverse().join("/");
     let newhour = t.hora.split(":");
     
     return <tr className='text-center text-black bg-[#E0E0E0]. bg-ligthgreen hover:bg-ligthyellow rounded-full w-max xl:w-full border-b-8 border-b-white cursor-pointer'>
         <td className='py-4'>
             {t.lugar}
         </td>
-        <td className='py-4'>
+        <td className='hidden xl:inline-table py-4'>
             {t.direccion}
         </td>
         <td className='py-4'>
@@ -21,7 +21,7 @@ export default function ItemCancha({ t }: { t: turno }) {
         <td className='py-4'>
             {newhour[0]}:{newhour[1]}
         </td>
-        <td className='py-4'>
+        <td className='hidden xl:inline-table py-4'>
             {t.cancha}
         </td>
         <td className='py-4'>

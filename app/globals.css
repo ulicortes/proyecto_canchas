@@ -25,7 +25,11 @@ body {
     )
     rgb(var(--background-start-rgb)); */
     /* background: linear-gradient(white, rgb(169, 202, 252)); */
-    background-color: #ffffff;
-    /* background-image: url('../public/background.png');
-    background-repeat: no-repeat; */
+    /* background-color: #ffffff; */
+    background-image: url('../public/background.png');
+    background-repeat: no-repeat;
+    background-position: 40% -10%;
+    background-attachment: fixed;
 }
+
+

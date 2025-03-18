@@ -13,7 +13,7 @@ export default function Error(
 ) {
     return (
         <main className="flex h-screen flex-col items-center justify-evenly">
-            <h2 className="text-center text-3xl">No se pudo reservar el turno!</h2>
+            <h2 className="text-center text-3xl">No se pudo reservar el turno porque ya existe!</h2>
             <div className="flex flex-row justify-around w-2/4">
                 <button
                     type="submit"

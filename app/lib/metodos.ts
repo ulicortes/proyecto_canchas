@@ -8,8 +8,9 @@ import { horarios, jugadores, turno, usuario } from './tipos';
 import { unstable_noStore as noStore } from 'next/cache';
 import { cookies } from 'next/headers';
 import { signToken, verifyToken } from '../api/auth/auth';
-import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server';
 
 const estructuraForm = z.object({
   user: z.string(),
@@ -45,7 +46,7 @@ export async function registrarUsuario(formData: FormData) {
   let newUser = await sql`
   SELECT 1 as exist FROM usuarios WHERE u_nombre=${user} AND email=${email}
   `;
-  if(newUser.rows[0] != undefined) throw new Error('Este usuario ya existe!');
+  if (newUser.rows[0] != undefined) throw new Error('Este usuario ya existe!');
   else {
     const hash = await bcrypt.hash(password, 10);
     await sql`
@@ -61,14 +62,16 @@ export async function ingresarUsuario(formData: FormData) {
   noStore();
   const email = formData.get('email')?.toString();
   const pass = formData.get('pass')?.toString();
+  const ulr = formData.get('ulr')?.toString();
 
   const data = await sql<usuario>`SELECT u_nombre, u_password FROM usuarios where email=${email}`;
   const userData = data.rows[0];
   if (!userData) throw new Error("2");
   const passwordsMatch = await bcrypt.compare(pass, userData.u_password);
-  
+
   if (passwordsMatch) {
     await setCookies(userData.u_nombre);
+    redirect(`${ulr}`);
   } else {
     throw new Error("1");
   }
@@ -76,7 +79,7 @@ export async function ingresarUsuario(formData: FormData) {
 
 export async function verificarUsuario(cookie: ReadonlyRequestCookies) {
   const token = cookie.get('authToken');
-  
+
   try {
     const decoded = verifyToken(token?.value);
     return decoded;
@@ -98,7 +101,7 @@ export async function deleteCookies() {
   return setTokens();
 }
 
-export async function setCookies(n: string) { 
+export async function setCookies(n: string) {
   const token = await signToken({ sub: n });
   function setTokens() {
     cookies().set({
@@ -108,10 +111,10 @@ export async function setCookies(n: string) {
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
       maxAge: 3600,
-      path:'/'
+      path: '/'
     })
   }
-  
+
   return setTokens();
 }
 
@@ -123,14 +126,19 @@ export async function guardarCancha(formData: FormData) {
     direccion: formData.get('direcc'),
     dia: formData.get('dia'),
     hora: formData.get('hora'),
-    cancha: formData.get('jugs'),
+    cancha: formData.get('cancha'),
   });
-
+  let formatDia = dia.split('/');
+  let dia_final = formatDia[2]+"-"+formatDia[1]+"-"+formatDia[0]
   try {
-    await sql`
-      INSERT INTO turnos (organizador, telefono, lugar, direccion, dia, hora, cancha)
-      VALUES (${org}, ${telefono}, ${lugar}, ${direccion}, ${dia}, ${hora}, ${cancha})
-    `;
+    const row = await sql<Number>`SELECT 1 FROM turnos WHERE lugar=${lugar} AND direccion=${direccion}
+    AND dia=${dia} AND hora=${hora}`;
+    if(row.rows.length == 0) {
+      await sql`
+        INSERT INTO turnos (organizador, telefono, lugar, direccion, dia, hora, cancha)
+        VALUES (${org}, ${telefono}, ${lugar}, ${direccion}, ${dia}, ${hora}, ${cancha})
+      `;
+    }
   } catch (error) {
     throw new Error('NO SE PUEDE GUARDAR ESTE TURNO PORQUE YA EXISTE!');
   }
@@ -155,7 +163,7 @@ export async function traerTurno(id: string) {
   noStore();
   try {
     const data = await sql<turno>`SELECT * FROM turnos where id_turno=${id}`;
-    if(data.rows.length==0) throw Error('Algo salio mal');
+    if (data.rows.length == 0) throw Error('Algo salio mal');
     else return data.rows;
   } catch (error) {
     throw new Error('Algo salio mal');
@@ -166,7 +174,7 @@ export async function turnosDeHoy(hoy: string) {
   noStore();
   try {
 
-    const data = await sql<horarios>`SELECT hora FROM turnos where dia=${hoy}`;
+    const data = await sql<horarios>`SELECT hora, cancha FROM turnos where dia=${hoy}`;
     return data.rows;
   } catch (error) {
     throw new Error('Algo salio mal.');
@@ -175,10 +183,15 @@ export async function turnosDeHoy(hoy: string) {
 
 export async function actualizarCancha(id_turno: string, formData: FormData) {
   noStore();
-
+  let indice = 0;
   const lista = formData.getAll('jug');
-  let arrayLista = `{${lista[0]}`;
-  for (let i = 1; i < lista.length; i++) {
+  let primer_jugador = lista[0];
+  if (primer_jugador == '') {
+    primer_jugador = lista[1];
+    indice++;
+  }
+  let arrayLista = `{${primer_jugador}`;
+  for (let i = indice + 1; i < lista.length; i++) {
     if (lista[i] != '') {
       arrayLista += `, ${lista[i]}`;
     }
@@ -187,9 +200,8 @@ export async function actualizarCancha(id_turno: string, formData: FormData) {
   await sql`
       UPDATE turnos SET lista=${arrayLista} WHERE id_turno=${id_turno}
     `;
-
   revalidatePath(`/cancha/${id_turno}/editar`);
-  redirect(`/cancha/${id_turno}/editar`)
+  redirect(`/cancha/${id_turno}/editar`);
 
 }
 
