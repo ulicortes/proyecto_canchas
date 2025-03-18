@@ -132,7 +132,7 @@ export async function guardarCancha(formData: FormData) {
   let dia_final = formatDia[2]+"-"+formatDia[1]+"-"+formatDia[0]
   try {
     const row = await sql<Number>`SELECT 1 FROM turnos WHERE lugar=${lugar} AND direccion=${direccion}
-    AND dia=${dia} AND hora=${hora}`;
+    AND dia=${dia_final} AND hora=${hora}`;
     if(row.rows.length == 0) {
       await sql`
         INSERT INTO turnos (organizador, telefono, lugar, direccion, dia, hora, cancha)
