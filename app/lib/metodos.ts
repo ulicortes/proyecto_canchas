@@ -136,7 +136,7 @@ export async function guardarCancha(formData: FormData) {
     if(row.rows.length == 0) {
       await sql`
         INSERT INTO turnos (organizador, telefono, lugar, direccion, dia, hora, cancha)
-        VALUES (${org}, ${telefono}, ${lugar}, ${direccion}, ${dia}, ${hora}, ${cancha})
+        VALUES (${org}, ${telefono}, ${lugar}, ${direccion}, ${dia_final}, ${hora}, ${cancha})
       `;
     }
   } catch (error) {
