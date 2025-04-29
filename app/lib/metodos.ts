@@ -12,6 +12,8 @@ import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adap
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server';
 
+const URL = process.env.AUTH_URL;
+
 const estructuraForm = z.object({
   user: z.string(),
   password: z.string(),
@@ -42,20 +44,19 @@ export async function registrarUsuario(formData: FormData) {
     password: formData.get('pass'),
     email: formData.get('mail')
   });
+
   if (password.length < 6 || password.length > 20) throw new Error('La contraseña tiene menos de 6 o mas de 20 caracteres.');
-  let newUser = await sql`
-  SELECT 1 as exist FROM usuarios WHERE u_nombre=${user} AND email=${email}
-  `;
-  if (newUser.rows[0] != undefined) throw new Error('Este usuario ya existe!');
-  else {
-    const hash = await bcrypt.hash(password, 10);
-    await sql`
-    INSERT INTO usuarios (u_nombre, u_password, email)
-    VALUES (${user}, ${hash}, ${email})
-    `;
-    revalidatePath('/buscar');
-    redirect('/buscar')
-  }
+
+  await fetch(`${URL}/register`, {
+    method: "POST",
+    body: JSON.stringify(nuevoUsuario)
+  })
+    .then(rsp => {
+      if (rsp.status == 201) {
+        window.location.href = '/buscar';
+        return;
+      } else throw new Error('Este usuario ya existe!');
+    })
 }
 
 export async function ingresarUsuario(formData: FormData) {
@@ -64,17 +65,26 @@ export async function ingresarUsuario(formData: FormData) {
   const pass = formData.get('pass')?.toString();
   const ulr = formData.get('ulr')?.toString();
 
-  const data = await sql<usuario>`SELECT u_nombre, u_password FROM usuarios where email=${email}`;
-  const userData = data.rows[0];
-  if (!userData) throw new Error("2");
-  const passwordsMatch = await bcrypt.compare(pass, userData.u_password);
-
-  if (passwordsMatch) {
-    await setCookies(userData.u_nombre);
-    redirect(`${ulr}`);
-  } else {
-    throw new Error("1");
+  let login_user = {
+    user: formData.get('user')?.toString(),
+    password: formData.get('pass')?.toString()
   }
+
+  await fetch(`${URL}/login`, {
+    method: "POST",
+    body: JSON.stringify(login_user)
+  })
+    .then(rsp => {
+      if (rsp.status == 200) {
+        rsp.json()
+          .then(async data => {
+            await setCookies(data.token);
+            window.location.href = `${ulr}`;
+            return;
+          })
+      } 
+      else throw new Error('1');
+    })
 }
 
 export async function verificarUsuario(cookie: ReadonlyRequestCookies) {
@@ -129,11 +139,11 @@ export async function guardarCancha(formData: FormData) {
     cancha: formData.get('cancha'),
   });
   let formatDia = dia.split('/');
-  let dia_final = formatDia[2]+"-"+formatDia[1]+"-"+formatDia[0]
+  let dia_final = formatDia[2] + "-" + formatDia[1] + "-" + formatDia[0]
   try {
     const row = await sql<Number>`SELECT 1 FROM turnos WHERE lugar=${lugar} AND direccion=${direccion}
     AND dia=${dia_final} AND hora=${hora}`;
-    if(row.rows.length == 0) {
+    if (row.rows.length == 0) {
       await sql`
         INSERT INTO turnos (organizador, telefono, lugar, direccion, dia, hora, cancha)
         VALUES (${org}, ${telefono}, ${lugar}, ${direccion}, ${dia_final}, ${hora}, ${cancha})
