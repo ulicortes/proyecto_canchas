@@ -12,7 +12,7 @@ import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adap
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server';
 
-const URL = process.env.AUTH_URL;
+const URL = process.env.NEXT_PUBLIC_AUTH_URL;
 
 const estructuraForm = z.object({
   user: z.string(),
