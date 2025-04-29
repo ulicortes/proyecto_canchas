@@ -47,7 +47,7 @@ export async function registrarUsuario(formData: FormData) {
 
   if (password.length < 6 || password.length > 20) throw new Error('La contraseña tiene menos de 6 o mas de 20 caracteres.');
 
-  await fetch(`${URL}/register`, {
+  await fetch(`${URL}/auth/register`, {
     method: "POST",
     body: JSON.stringify(nuevoUsuario)
   })
@@ -70,7 +70,7 @@ export async function ingresarUsuario(formData: FormData) {
     password: formData.get('pass')?.toString()
   }
 
-  await fetch(`${URL}/login`, {
+  await fetch(`${URL}/auth/login`, {
     method: "POST",
     body: JSON.stringify(login_user)
   })
