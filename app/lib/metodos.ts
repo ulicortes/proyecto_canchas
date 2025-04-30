@@ -55,7 +55,8 @@ export async function registrarUsuario(formData: FormData) {
     body: JSON.stringify(nuevoUsuario)
   })
   if (rsp.status == 200) {
-    window.location.href = '/buscar';
+    revalidatePath('/');
+    redirect('/');
   }
   else throw new Error('Este usuario ya existe!');
   // .then(rsp => {
@@ -87,7 +88,8 @@ export async function ingresarUsuario(formData: FormData) {
   if (rsp.status == 200) {
     let data = await rsp.json();
     await setCookies(data.token);
-    window.location.href = `${ulr}`;
+    revalidatePath(`/${ulr}`);
+    redirect(`/${ulr}`);
   }
   else throw new Error('1');
   // .then(rsp => {
