@@ -47,16 +47,23 @@ export async function registrarUsuario(formData: FormData) {
 
   if (password.length < 6 || password.length > 20) throw new Error('La contraseña tiene menos de 6 o mas de 20 caracteres.');
 
-  await fetch(`${URL}/auth/register`, {
+  let rsp = await fetch(`${URL}/auth/register`, {
     method: "POST",
+    headers: {
+      "Content-type": "Application/json"
+    },
     body: JSON.stringify(nuevoUsuario)
   })
-    .then(rsp => {
-      if (rsp.status == 201) {
-        window.location.href = '/buscar';
-        return;
-      } else throw new Error('Este usuario ya existe!');
-    })
+  if (rsp.status == 200) {
+    window.location.href = '/buscar';
+  }
+  else throw new Error('Este usuario ya existe!');
+  // .then(rsp => {
+  //   if (rsp.status == 201) {
+  //     window.location.href = '/buscar';
+  //     return;
+  //   } else throw new Error('Este usuario ya existe!');
+  // })
 }
 
 export async function ingresarUsuario(formData: FormData) {
@@ -70,21 +77,30 @@ export async function ingresarUsuario(formData: FormData) {
     password: formData.get('pass')?.toString()
   }
 
-  await fetch(`${URL}/auth/login`, {
+  let rsp = await fetch(`${URL}/auth/login`, {
     method: "POST",
+    headers: {
+      "Content-type": "Application/json"
+    },
     body: JSON.stringify(login_user)
   })
-    .then(rsp => {
-      if (rsp.status == 200) {
-        rsp.json()
-          .then(async data => {
-            await setCookies(data.token);
-            window.location.href = `${ulr}`;
-            return;
-          })
-      } 
-      else throw new Error('1');
-    })
+  if (rsp.status == 200) {
+    let data = await rsp.json();
+    await setCookies(data.token);
+    window.location.href = `${ulr}`;
+  }
+  else throw new Error('1');
+  // .then(rsp => {
+  //   if (rsp.status == 200) {
+  //     rsp.json()
+  //       .then(async data => {
+  //         await setCookies(data.token);
+  //         window.location.href = `${ulr}`;
+  //         return;
+  //       })
+  //   } 
+  //   else throw new Error('1');
+  // })
 }
 
 export async function verificarUsuario(cookie: ReadonlyRequestCookies) {
