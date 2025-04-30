@@ -13,7 +13,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server';
 
 const URL = process.env.NEXT_PUBLIC_AUTH_URL;
-const baseUrl = process.env.NEXT_PUBLIC_BASE_PATH || '';
+const baseUrl = "proyecto-canchas-xi.vercel.app";
 
 const estructuraForm = z.object({
   user: z.string(),
