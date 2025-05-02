@@ -39,7 +39,7 @@ const nuevaCancha = guardarCanchaForm.omit({ id: true });
 const bcrypt = require("bcrypt");
 
 export async function registrarUsuario(formData: FormData) {
-  noStore();
+  //noStore();
   const { user, password, email } = nuevoUsuario.parse({
     user: formData.get('user'),
     password: formData.get('pass'),
@@ -63,7 +63,7 @@ export async function registrarUsuario(formData: FormData) {
 }
 
 export async function ingresarUsuario(formData: FormData) {
-  noStore();
+  //noStore();
   const redirect_ulr = formData.get('url')?.toString();
 
   let login_user = {
@@ -154,7 +154,7 @@ export async function guardarCancha(formData: FormData) {
 }
 
 export async function listarTurnos() {
-  noStore();
+  //noStore();
   try {
     const data = await sql<turno>`SELECT * FROM turnos WHERE date(dia) >= date(now()) ORDER BY dia, hora `;
 
@@ -166,7 +166,7 @@ export async function listarTurnos() {
 }
 
 export async function traerTurno(id: string) {
-  noStore();
+  //noStore();
   try {
     const data = await sql<turno>`SELECT * FROM turnos where id_turno=${id}`;
     if (data.rows.length == 0) throw Error('Algo salio mal');
@@ -177,7 +177,7 @@ export async function traerTurno(id: string) {
 }
 
 export async function turnosDeHoy(hoy: string) {
-  noStore();
+  //noStore();
   try {
 
     const data = await sql<horarios>`SELECT hora, cancha FROM turnos where dia=${hoy}`;
@@ -212,7 +212,7 @@ export async function actualizarCancha(id_turno: string, formData: FormData) {
 }
 
 export async function listarJugadores() {
-  noStore();
+  //noStore();
   try {
     await new Promise((resolve) => setTimeout(resolve, 3000));
     const data = await sql<jugadores>`SELECT * FROM ejemplo`;
