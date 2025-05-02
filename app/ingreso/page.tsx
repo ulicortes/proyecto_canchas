@@ -28,7 +28,7 @@ export default async function Page(this: any, {
         <form action={ingresarUsuario} method='POST' className="m-auto w-2/4 content-center.">
             <div className="pt-12. text-center content-center">
                 <h1 className="text-black text-3xl font-bold leading-7 text-gray-900">Iniciar sesion</h1>
-                <input name="ulr" value={param || ""} hidden/>
+                <input name="url" value={param || ""} hidden/>
                 <div className="mt-10 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-1 w-3/5 m-auto content-center">
 
                     <div className="sm:col-span-1 sm:col-start-2.">

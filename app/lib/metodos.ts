@@ -64,7 +64,7 @@ export async function registrarUsuario(formData: FormData) {
 
 export async function ingresarUsuario(formData: FormData) {
   noStore();
-  const ulr = formData.get('ulr')?.toString();
+  const redirect_ulr = formData.get('url')?.toString();
 
   let login_user = {
     user: formData.get('user')?.toString(),
@@ -81,8 +81,8 @@ export async function ingresarUsuario(formData: FormData) {
   if (rsp.status == 200) {
     let data = await rsp.json();
     setTokens(data.token);
-    revalidatePath("/"+ulr);
-    redirect("/"+ulr);
+    revalidatePath(`${redirect_ulr}`);
+    redirect(`${redirect_ulr}`);
   }
   else throw new Error('1');
 }
