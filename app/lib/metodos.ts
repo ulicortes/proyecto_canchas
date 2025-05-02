@@ -89,8 +89,8 @@ export async function ingresarUsuario(formData: FormData) {
   if (rsp.status == 200) {
     let data = await rsp.json();
     await setCookies(data.token);
-    revalidatePath(`/${ulr}`);
-    redirect(`/${ulr}`);
+    revalidatePath(`${baseUrl}/${ulr}`);
+    redirect(`${baseUrl}/${ulr}`);
   }
   else throw new Error('1');
   // .then(rsp => {
