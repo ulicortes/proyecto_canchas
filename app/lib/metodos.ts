@@ -81,8 +81,8 @@ export async function ingresarUsuario(formData: FormData) {
   if (rsp.status == 200) {
     let data = await rsp.json();
     setTokens(data.token);
-    revalidatePath(`/${ulr}`);
-    redirect(`/${ulr}`);
+    revalidatePath("/"+ulr);
+    redirect("/"+ulr);
   }
   else throw new Error('1');
 }
@@ -111,7 +111,7 @@ export async function deleteCookies() {
   return setTokens();
 }
 
-export function setTokens(tkn: string) {
+export async function setTokens(tkn: string) {
     cookies().set({
       name: 'authToken',
       value: tkn,
