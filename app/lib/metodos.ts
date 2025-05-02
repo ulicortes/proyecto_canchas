@@ -60,18 +60,10 @@ export async function registrarUsuario(formData: FormData) {
     redirect('/');
   }
   else throw new Error('Este usuario ya existe!');
-  // .then(rsp => {
-  //   if (rsp.status == 201) {
-  //     window.location.href = '/buscar';
-  //     return;
-  //   } else throw new Error('Este usuario ya existe!');
-  // })
 }
 
 export async function ingresarUsuario(formData: FormData) {
   noStore();
-  const email = formData.get('email')?.toString();
-  const pass = formData.get('pass')?.toString();
   const ulr = formData.get('ulr')?.toString();
 
   let login_user = {
@@ -88,22 +80,11 @@ export async function ingresarUsuario(formData: FormData) {
   })
   if (rsp.status == 200) {
     let data = await rsp.json();
-    await setCookies(data.token);
-    revalidatePath(` /${ulr}`);
-    redirect(` /${ulr}`);
+    setTokens(data.token);
+    revalidatePath(`/${ulr}`);
+    redirect(`/${ulr}`);
   }
   else throw new Error('1');
-  // .then(rsp => {
-  //   if (rsp.status == 200) {
-  //     rsp.json()
-  //       .then(async data => {
-  //         await setCookies(data.token);
-  //         window.location.href = `${ulr}`;
-  //         return;
-  //       })
-  //   } 
-  //   else throw new Error('1');
-  // })
 }
 
 export async function verificarUsuario(cookie: ReadonlyRequestCookies) {
@@ -130,12 +111,10 @@ export async function deleteCookies() {
   return setTokens();
 }
 
-export async function setCookies(n: string) {
-  const token = await signToken({ sub: n });
-  function setTokens() {
+export function setTokens(tkn: string) {
     cookies().set({
       name: 'authToken',
-      value: token,
+      value: tkn,
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
@@ -144,8 +123,6 @@ export async function setCookies(n: string) {
     })
   }
 
-  return setTokens();
-}
 
 export async function guardarCancha(formData: FormData) {
   const { org, telefono, lugar, direccion, dia, hora, cancha } = nuevaCancha.parse({
