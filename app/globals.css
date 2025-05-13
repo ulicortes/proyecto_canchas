@@ -17,19 +17,76 @@
 }
 
 body {
-  /* color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb)); */
-    /* background: linear-gradient(white, rgb(169, 202, 252)); */
-    /* background-color: #ffffff; */
-    background-image: url('../public/background.png');
-    background-repeat: no-repeat;
-    background-position: 40% -10%;
-    background-attachment: fixed;
+  background-image: url('../public/background.png');
+  background-repeat: no-repeat;
+  background-position: 40% -10%;
+  background-attachment: fixed;
 }
 
+.container {
+  display: grid;
+  justify-items: center;
+  place-content: center;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
 
+.cargando {
+  width: 20vw;
+  height: 30vh;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: center;
+  /* background-color: rgb(0, 255, 106); */
+  border-radius: 20px;
+}
+
+.texto-cargando {
+  color: white;
+  padding-top: 20px;
+  align-self: center;
+}
+
+.cargando span {
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.pelotas {
+  background-image: url('../app/favicon.ico');
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 30px;
+  height: 30px;
+  animation: salto 0.3s alternate infinite;
+  margin: 0 1vw
+}
+
+.pelotas:nth-child(2) {
+  animation-delay: .18s;
+}
+
+.pelotas:nth-child(3) {
+  animation-delay: .37s;
+}
+
+@keyframes salto {
+  from {
+    transform: scaleX(1.1);
+  }
+
+  to {
+    transform:
+      translateY(-50px) scaleX(1);
+  }
+}
+
+textarea {
+  resize: none;
+}

@@ -1,4 +1,4 @@
-import { guardarCancha, verificarUsuario } from "@/app/lib/metodos";
+import { guardarCancha } from "@/app/lib/metodos";
 import { cookies } from "next/headers";
 import { redirect } from 'next/navigation';
 import Link from "next/link";
@@ -9,7 +9,7 @@ export default async function Page({ params }: { params: { dia: string, hora: st
     const time = `${h[0]}:${h[1]}`;
     let hoy = params.dia.split("-");
     const cookie = cookies();
-    const session = await verificarUsuario(cookie);
+    
     return <div className="h-max xl:h-screen w-screen mt-20. self-center content-center items-center">
         <form action={guardarCancha} className="w-3/6 m-auto">
             <div className="pt-4 xl:pt-12. text-center bg-[#E0E0E0]. bg-gray-100 p-6 rounded-md">
@@ -24,7 +24,8 @@ export default async function Page({ params }: { params: { dia: string, hora: st
                                 name="org"
                                 id="org"
                                 autoComplete="address-level2"
-                                placeholder="Organizador"
+                                // placeholder="Organizador"
+                                defaultValue={cookie.get('user')?.value}
                                 className="text-center block w-full rounded-md border-0 py-1.5 bg-transparent text-black ring-4. ring-inset ring-greenpitch placeholder:text-grey focus:ring-2. focus:ring-offset focus:ring-black sm:text2xl. xl:text-[1.5rem] sm:leading-6"
                             />
                         </div>

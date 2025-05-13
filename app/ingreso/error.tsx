@@ -11,24 +11,10 @@ export default function Error(
         reset: () => void;
     }
 ) {
-    if(error.message == "1") return <>
+    return <>
         <div className="h-screen flex flex-col justify-center items-center">
             <label className="block text-3xl font-medium leading-6 text-black">
-                Usuario o clave erroneos, intente nuevamente
-            </label>
-            <button
-                className="bg-black text-white hover:bg-yellow hover:text-black py-2 px-2 rounded-md mt-4"
-                onClick={
-                    () => reset()
-                }>
-                Intentar otra vez
-            </button>
-        </div>
-    </>
-    else return <>
-    <div className="h-screen flex flex-col justify-center items-center">
-            <label className="block text-3xl font-medium leading-6 text-black">
-                Usuario inexistente
+                {error.message}
             </label>
             <button
                 className="bg-black text-white hover:bg-yellow hover:text-black py-2 px-2 rounded-md mt-8"

@@ -1,8 +1,7 @@
 
 export type usuario = {
-    id_usuario: string;
-    u_nombre: string;
-    u_password: string;
+    user: string;
+    password: string;
     email: string;
 }
 
@@ -16,7 +15,7 @@ export type turno = {
     hora: string;
     cancha: string;
     jugadores_faltantes: string;
-    lista: [];
+    lista: string;
 }
 
 export type jugadores = {lista: string};
