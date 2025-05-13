@@ -1,4 +1,4 @@
-import { turnosDeHoy, verificarUsuario } from "../lib/metodos";
+import { turnosDeHoy } from "../lib/metodos";
 import BarraBusqueda from "../componentes/BarraBusqueda";
 import ListadoCanchas from "../componentes/ListadoCanchas";
 
