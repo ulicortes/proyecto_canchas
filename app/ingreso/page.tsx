@@ -5,6 +5,7 @@ import { redirect, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import Loading from '../loading';
 import { revalidatePath } from 'next/cache';
+import { Warning } from 'postcss';
 
 export default function Page(this: any, {
     searchParams,
@@ -14,6 +15,8 @@ export default function Page(this: any, {
     };
 }) {
     let [loading, setLoading] = useState(false);
+    let [error, setError] = useState<Error | null>(null);
+    let [index, setIndex] = useState(0);
     let [usr, setUsr] = useState("");
     let [ps, setPs] = useState("");
     let param = useSearchParams().get('returnUrl');
@@ -25,15 +28,52 @@ export default function Page(this: any, {
         }
         setLoading(true);
         try {
-            await ingresarUsuario(usr, ps, param || "");
-        } catch (error) {
-            throw new Error('Usuario o contraseña incorrectos. Intente nuevamente');
-        } 
-        finally {
+            let rsp = await ingresarUsuario(usr, ps, param || "");
+            switch (rsp) {
+                case 200:
+                    location.replace(param || "/");
+                    setError(null)
+                    break;
+                case 403:
+                    throw new Error("Usuario o contraseña incorrectos, intente nuevamente.");
+                case 503:
+                    if (index < 2) {
+                        setIndex(index++);
+                        setTimeout(() => check(e), 1000 * Math.pow(2, index));
+                    } else {
+                        throw new Error("Hay problemas en el servidor");
+                    }
+                    break;
+                default:
+                    break;
+            }
+        } catch (err: any) {
+            setError(err);
             setLoading(false);
         }
     }
-    return <div className='content-center w-screen h-screen'>
+    if (error) return <>
+        <div className="h-screen flex flex-col justify-center items-center">
+            <label className="block text-3xl w-2/6 text-center self-center font-medium leading-6 text-black">
+                {error.message}
+            </label>
+            <button
+                className="bg-black text-white hover:bg-yellow hover:text-black py-2 px-2 rounded-md mt-8"
+                onClick={
+                    () => location.reload()
+                }>
+                Intentar otra vez
+            </button>
+            <Link
+                href={'/registro'}
+                className="bg-black text-white hover:bg-yellow hover:text-black py-2 px-2 rounded-md mt-8"
+                rel="noopener noreferrer"
+            >
+                Registrarse
+            </Link>
+        </div>
+    </>
+    else return <div className='content-center w-screen h-screen'>
         {loading ? <Loading message={"Verificando usuario..."} /> :
             <form onSubmit={check} method='POST' className="m-auto w-2/4">
                 <div className="pt-12. text-center content-center">
@@ -51,7 +91,6 @@ export default function Page(this: any, {
                                     id="user"
                                     autoComplete="address-level2"
                                     required
-                                    // value={usr}
                                     onChange={(e) => {
                                         setUsr(e.target.value)
                                     }}
@@ -71,7 +110,6 @@ export default function Page(this: any, {
                                     id="pass"
                                     autoComplete="address-level2"
                                     required
-                                    // value={ps}
                                     onChange={(e) => {
                                         setPs(e.target.value)
                                     }}

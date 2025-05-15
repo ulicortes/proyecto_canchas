@@ -15,6 +15,7 @@ export default function Error(
         <div className="h-screen flex flex-col justify-center items-center">
             <label className="block text-3xl font-medium leading-6 text-black">
                 {error.message}
+                jorge
             </label>
             <button
                 className="bg-black text-white hover:bg-yellow hover:text-black py-2 px-2 rounded-md mt-8"
