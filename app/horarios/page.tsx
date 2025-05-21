@@ -51,7 +51,7 @@ export default async function Page() {
                         <div className="-translate-x-96. ">
                             {(chosen_date == current_date && h > current_time) || chosen_date > current_date ?
                                 <div
-                                    key={h}
+                                    key={i}
                                     onClick={() => setChosenHour(`${h}`)}
                                     className={`${h == chosen_hour ? 'bg-yellow' : 'bg-gray-300'} m-1 border-2 border-black rounded-md py-3 px-3 xl:py-3 xl:px-3 text-center cursor-pointer hover:bg-yellow`} >
                                     <h1 className="text-l font-bold">
