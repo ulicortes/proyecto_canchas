@@ -7,11 +7,6 @@ import { redirect, RedirectType } from 'next/navigation';
 import { horarios, jugadores, turno, usuario } from './tipos';
 import { unstable_noStore as noStore } from 'next/cache';
 import { cookies } from 'next/headers';
-import { signToken, verifyToken } from '../api/auth/auth';
-import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server';
-import { useEffect } from 'react';
 
 const URL = process.env.NEXT_PUBLIC_AUTH_URL;
 const baseUrl = "proyecto-canchas-xi.vercel.app";
@@ -34,10 +29,8 @@ const guardarCanchaForm = z.object({
   cancha: z.string(),
 });
 
-const nuevoUsuario = estructuraForm.omit({ id: true });
 const nuevaCancha = guardarCanchaForm.omit({ id: true });
 
-const bcrypt = require("bcrypt");
 
 export async function registrarUsuario(formData: FormData) {
   let nuevoUsuario: usuario = {
@@ -158,7 +151,6 @@ export async function guardarCancha(formData: FormData) {
 
 export async function listarTurnos() {
   noStore();
-  // throw new Error();
   try {
     const data = await sql<turno>`SELECT * FROM turnos WHERE date(dia) >= date(now()) ORDER BY dia, hora`;
 

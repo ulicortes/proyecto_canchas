@@ -36,7 +36,7 @@ export default function Page(this: any, {
                     break;
                 case 403:
                     throw new Error("Usuario o contraseña incorrectos, intente nuevamente.");
-                case 503:
+                case 503: case 504:
                     if (index < 2) {
                         setIndex(index++);
                         setTimeout(() => check(e), 1000 * Math.pow(2, index));

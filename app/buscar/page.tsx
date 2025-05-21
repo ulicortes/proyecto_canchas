@@ -2,7 +2,7 @@
 import ItemCancha from '../componentes/ItemCancha';
 import { listarTurnos } from '../lib/metodos';
 import Session from '../componentes/Session';
-import { Suspense, useState } from 'react';
+import { Suspense } from 'react';
 import Loading from '../loading';
 
 export default async function Page() {

@@ -1,7 +1,7 @@
 export default function Loading({message}: {message : String}) {
-    if(message == undefined) message = ""
+    if(message == undefined) message = "Cargando..."
     return <div className="container">
-        <div className="cargando bg-greenpitch.">
+        <div className="cargando w-2/3">
             <div className="pelotas"></div>
             <div className="pelotas"></div>
             <div className="pelotas"></div>

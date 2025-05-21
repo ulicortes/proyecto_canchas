@@ -1,13 +1,11 @@
 import './globals.css';
 import Link from 'next/link';
-import { redirect, useSearchParams } from "next/navigation";
 
 export default async function Home() {
-   
   return (
     <main className="w-screen h-screen flex flex-col items-center">
       <div className="h-full flex flex-col items-center text-center text-black lg:max-w-2xl lg:w-full lg:mb-0 lg:grid-cols-1 lg:text-left justify-evenly">
-        {/* <p className='relative'>Ciudad actual: Tandil</p> */}
+        
         <Link
           href="/buscar"
           className="xl:w-2/4 group rounded-lg border border-2 border-transparent px-5 transition-colors hover:border-greenpitch hover:text-greenpitch hover:bg-white"

@@ -16,20 +16,20 @@ export default async function Page({ params }: { params: { id: string } }) {
 
         <div className="order-1 flex flex-col justify-evenly xl:w-1/3">
             <div className='py-3 xl:py-0 self-center'>
-                <div className="text-3xl">{t[0].organizador}</div>
-                <div className="underline underline-offset-4 text-greenpitch">Organizador</div>
+                <div className="text-2xl xl:text-3xl">{t[0].organizador}</div>
+                <div className="underline underline-offset-4 text-greenpitch text-l">Organizador</div>
             </div>
             <div className='py-3 xl:py-0 self-center'>
-                <div className="text-3xl">{t[0].telefono}</div>
-                <div className="underline underline-offset-4 text-greenpitch">Telefono</div>
+                <div className="text-2xl xl:text-3xl">{t[0].telefono}</div>
+                <div className="underline underline-offset-4 text-greenpitch text-l">Telefono</div>
             </div>
             <div className='py-3 xl:py-0 self-center'>
-                <div className="text-3xl">{t[0].lugar}</div>
-                <div className="underline underline-offset-4 text-greenpitch">Lugar</div>
+                <div className="text-2xl xl:text-3xl">{t[0].lugar}</div>
+                <div className="underline underline-offset-4 text-greenpitch text-l">Lugar</div>
             </div>
             <div className='py-3 xl:py-0 self-center'>
-                <div className="text-3xl">{t[0].direccion}</div>
-                <div className="underline underline-offset-4 text-greenpitch">Direccion</div>
+                <div className="text-2xl xl:text-3xl">{t[0].direccion}</div>
+                <div className="underline underline-offset-4 text-greenpitch text-l">Direccion</div>
             </div>
         </div>
         <div className='order-3 xl:order-2 self-center justify-center py-12 xl:py-0 xl:w-1/3'>
@@ -39,7 +39,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                         <h1>LISTADO DE JUGADORES</h1>
                     </div>
                     <form action={actualizar} className="w-min h-max flex flex-col self-center mt-4">
-                        <textarea className="p-2 text-center" name="jugadores" id="" cols={10} rows={16} >{t[0].lista}</textarea>
+                        <textarea className="p-2 text-center" name="jugadores" id="" cols={16} rows={16} >{t[0].lista}</textarea>
                         <button
                             type="submit"
                             className="rounded-md bg-black px-2 py-1 mt-4 text-xl font-semibold text-white shadow-sm hover:bg-yellow hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -62,18 +62,18 @@ export default async function Page({ params }: { params: { id: string } }) {
         </div>
         <div className='order-2 xl:order-3 flex flex-col justify-evenly xl:w-1/3'>
             <div className='py-3 xl:py-0 self-center'>
-                <div className="text-3xl">{newdate}</div>
-                <div className="underline underline-offset-4 text-greenpitch">Dia</div>
+                <div className="text-2xl xl:text-3xl">{newdate}</div>
+                <div className="underline underline-offset-4 text-greenpitch text-l">Dia</div>
             </div>
             <div className='py-3 xl:py-0 self-center'>
-                <div className="text-3xl">{newhour[0]}:{newhour[1]} hs</div>
-                <div className="underline underline-offset-4 text-greenpitch">Hora</div>
+                <div className="text-2xl xl:text-3xl">{newhour[0]}:{newhour[1]} hs</div>
+                <div className="underline underline-offset-4 text-greenpitch text-l">Hora</div>
             </div>
             <div className='py-3 xl:py-0 self-center'>
-                <div className="text-3xl">{t[0].cancha}</div>
+                <div className="text-2xl xl:text-3xl">{t[0].cancha}</div>
             </div>
             <div className='py-3 xl:py-0 self-center'>
-                <div className="text-3xl">Faltan {cuantosFaltan(t[0].lista, t[0].cancha)} jugadores</div>
+                <div className="text-2xl xl:text-3xl">Faltan {cuantosFaltan(t[0].lista, t[0].cancha)} jugadores</div>
             </div>
         </div>
     </div>

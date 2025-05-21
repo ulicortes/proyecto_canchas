@@ -10,8 +10,8 @@ export default async function Page({ params }: { params: { dia: string, hora: st
     let hoy = params.dia.split("-");
     const cookie = cookies();
     
-    return <div className="h-max xl:h-screen w-screen mt-20. self-center content-center items-center">
-        <form action={guardarCancha} className="w-3/6 m-auto">
+    return <div className="h-screen xl:h-screen. w-screen mt-20. self-center content-center items-center">
+        <form action={guardarCancha} className="w-3/6 h-max py-16 m-auto">
             <div className="pt-4 xl:pt-12. text-center bg-[#E0E0E0]. bg-gray-100 p-6 rounded-md">
                 <h1 className="text-3xl font-bold text-black">Reservar cancha</h1>
 
@@ -24,7 +24,6 @@ export default async function Page({ params }: { params: { dia: string, hora: st
                                 name="org"
                                 id="org"
                                 autoComplete="address-level2"
-                                // placeholder="Organizador"
                                 defaultValue={cookie.get('user')?.value}
                                 className="text-center block w-full rounded-md border-0 py-1.5 bg-transparent text-black ring-4. ring-inset ring-greenpitch placeholder:text-grey focus:ring-2. focus:ring-offset focus:ring-black sm:text2xl. xl:text-[1.5rem] sm:leading-6"
                             />
@@ -38,7 +37,7 @@ export default async function Page({ params }: { params: { dia: string, hora: st
                                 maxLength={20}
                                 name="tel"
                                 id="tel"
-                                placeholder="Introducir nro de telefono"
+                                placeholder="Contacto"
                                 className="text-center block w-full rounded-md border-0 py-1.5 bg-transparent text-black ring-4. ring-inset ring-greenpitch placeholder:text-grey focus:ring-2. focus:ring-offset focus:ring-black sm:text2xl. xl:text-[1.5rem] sm:leading-6"
                             />
                         </div>
@@ -112,6 +111,15 @@ export default async function Page({ params }: { params: { dia: string, hora: st
                     </div>
 
                     <div className="sm:col-span-3 self-end">
+                        <button
+                            type="submit"
+                            className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-yellow hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        >
+                            Reservar
+                        </button>
+                    </div>
+                    
+                    <div className="sm:col-span-3 self-end">
                         <Link href={'/horarios'}>
                             <button
                                 type="submit"
@@ -122,14 +130,6 @@ export default async function Page({ params }: { params: { dia: string, hora: st
                         </Link>
                     </div>
 
-                    <div className="sm:col-span-3 self-end">
-                        <button
-                            type="submit"
-                            className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-yellow hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        >
-                            Reservar
-                        </button>
-                    </div>
                 </div>
             </div>
         </form>
