@@ -48,10 +48,9 @@ export default async function Page() {
                 <div id="carrusel" className="flex flex-col xl:flex-row flex-wrap h-56 xl:h-fit overflow-x-scroll xl:overflow-x-none select-none w-full xl:w-4/5 xl:w-full. border-2. rounded-md border-gray-900. p-3 bg-gray-900/50.">
 
                     {horas.map((h, i) =>
-                        <div className="-translate-x-96. ">
+                        <div key={i}>
                             {(chosen_date == current_date && h > current_time) || chosen_date > current_date ?
                                 <div
-                                    key={i}
                                     onClick={() => setChosenHour(`${h}`)}
                                     className={`${h == chosen_hour ? 'bg-yellow' : 'bg-gray-300'} m-1 border-2 border-black rounded-md py-3 px-3 xl:py-3 xl:px-3 text-center cursor-pointer hover:bg-yellow`} >
                                     <h1 className="text-l font-bold">
