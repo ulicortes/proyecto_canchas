@@ -4,10 +4,10 @@ Con esta app se intenta cubrir dicha necesidad ofreciendo un listado de turnos p
 
 ------------
 # Índice
-####-[Funcionalidades](#Funcionalidades)
-####-[Desarrollo](#Desarrollo)
-####-[Autenticacion](https://github.com/ulicortes/authapp)
-####-[Contacto](#Contacto)
+-[Funcionalidades](#Funcionalidades)
+-[Desarrollo](#Desarrollo)
+-[Autenticacion](https://github.com/ulicortes/authapp)
+-[Contacto](#Contacto)
 
 ------------
 
