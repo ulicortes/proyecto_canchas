@@ -16,7 +16,7 @@ Con esta app se intenta cubrir dicha necesidad ofreciendo un listado de turnos p
 ### Registrar nuevo usuario
 Cuando  un usuario desee crearse una nueva cuenta va a poder crearse una introduciendo un nombre de usuario, su email y una contraseña segura mayor a 6 y menos a 20 caracteres.
 ### Ingresar usuario
-Si el usuario desea hacer las dos siguientes funcionalidades debe primero ingresar con su nombre de usuario y su contraseña.
+Si el usuario desea hacer las siguientes funcionalidades debe primero ingresar con su nombre de usuario y su contraseña.
 ### Reservar turno
 Primero se selecciona el dia y el horario deseado. Luego se redirige al formulario final donde se introduce el lugar donde se va a dar el turno y la direccion de este, ademas de indicar la modalidad del partido (cantidad de jugadores por equipo).
 ### Buscar turnos
