@@ -4,10 +4,10 @@ Con esta app se intenta cubrir dicha necesidad ofreciendo un listado de turnos p
 
 ------------
 # Índice
--[Funcionalidades](#Funcionalidades)
--[Desarrollo](#Desarrollo)
--[Autenticacion](https://github.com/ulicortes/authapp)
--[Contacto](#Contacto)
+#### -[Funcionalidades](#Funcionalidades)
+#### -[Desarrollo](#Desarrollo)
+#### -[Autenticacion](https://github.com/ulicortes/authapp)
+#### -[Contacto](#Contacto)
 
 ------------
 
@@ -26,11 +26,11 @@ Si el usuario ha inciado su propia sesion y tiene turnos creados, va a poder agr
 
 ------------
 
-#Desarrollo
+# Desarrollo
 Esta app fue diseñada con Next.js, Tailwind y Java con Spring Boot
 
 ------------
 
-#Contacto
+# Contacto
 Cualquier consulta o reporte de error se puede hacer a mi mail de 
 contacto: **ulisestcortes@gmail.com**
