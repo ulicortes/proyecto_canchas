@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Quién falta
+Quien falta nace de la necesidad de no encontrar personas disponibles para jugar un partido de futbol. 
+Con esta app se intenta cubrir dicha necesidad ofreciendo un listado de turnos para aquel que busca turnos armados pero con falta de gente. Ademas se encuentra disponible la opcion de crear un turno de 0 y publicarlo para buscar jugadores.
 
-## Getting Started
+------------
+# Índice
+####-[Funcionalidades](#Funcionalidades)
+####-[Desarrollo](#Desarrollo)
+####-[Autenticacion](https://github.com/ulicortes/authapp)
+####-[Contacto](#Contacto)
 
-First, run the development server:
+------------
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Funcionalidades
+### Registrar nuevo usuario
+Cuando  un usuario desee crearse una nueva cuenta va a poder crearse una introduciendo un nombre de usuario, su email y una contraseña segura mayor a 6 y menos a 20 caracteres.
+### Ingresar usuario
+Si el usuario desea hacer las dos siguientes funcionalidades debe primero ingresar con su nombre de usuario y su contraseña.
+### Reservar turno
+Primero se selecciona el dia y el horario deseado. Luego se redirige al formulario final donde se introduce el lugar donde se va a dar el turno y la direccion de este, ademas de indicar la modalidad del partido (cantidad de jugadores por equipo).
+### Buscar turnos
+Se despliega un listado con los turnos disponibles y su informacion principal. Para saber mas sobre dicho turno se debe ingresar a este mediante un + que hay al final de la fila de cada turno.
+### Agregar jugadores al turno
+Si el usuario ha inciado su propia sesion y tiene turnos creados, va a poder agregar jugadores al listado.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+------------
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+#Desarrollo
+Esta app fue diseñada con Next.js, Tailwind y Java con Spring Boot
 
-## Learn More
+------------
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+#Contacto
+Cualquier consulta o reporte de error se puede hacer a mi mail de 
+contacto: **ulisestcortes@gmail.com**
