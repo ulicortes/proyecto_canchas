@@ -10,8 +10,8 @@ export default async function Page({ params }: { params: { dia: string, hora: st
     let hoy = params.dia.split("-");
     const cookie = cookies();
     
-    return <div className="h-screen xl:h-screen. w-screen mt-20. self-center content-center items-center">
-        <form action={guardarCancha} className="w-3/6 h-max py-16 m-auto">
+    return <div className="h-screen w-screen  self-center content-center items-center">
+        <form action={guardarCancha} className="w-5/6 xl:w-4/6 h-max py-16 m-auto">
             <div className="pt-4 xl:pt-12. text-center bg-[#E0E0E0]. bg-gray-100 p-6 rounded-md">
                 <h1 className="text-3xl font-bold text-black">Reservar cancha</h1>
 
