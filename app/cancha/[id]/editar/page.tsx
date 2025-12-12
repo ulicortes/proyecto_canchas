@@ -1,4 +1,3 @@
-import ListadoJugadores from "../../../componentes/ListadoJugadores";
 import { traerTurno, actualizarCancha } from "@/app/lib/metodos";
 import Link from "next/link";
 import { cookies } from 'next/headers'
@@ -8,38 +7,52 @@ export default async function Page({ params }: { params: { id: string } }) {
     const t = await traerTurno(params.id);
     const cookie = cookies();
     const user_session = cookie.get('user')?.value;
-    const actualizar = actualizarCancha.bind(null, t[0].id_turno);
-    let newdate = t[0].dia.split("-").reverse().join("/");
-    let newhour = t[0].hora.split(":");
+    const actualizar = actualizarCancha.bind(null, t.id);
+    let newdate = t.dia.split("-").reverse().join("/");
+    let newhour = t.hora.split(":");
 
-    return <div className="flex flex-col xl:flex-row justify-evenly text-center w-full h-max xl:h-screen pt-28 xl:pt-8">
+    return <div className="flex flex-col justify-center items-center text-center w-full h-max xl:h-screen pt-28 xl:pt-8">
+        <div className="flex flex-col xl:flex-row justify-between xl:justify-evenly items-center h-4/6">
+            <div className="bg-white/70 shadow-xl shadow-black/50 rounded-md w-3/5 h-full flex flex-wrap flex-row justify-evenly">
+                <div className='p-8 xl:py-0 self-center'>
+                    <div className="text-2xl xl:text-3xl">{t.organizador}</div>
+                    <div className="underline underline-offset-4 text-greenpitch text-l">Organizador</div>
+                </div>
+                <div className='p-8 xl:py-0 self-center'>
+                    <div className="text-2xl xl:text-3xl">{t.telefono}</div>
+                    <div className="underline underline-offset-4 text-greenpitch text-l">Contacto</div>
+                </div>
+                <div className='p-8 xl:py-0 self-center'>
+                    <div className="text-2xl xl:text-3xl">{t.lugar}</div>
+                    <div className="underline underline-offset-4 text-greenpitch text-l">Lugar</div>
+                </div>
+                <div className='p-8 xl:py-0 self-center'>
+                    <div className="text-2xl xl:text-3xl">{t.direccion}</div>
+                    <div className="underline underline-offset-4 text-greenpitch text-l">Direccion</div>
+                </div>
 
-        <div className="order-1 flex flex-col justify-evenly xl:w-1/3">
-            <div className='py-3 xl:py-0 self-center'>
-                <div className="text-2xl xl:text-3xl">{t[0].organizador}</div>
-                <div className="underline underline-offset-4 text-greenpitch text-l">Organizador</div>
+                <div className='p-8 xl:py-0 self-center'>
+                    <div className="text-2xl xl:text-3xl">{newdate}</div>
+                    <div className="underline underline-offset-4 text-greenpitch text-l">Dia</div>
+                </div>
+                <div className='p-8 xl:py-0 self-center'>
+                    <div className="text-2xl xl:text-3xl">{newhour[0]}:{newhour[1]} hs</div>
+                    <div className="underline underline-offset-4 text-greenpitch text-l">Hora</div>
+                </div>
+                <div className='p-8 xl:py-0 self-center'>
+                    <div className="text-2xl xl:text-3xl">Futbol {t.cancha}</div>
+                </div>
+                <div className='p-8 xl:py-0 self-center'>
+                    <div className="text-2xl xl:text-3xl">Faltan {cuantosFaltan(t.lista, t.cancha)} jugadores</div>
+                </div>
             </div>
-            <div className='py-3 xl:py-0 self-center'>
-                <div className="text-2xl xl:text-3xl">{t[0].telefono}</div>
-                <div className="underline underline-offset-4 text-greenpitch text-l">Telefono</div>
-            </div>
-            <div className='py-3 xl:py-0 self-center'>
-                <div className="text-2xl xl:text-3xl">{t[0].lugar}</div>
-                <div className="underline underline-offset-4 text-greenpitch text-l">Lugar</div>
-            </div>
-            <div className='py-3 xl:py-0 self-center'>
-                <div className="text-2xl xl:text-3xl">{t[0].direccion}</div>
-                <div className="underline underline-offset-4 text-greenpitch text-l">Direccion</div>
-            </div>
-        </div>
-        <div className='order-3 xl:order-2 self-center justify-center py-12 xl:py-0 xl:w-1/3'>
-            {user_session == t[0].organizador ?
-                <div className="flex flex-col text-center">
+            {user_session == t.organizador ?
+                <div className="flex flex-col text-center mt-8 xl:mt-0 bg-white/70 shadow-xl shadow-black/50 rounded-md p-2">
                     <div>
                         <h1>LISTADO DE JUGADORES</h1>
                     </div>
                     <form action={actualizar} className="w-min h-max flex flex-col self-center mt-4">
-                        <textarea className="p-2 text-center" name="jugadores" id="" cols={16} rows={16} >{t[0].lista}</textarea>
+                        <textarea className="p-2 text-center" name="jugadores" id="" cols={16} rows={16} >{t.lista}</textarea>
                         <button
                             type="submit"
                             className="rounded-md bg-black px-2 py-1 mt-4 text-xl font-semibold text-white shadow-sm hover:bg-yellow hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -49,7 +62,10 @@ export default async function Page({ params }: { params: { id: string } }) {
                     </form>
                 </div> :
                 <></>}
-            <div className="flex flex-col justify-between">
+        </div>
+        <div className='order-3 self-center justify-center py-12 xl:py-0 xl:w-1/3'>
+
+            <div className="flex flex-col justify-center mt-2">
                 <Link href={'/buscar'}>
                     <button
                         type="submit"
@@ -60,28 +76,12 @@ export default async function Page({ params }: { params: { id: string } }) {
                 </Link>
             </div>
         </div>
-        <div className='order-2 xl:order-3 flex flex-col justify-evenly xl:w-1/3'>
-            <div className='py-3 xl:py-0 self-center'>
-                <div className="text-2xl xl:text-3xl">{newdate}</div>
-                <div className="underline underline-offset-4 text-greenpitch text-l">Dia</div>
-            </div>
-            <div className='py-3 xl:py-0 self-center'>
-                <div className="text-2xl xl:text-3xl">{newhour[0]}:{newhour[1]} hs</div>
-                <div className="underline underline-offset-4 text-greenpitch text-l">Hora</div>
-            </div>
-            <div className='py-3 xl:py-0 self-center'>
-                <div className="text-2xl xl:text-3xl">{t[0].cancha}</div>
-            </div>
-            <div className='py-3 xl:py-0 self-center'>
-                <div className="text-2xl xl:text-3xl">Faltan {cuantosFaltan(t[0].lista, t[0].cancha)} jugadores</div>
-            </div>
-        </div>
     </div>
 }
 
-function cuantosFaltan(turno: String, tipoFutbol: String) {
+function cuantosFaltan(turno: String, tipoFutbol: number) {
     let cant = 0;
-    if(turno != null) {
+    if (turno != null) {
         let arrayJugadores = turno.split('\r\n')
         for (let j in arrayJugadores) {
             if (arrayJugadores[j] !== '') {
@@ -90,11 +90,11 @@ function cuantosFaltan(turno: String, tipoFutbol: String) {
         }
     }
 
-    if (tipoFutbol == 'F5') {
+    if (tipoFutbol == 5) {
         return 10 - cant;
-    } else if (tipoFutbol == 'F7') {
+    } else if (tipoFutbol == 7) {
         return 14 - cant;
-    } else if (tipoFutbol == 'F8') {
+    } else if (tipoFutbol == 8) {
         return 16 - cant;
     }
 }

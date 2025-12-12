@@ -16,5 +16,5 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/horarios/reserva/:path*', '/buscar', '/cancha/:path*']
+    matcher: ['/horarios/reserva/:path*', '/buscar', '/cancha/:path*', '/usuario']
 }

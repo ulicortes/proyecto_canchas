@@ -24,15 +24,15 @@ export default function Page() {
     let [chosen_hour, setChosenHour] = useState('0');
 
     return <div className="w-screen h-screen flex flex-col justify-center items-center text-center">
-        <div className='bg-white/40 shadow-xl shadow-black/50 w-4/6 h-5/6 xl:h-4/6 p-3 mt-12 flex flex-col justify-center'>
-            <div className='flex flex-col my-6. items-center'>
+        <div className='bg-white/70 shadow-xl shadow-black/50 rounded-md w-4/6 h-5/6 xl:h-4/6 p-3 mt-12 flex flex-col justify-center'>
+            <div className='flex flex-col items-center'>
                 <h1 className="text-2xl mb-3 font-bold text-neutral-950">Que dia?</h1>
                 <div className='flex flex-row flex-wrap justify-center w-6/6'>
                     {week.map((d, i) =>
                         <div
                             key={d.getDate()}
                             onClick={() => { setChosenDate(d.toISOString().slice(0, 10)); setChosenHour('0') }}
-                            className={`${d.toISOString().slice(0, 10) == chosen_date ? 'bg-yellow text-black' : 'bg-gray-900 text-white'} m-0.5 border-black py-2. px-3 xl:py-1 xl:px-0 w-24 text-center cursor-pointer hover:bg-yellow hover:text-black`} >
+                            className={`${d.toISOString().slice(0, 10) == chosen_date ? 'bg-yellow text-black' : 'bg-gray-900 text-white'} m-0.5 border-black px-3 xl:py-1 xl:px-0 w-24 text-center cursor-pointer hover:bg-yellow hover:text-black`} >
 
                             <h1 className="text-l font-bold">
                                 {days[d.getDay()]}
@@ -46,13 +46,13 @@ export default function Page() {
             </div>
             <div className='flex flex-col justify-center items-center w-full h-full'>
                 <h1 className="text-2xl mb-3 font-bold text-neutral-950">A que hora?</h1>
-                <div id="carrusel" className="flex flex-col md:flex-row. flex-wrap w-fit h-40 overflow-x-scroll justify-center. select-none items-center. rounded-md p-3">
+                <div id="carrusel" className="flex flex-col flex-wrap w-5/5 xl:w-3/5 h-60 overflow-x-scroll lg:overflox-x-hidden select-none rounded-md p-2">
                     {horas.map((h, i) =>
                         ((chosen_date == current_date && h > current_time) || chosen_date > current_date) ?
                             <div
                                 key={i + h}
                                 onClick={() => setChosenHour(`${h}`)}
-                                className={`${h == chosen_hour ? 'bg-yellow text-neutral-950' : 'bg-gray-900 text-white'} mx-0.5 my-1 border-2. border-black rounded-md py-3 px-3 xl:py-3 xl:px-2 text-center cursor-pointer hover:bg-yellow hover:text-neutral-950`} >
+                                className={`${h == chosen_hour ? 'bg-yellow text-neutral-950' : 'bg-gray-900 text-white'} mx-0.5 my-1 rounded-md py-3 px-3 xl:py-3 xl:px-2 text-center cursor-pointer hover:bg-yellow hover:text-neutral-950`} >
                                 <h1 className="text-l font-bold">
                                     {h}
                                 </h1>

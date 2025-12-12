@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Bienvenida() {
     
-    return <div className='flex. flex-row. h-screen w-screen content-center text-center'>
+    return <div className='h-screen w-screen content-center text-center'>
         <h1 className="text-xl">Para poder reservar un turno o ver que turnos necesitan jugadores tenes que iniciar sesion</h1>
         <Link
           href="/ingreso"

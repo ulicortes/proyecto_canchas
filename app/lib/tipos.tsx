@@ -6,7 +6,7 @@ export type usuario = {
 }
 
 export type turno = {
-    id_turno: string;
+    id: string;
     organizador: string;
     telefono: string;
     lugar: string;
