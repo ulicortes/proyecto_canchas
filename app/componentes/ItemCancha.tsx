@@ -8,7 +8,7 @@ export default function ItemCancha({ t }: { t: turno }) {
     let newdate = t.dia.split("-").reverse().join("/");
     let newhour = t.hora.split(":");
     
-    return <tr className='text-center font-semibold bg-white/70 text-gray-950 hover:bg-white hover:text-gray-900 rounded-full w-max xl:w-full h-fit border-b-4 border-white'>
+    return <tr className='text-center font-semibold bg-white/70 text-gray-950 hover:bg-white hover:text-gray-900 rounded-full w-max xl:w-full h-fit border-b-4 border-white content-center'>
         <td className='py-4'>
             {t.lugar}
         </td>

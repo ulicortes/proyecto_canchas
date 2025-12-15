@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { unstable_noStore as noStore } from 'next/cache';
+import { cookies } from 'next/headers'
 
 const URL = process.env.BACKEND_URL;
 
@@ -76,6 +77,7 @@ export async function error() {
 
 export async function listarTurnos() {
   noStore();
+  const token = cookies().get('authToken');
   try {
     const data = await fetch(`${URL}/matches`).then(res => res.json());
     return data;

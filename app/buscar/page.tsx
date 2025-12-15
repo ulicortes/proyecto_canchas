@@ -11,9 +11,8 @@ export default async function Page() {
     return <Suspense fallback={<Loading message={"Cargando turnos..."} />}>
         <div className="pt-2 text-center w-screen max-w-screen h-screen max-h-screen flex flex-col justify-center items-center">
             <div className="text-black w-5/6 h-4/5 rounded-md shadow-xl shadow-black/50 overflow-hidden">
-                {/* <h1 className="text-3xl font-bold">Listado de canchas</h1> */}
                 <div className='h-full overflow-x-scroll xl:overflow-x-visible overflow-y-scroll'>
-                    <table className='xl:w-full overflow-y-visible h-full'>
+                    <table className='xl:w-full overflow-y-visible'>
                         <thead className='bg-neutral-950 font-extrabold text-white text-xl sticky top-0 z-index-0'>
                             <tr className='align-top'>
                                 <td className='py-2 px-16 xl:px-0'>Lugar</td>
@@ -32,9 +31,6 @@ export default async function Page() {
                     </table>
                 </div>
             </div>
-            {/* <div>
-                <Session />
-            </div> */}
         </div>
     </Suspense>
 }

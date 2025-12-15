@@ -13,7 +13,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
     return <div className="flex flex-col justify-center items-center text-center w-full h-max xl:h-screen pt-28 xl:pt-8">
         <div className="flex flex-col xl:flex-row justify-between xl:justify-evenly items-center h-4/6">
-            <div className="bg-white/70 shadow-xl shadow-black/50 rounded-md w-3/5 h-full flex flex-wrap flex-row justify-evenly">
+            <div className="bg-white/70 font-bold shadow-xl shadow-black/50 rounded-md w-3/5 h-full flex flex-wrap flex-row justify-evenly">
                 <div className='p-8 xl:py-0 self-center'>
                     <div className="text-2xl xl:text-3xl">{t.organizador}</div>
                     <div className="underline underline-offset-4 text-greenpitch text-l">Organizador</div>
@@ -45,9 +45,19 @@ export default async function Page({ params }: { params: { id: string } }) {
                 <div className='p-8 xl:py-0 self-center'>
                     <div className="text-2xl xl:text-3xl">Faltan {cuantosFaltan(t.lista, t.cancha)} jugadores</div>
                 </div>
+                <div className="flex flex-col justify-center my-2 w-full">
+                    <Link href={'/buscar'}>
+                        <button
+                            type="submit"
+                            className="rounded-md bg-black px-2 py-1 mt-2 text-xl font-semibold text-white shadow-sm hover:bg-yellow hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        >
+                            Volver
+                        </button>
+                    </Link>
+                </div>
             </div>
             {user_session == t.organizador ?
-                <div className="flex flex-col text-center mt-8 xl:mt-0 bg-white/70 shadow-xl shadow-black/50 rounded-md p-2">
+                <div className="flex flex-col text-center my-8 xl:mt-0 bg-white/70 shadow-xl shadow-black/50 rounded-md p-2">
                     <div>
                         <h1>LISTADO DE JUGADORES</h1>
                     </div>
@@ -63,7 +73,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                 </div> :
                 <></>}
         </div>
-        <div className='order-3 self-center justify-center py-12 xl:py-0 xl:w-1/3'>
+        {/* <div className='order-3 self-center justify-center py-12 xl:py-0 xl:w-1/3'>
 
             <div className="flex flex-col justify-center mt-2">
                 <Link href={'/buscar'}>
@@ -75,7 +85,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                     </button>
                 </Link>
             </div>
-        </div>
+        </div> */}
     </div>
 }
 

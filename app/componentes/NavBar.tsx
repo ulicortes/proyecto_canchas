@@ -24,7 +24,7 @@ export default function NavBar() {
                 className="w-full"
                 onClick={() => { setOpen(false); }}
             >
-                <div className={`py-6 xl:py-4 xl:hover:border-b-4 duration-100 ease-in-out ${path == '/buscar' || path == "/ingreso" ? "xl:border-b-4" : " "}`}>Buscar turnos</div>
+                <div className={`py-6 xl:py-4 xl:hover:border-b-4 duration-100 ease-in-out ${path == '/buscar' ? "xl:border-b-4" : " "}`}>Buscar turnos</div>
             </Link>
             <Link
                 href="/horarios"
@@ -41,7 +41,7 @@ export default function NavBar() {
                 onClick={() => { setOpen(false); }}
             >
                 <div className="block xl:hidden py-6 xl:py-0">Cuenta</div>
-                <Image className="w-0 xl:w-40 h-20." src={'/user_image.png'} alt={"Jorge"} width={200} height={90} />
+                <Image className="w-0 xl:w-40 h-20. bg-transparent" src={'/user_w.png'} alt={"Jorge"} width={200} height={90} />
             </Link>
         <div className="pt-16 pb-4 xl-pt-0 xl:pb-0 w-full xl:hidden" onClick={() => { setOpen(!open); }}>Menu</div>
     </nav >
