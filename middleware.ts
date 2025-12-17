@@ -4,10 +4,11 @@ import { redirect } from 'next/navigation';
 
 export default function middleware(request: NextRequest) {
     const isLoggedIn = request.cookies.has('authToken'); 
-    const isLoginPage = request.nextUrl.pathname === '/ingreso';
+    // const isLoginPage = request.nextUrl.pathname === '/ingreso';
 
-    if (!isLoggedIn && !isLoginPage) {
+    if (!isLoggedIn) {
         const returnUrl = encodeURIComponent(request.nextUrl.pathname + request.nextUrl.search);
+        // const loginUrl = new URL('/ingreso');
         const loginUrl = new URL(`/ingreso?returnUrl=${returnUrl}`, request.url);
         return NextResponse.redirect(loginUrl);
     }

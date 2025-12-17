@@ -1,7 +1,7 @@
 'use client';
 import { ingresarUsuario } from '../lib/sesion';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import { redirect, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import Loading from '../loading';
 
@@ -13,68 +13,13 @@ export default function Page(this: any, {
     };
 }) {
     let [loading, setLoading] = useState(false);
-    let [error, setError] = useState<Error | null>(null);
-    let [index, setIndex] = useState(0);
-    let [usr, setUsr] = useState("");
-    let [ps, setPs] = useState("");
-    let param = useSearchParams().get('returnUrl');
-
-    const check = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (!usr || !ps) {
-            return;
-        }
-        setLoading(true);
-        try {
-            let rsp = await ingresarUsuario(usr, ps, param || "");
-            switch (rsp) {
-                case 200:
-                    location.replace(param || "/");
-                    setError(null)
-                    break;
-                case 403:
-                    throw new Error("Usuario o contraseña incorrectos, intente nuevamente.");
-                case 503: case 504:
-                    if (index < 2) {
-                        setIndex(index++);
-                        setTimeout(() => check(e), 1000 * Math.pow(2, index));
-                    } else {
-                        throw new Error("Hay problemas en el servidor");
-                    }
-                    break;
-                default:
-                    break;
-            }
-        } catch (err: any) {
-            setError(err);
-            setLoading(false);
-        }
-    }
-    if (error) return <>
-        <div className="h-screen flex flex-col justify-center items-center">
-            <label className="block text-3xl w-2/6 text-center self-center font-medium leading-6 text-black">
-                {error.message}
-            </label>
-            <button
-                className="bg-black text-white hover:bg-yellow hover:text-black py-2 px-2 rounded-md mt-8"
-                onClick={
-                    () => location.reload()
-                }>
-                Intentar otra vez
-            </button>
-            <Link
-                href={'/registro'}
-                className="bg-black text-white hover:bg-yellow hover:text-black py-2 px-2 rounded-md mt-8"
-                rel="noopener noreferrer"
-            >
-                Registrarse
-            </Link>
-        </div>
-    </>
-    else return <div className='content-center w-screen h-screen'>
+    let url = useSearchParams().get('returnUrl') || "";
+    
+    return <div className='content-center w-screen h-screen'>
         {loading ? <Loading message={"Verificando usuario..."} /> :
-            <form onSubmit={check} method='POST' className="bg-white/70 shadow-xl shadow-black/50 m-auto py-2 w-3/4 xl:w-2/4 rounded-md">
+            <form action={ingresarUsuario} method='POST' className="bg-white/70 shadow-xl shadow-black/50 m-auto py-2 w-3/4 xl:w-2/4 rounded-md">
                 <div className="text-center content-center">
+                    <input type="text" name='returnUrl' value={url} hidden />
                     <h1 className="text-black text-3xl font-bold leading-7 text-neutral-950">Iniciar sesion</h1>
                     <div className="mt-10 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-1 w-3/5 m-auto content-center">
 
@@ -85,13 +30,10 @@ export default function Page(this: any, {
                             <div className="mt-2">
                                 <input
                                     type="text"
-                                    name="user"
+                                    name="mail"
                                     id="user"
                                     autoComplete="address-level2"
                                     required
-                                    onChange={(e) => {
-                                        setUsr(e.target.value)
-                                    }}
                                     className="text-center block w-full rounded-md border-2 border-transparent py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 focus:outline-none focus:border-black sm:text-sm sm:leading-6"
                                 />
                             </div>
@@ -108,9 +50,6 @@ export default function Page(this: any, {
                                     id="pass"
                                     autoComplete="address-level2"
                                     required
-                                    onChange={(e) => {
-                                        setPs(e.target.value)
-                                    }}
                                     className="text-center block w-full rounded-md border-2 border-transparent py-1.5 text-gray-900 shadow-sm ring-2. ring-inset ring-neutral-950 placeholder:text-gray-400 focus:outline-none focus:border-black sm:text-sm sm:leading-6"
                                 />
                             </div>

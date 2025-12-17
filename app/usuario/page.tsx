@@ -13,7 +13,7 @@ export default function Page() {
             <div className="h-screen flex flex-col justify-center items-center">
                 <div className="flex flex-col justify-evenly items-center h-2/5 bg-white/70 shadow-xl shadow-black/50 w-3/4 xl:w-2/4 rounded-md">
                     <h1 className="font-bold text-3xl">Menu de usuario</h1>
-                    <div className="flex flex-col xl:flex-row justify-evenly items-center w-full h-3/4">
+                    <div className="flex flex-col xl:flex-row justify-evenly items-center w-full h-1/4">
                         <button type='submit'
                             onClick={() => {
                                 router.push("/")

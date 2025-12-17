@@ -14,35 +14,35 @@ export default async function Page({ params }: { params: { id: string } }) {
     return <div className="flex flex-col justify-center items-center text-center w-full h-max xl:h-screen pt-28 xl:pt-8">
         <div className="flex flex-col xl:flex-row justify-between xl:justify-evenly items-center h-4/6">
             <div className="bg-white/70 font-bold shadow-xl shadow-black/50 rounded-md w-3/5 h-full flex flex-wrap flex-row justify-evenly">
-                <div className='p-8 xl:py-0 self-center'>
+                <div className='p-8 xl:py-0 self-center xl:w-2/4'>
                     <div className="text-2xl xl:text-3xl">{t.organizador}</div>
                     <div className="underline underline-offset-4 text-greenpitch text-l">Organizador</div>
                 </div>
-                <div className='p-8 xl:py-0 self-center'>
+                <div className='p-8 xl:py-0 self-center xl:w-2/4'>
                     <div className="text-2xl xl:text-3xl">{t.telefono}</div>
                     <div className="underline underline-offset-4 text-greenpitch text-l">Contacto</div>
                 </div>
-                <div className='p-8 xl:py-0 self-center'>
+                <div className='p-8 xl:py-0 self-center xl:xl:w-2/4'>
                     <div className="text-2xl xl:text-3xl">{t.lugar}</div>
                     <div className="underline underline-offset-4 text-greenpitch text-l">Lugar</div>
                 </div>
-                <div className='p-8 xl:py-0 self-center'>
+                <div className='p-8 xl:py-0 self-center xl:w-2/4'>
                     <div className="text-2xl xl:text-3xl">{t.direccion}</div>
                     <div className="underline underline-offset-4 text-greenpitch text-l">Direccion</div>
                 </div>
 
-                <div className='p-8 xl:py-0 self-center'>
+                <div className='p-8 xl:py-0 self-center xl:w-2/4'>
                     <div className="text-2xl xl:text-3xl">{newdate}</div>
                     <div className="underline underline-offset-4 text-greenpitch text-l">Dia</div>
                 </div>
-                <div className='p-8 xl:py-0 self-center'>
+                <div className='p-8 xl:py-0 self-center xl:w-2/4'>
                     <div className="text-2xl xl:text-3xl">{newhour[0]}:{newhour[1]} hs</div>
                     <div className="underline underline-offset-4 text-greenpitch text-l">Hora</div>
                 </div>
-                <div className='p-8 xl:py-0 self-center'>
+                <div className='p-8 xl:py-0 self-center xl:w-2/4'>
                     <div className="text-2xl xl:text-3xl">Futbol {t.cancha}</div>
                 </div>
-                <div className='p-8 xl:py-0 self-center'>
+                <div className='p-8 xl:py-0 self-center xl:w-2/4'>
                     <div className="text-2xl xl:text-3xl">Faltan {cuantosFaltan(t.lista, t.cancha)} jugadores</div>
                 </div>
                 <div className="flex flex-col justify-center my-2 w-full">
@@ -59,7 +59,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             {user_session == t.organizador ?
                 <div className="flex flex-col text-center my-8 xl:mt-0 bg-white/70 shadow-xl shadow-black/50 rounded-md p-2">
                     <div>
-                        <h1>LISTADO DE JUGADORES</h1>
+                        <h1 className="font-bold">LISTADO DE JUGADORES</h1>
                     </div>
                     <form action={actualizar} className="w-min h-max flex flex-col self-center mt-4">
                         <textarea className="p-2 text-center" name="jugadores" id="" cols={16} rows={16} >{t.lista}</textarea>

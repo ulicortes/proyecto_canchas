@@ -1,6 +1,7 @@
 'use server';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { NextRequest } from 'next/server';
 import { usuario } from './tipos';
 import { cookies } from 'next/headers';
 
@@ -16,7 +17,7 @@ export async function registrarUsuario(formData: FormData) {
 
     if (nuevoUsuario.password.length < 6 || nuevoUsuario.password.length > 20) throw new Error('La contraseña tiene menos de 6 o mas de 20 caracteres.');
 
-    let rsp = await fetch(`${URL}/auth/register`, {
+    let rsp = await fetch(`http://localhost:3002/users/register`, {
         method: "POST",
         headers: {
             "Content-type": "Application/json"
@@ -32,31 +33,35 @@ export async function registrarUsuario(formData: FormData) {
     else throw new Error('Hubo un problema con el registro.');
 }
 
-export async function ingresarUsuario(u: string, p: string, path: string) {
-    const redirect_ulr = path;
-
+export async function ingresarUsuario(formData: FormData) {
     let login_user = {
-        user: u,
-        password: p
+        mail: formData.get('mail')?.toString() || "",
+        password: formData.get('pass')?.toString() || ""  
     }
-
-    if (login_user.user == "" || login_user.password == "") throw new Error("El usuario y la contraseña no deben estar vacios");
-
-    // let rsp = await fetch(`${URL}/auth/login`, {
-    //     method: "POST",
-    //     headers: {
-    //         "Content-type": "Application/json"
-    //     },
-    //     body: JSON.stringify(login_user)
-    // })
-    // if (rsp.status == 200) {
-        // let data = await rsp.json();
-        let user = login_user.user || "";
-        // setTokens(data.token, user);
-        setTokens('123456', user);
-    // }
-    // return rsp.status;
-    return 200;
+    let error = undefined;
+    if (login_user.mail == "" || login_user.password == "") throw new Error("El usuario y la contraseña no deben estar vacios");
+    
+    try {
+        let rsp = await fetch(`http://localhost:3002/users/login`, {
+            method: "POST",
+            headers: {
+                "Content-type": "Application/json"
+            },
+            body: JSON.stringify(login_user)
+        })
+        if (rsp.status == 200) {
+            let data = await rsp.json();
+            // let user = data.message.user || "";
+            setTokens(data.message.token, data.message.user);
+        } else {
+            throw "Error en el ingreso";
+        }
+    } catch (e) {
+        error = e as string;
+    }
+    if (error) throw new Error(error);
+    revalidatePath(`${formData.get('returnUrl')?.toString() || '/'}`);
+    redirect(`${formData.get('returnUrl')?.toString() || '/'}`);
 }
 
 export async function signOut() {

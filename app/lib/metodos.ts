@@ -28,6 +28,9 @@ const guardarCanchaForm = z.object({
 const nuevaCancha = guardarCanchaForm.omit({ id: true });
 
 export async function guardarCancha(formData: FormData) {
+  const token = cookies().get('authToken');
+  if (!token) throw new Error('No autenticado', { cause: 401 });
+
   const { org, telefono, lugar, direccion, dia, hora, cancha } = nuevaCancha.parse({
     org: formData.get('org'),
     telefono: formData.get('tel'),
@@ -40,12 +43,14 @@ export async function guardarCancha(formData: FormData) {
   if (!telefono.startsWith('@') && telefono.match("^[0-9]{1,20}$") === null) {
     throw new Error('EL CONTACTO DEBE SER UN NRO DE TELEFONO O UN PERFIL DE INSTAGRAM (COMENZANDO CON @)');
   }
+
   let error = undefined;
   try {
     let res = await fetch(`${URL}/matches`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token?.value}`
       },
       body: JSON.stringify({
         organizador: org,
@@ -64,7 +69,7 @@ export async function guardarCancha(formData: FormData) {
       // return 404;
     }
   } catch (e) {
-      error = e as string;
+    error = e as string;
   }
   if (error) throw new Error(error);
   revalidatePath('/buscar');
@@ -79,7 +84,11 @@ export async function listarTurnos() {
   noStore();
   const token = cookies().get('authToken');
   try {
-    const data = await fetch(`${URL}/matches`).then(res => res.json());
+    const data = await fetch(`${URL}/matches`, {
+      headers: {
+        'Authorization': `Bearer ${token?.value}`
+      }
+    }).then(res => res.json());
     return data;
   } catch (error) {
     console.error('Database Error:', error);
@@ -88,11 +97,16 @@ export async function listarTurnos() {
 }
 
 export async function traerTurno(id: string) {
+  const token = cookies().get('authToken');
+  if (!token) throw new Error('No autenticado', { cause: 401 });
   try {
-    const data = await fetch(`${URL}/matches/${id}`).then(res => res.json());
+    const data = await fetch(`${URL}/matches/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${token?.value}`
+      }
+    }).then(res => res.json());
+    console.log(data)
     return data;
-    if (data.rows.length == 0) throw Error('Algo salio mal');
-    else return data.rows;
   } catch (error) {
     throw new Error('Algo salio mal');
   }
@@ -100,12 +114,15 @@ export async function traerTurno(id: string) {
 
 export async function actualizarCancha(id_turno: string, formData: FormData) {
   noStore();
+  const token = cookies().get('authToken');
+  if (!token) throw new Error('No autenticado', { cause: 401 });
   const lista = formData.getAll('jugadores');
   let lista_jugadores = `${lista}`
   const row = await fetch(`${URL}/matches/${id_turno}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token?.value}`
     },
     body: JSON.stringify({
       lista: lista_jugadores
