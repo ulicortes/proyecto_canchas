@@ -1,133 +1,304 @@
 'use server';
-import { z } from 'zod';
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
-import { unstable_noStore as noStore } from 'next/cache';
 import { cookies } from 'next/headers'
 
 const URL = process.env.BACKEND_URL;
 
-const estructuraForm = z.object({
-  user: z.string(),
-  password: z.string(),
-  email: z.string(),
-  id: z.number(),
-});
+interface usuario {
+  id: number;
+  nombre: string;
+  tipo: string;
+}
 
-const guardarCanchaForm = z.object({
-  id: z.number(),
-  org: z.string(),
-  telefono: z.string(),
-  lugar: z.string(),
-  direccion: z.string(),
-  dia: z.string(),
-  hora: z.string(),
-  cancha: z.string(),
-});
-
-const nuevaCancha = guardarCanchaForm.omit({ id: true });
-
-export async function guardarCancha(formData: FormData) {
-  const token = cookies().get('authToken');
-  if (!token) throw new Error('No autenticado', { cause: 401 });
-
-  const { org, telefono, lugar, direccion, dia, hora, cancha } = nuevaCancha.parse({
-    org: formData.get('org'),
-    telefono: formData.get('tel'),
-    lugar: formData.get('lugar'),
-    direccion: formData.get('direcc'),
-    dia: formData.get('dia'),
-    hora: formData.get('hora'),
-    cancha: formData.get('cancha'),
-  });
-  if (!telefono.startsWith('@') && telefono.match("^[0-9]{1,20}$") === null) {
-    throw new Error('EL CONTACTO DEBE SER UN NRO DE TELEFONO O UN PERFIL DE INSTAGRAM (COMENZANDO CON @)');
-  }
-
-  let error = undefined;
-  try {
-    let res = await fetch(`${URL}/matches`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token?.value}`
-      },
-      body: JSON.stringify({
-        organizador: org,
-        telefono: telefono,
-        lugar: lugar,
-        direccion: direccion,
-        dia: dia,
-        hora: hora,
-        cancha: parseInt(cancha as string, 10),
-        jugadores_faltantes: 16
-      }),
-    }).then(async r => await r);
-    console.log(res.status)
-    if (!res.ok) {
-      throw 'El turno ya fue reservado, por favor elija otro';
-      // return 404;
-    }
-  } catch (e) {
-    error = e as string;
-  }
-  if (error) throw new Error(error);
-  revalidatePath('/buscar');
-  redirect('/buscar')
+interface turno {
+  dia: string,
+  hora: number,
+  cancha: number,
+  contacto: string,
+  responsable: string
 }
 
 export async function error() {
   throw new Error("Hubo un error al reservar la cancha. Por favor, intente nuevamente.");
 }
-
-export async function listarTurnos() {
-  noStore();
-  const token = cookies().get('authToken');
+//////////////////////// GET ////////////////////////
+export async function listarDeportes() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get('tkn')?.value;
   try {
-    const data = await fetch(`${URL}/matches`, {
+    const data = await fetch(`${URL}/deportes`, {
+      method: 'GET',
       headers: {
-        'Authorization': `Bearer ${token?.value}`
-      }
-    }).then(res => res.json());
-    return data;
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      credentials: 'include'
+    })
+    return await data.json();
+  } catch (error) {
+    console.log(error)
+  }
+}
+export async function listarCanchas(deporte: number) {
+  const cookieStore = await cookies();
+  const token = cookieStore.get('tkn')?.value;
+  try {
+    const data = await fetch(`${URL}/canchas?d=${deporte}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      credentials: 'include'
+    })
+    return await data.json();
+  } catch (error) {
+    console.log(error)
+  }
+}
+export async function datos_admin() {
+  try {
+    const cookieStore = await cookies();
+    const dd = cookieStore.get('data')?.value;
+
+    if (!dd) {
+      return null; // O puedes retornar un string por defecto como 'Invitado'
+    }
+
+    const usuario = JSON.parse(dd);
+
+    // Validar que realmente exista la propiedad nombre
+    return usuario?.nombre || null;
+  } catch (error) {
+    // Si la cookie está corrupta o falla el JSON.parse, no rompe la app
+    console.error("Error al leer o parsear la cookie de admin:", error);
+    return null;
+  }
+}
+export async function traer_token() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get('tkn')?.value;
+  return token;
+}
+export async function listarCanchasPorAdmin() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get('tkn')?.value;
+  const dd = cookieStore.get('data')?.value;
+  const usuario = dd ? JSON.parse(dd) : null;
+  try {
+    const data = await fetch(`${URL}/canchas/lista/${usuario.id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      credentials: 'include'
+    })
+    return await data.json();
+  } catch (error) {
+    console.log(error)
+  }
+}
+export async function listarTurnos(fecha: string, deporte: string) {
+  const cookieStore = await cookies();
+  const token = cookieStore.get('tkn')?.value;
+  try {
+    const data = await fetch(`${URL}/turnos?q=${fecha}&d=${deporte}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      credentials: 'include'
+    })
+    return await data.json();
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch revenue data.');
+  }
+}
+export async function turnosCompletos(fecha: string) {
+  const cookieStore = await cookies();
+  const token = cookieStore.get('tkn')?.value;
+  try {
+    const data = await fetch(`${URL}/turnos/listado?q=${fecha}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      credentials: 'include'
+    })
+    return await data.json();
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch revenue data.');
   }
 }
 
-export async function traerTurno(id: string) {
-  const token = cookies().get('authToken');
-  if (!token) throw new Error('No autenticado', { cause: 401 });
+//////////////////////// POST ////////////////////////
+export async function crearCancha(formData: FormData) {
+  const cookieStore = await cookies();
+  const token = cookieStore.get('tkn')?.value;
+  const cancha = Object.fromEntries(formData);
   try {
-    const data = await fetch(`${URL}/matches/${id}`, {
+    const data = await fetch(`${URL}/canchas`, {
+      method: 'POST',
       headers: {
-        'Authorization': `Bearer ${token?.value}`
-      }
-    }).then(res => res.json());
-    console.log(data)
-    return data;
+        'Authorization': `Bearer ${token}`
+      },
+      credentials: 'include',
+      body: JSON.stringify(cancha),
+    })
+    return await data.json();
+  } catch (error) {
+    throw new Error('Algo salio mal');
+  }
+}
+export async function crearDeporte(formData: FormData) {
+  const cookieStore = await cookies();
+  const token = cookieStore.get('tkn')?.value;
+  const deporte = Object.fromEntries(formData);
+  try {
+    const data = await fetch(`${URL}/deportes`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      credentials: 'include',
+      body: JSON.stringify(deporte),
+    })
+    return await data.json();
+  } catch (error) {
+    throw new Error('Algo salio mal');
+  }
+}
+export async function nuevoTurno(nuevo_turno: turno) {
+  const cookieStore = await cookies();
+  const token = cookieStore.get('tkn')?.value;
+  try {
+    const data = await fetch(`${URL}/turnos/reservar`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      credentials: 'include',
+      body: JSON.stringify(nuevo_turno),
+    })
+    return await data.json();
   } catch (error) {
     throw new Error('Algo salio mal');
   }
 }
 
-export async function actualizarCancha(id_turno: string, formData: FormData) {
-  noStore();
-  const token = cookies().get('authToken');
-  if (!token) throw new Error('No autenticado', { cause: 401 });
-  const lista = formData.getAll('jugadores');
-  let lista_jugadores = `${lista}`
-  const row = await fetch(`${URL}/matches/${id_turno}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token?.value}`
-    },
-    body: JSON.stringify({
-      lista: lista_jugadores
-    }),
+//////////////////////// PATCH ////////////////////////
+export async function editarDeporte(formData: FormData, id: number | undefined) {
+  if(!id) return "Falta el id";
+  const cookieStore = await cookies();
+  const token = cookieStore.get('tkn')?.value;
+  const deporte = Object.fromEntries(formData);
+  const bodyData: Record<string, any> = {};
+
+  // Recorremos los inputs y solo agregamos los que tienen valor
+  formData.forEach((value, key) => {
+    if (value !== "") { // O podés compararlo con el valor original previo
+      bodyData[key] = value;
+    }
   });
-  revalidatePath(`/cancha/${id_turno}/editar`);
-  redirect(`/cancha/${id_turno}/editar`);
+  
+  try {
+    const data = await fetch(`${URL}/deportes/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      credentials: 'include',
+      body: JSON.stringify(bodyData),
+    })
+    return await data.json();
+  } catch (error) {
+    throw new Error('Algo salio mal');
+  }
+}
+export async function editarCancha(formData: FormData, id: number | undefined) {
+  if(!id) return "Falta el id";
+  const cookieStore = await cookies();
+  const token = cookieStore.get('tkn')?.value;
+  const cancha = Object.fromEntries(formData);
+  const bodyData: Record<string, any> = {};
+
+  // Recorremos los inputs y solo agregamos los que tienen valor
+  formData.forEach((value, key) => {
+    if (value !== "") { // O podés compararlo con el valor original previo
+      bodyData[key] = value;
+    }
+  });
+  console.log(bodyData)
+  try {
+    const data = await fetch(`${URL}/canchas/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      credentials: 'include',
+      body: JSON.stringify(bodyData),
+    })
+    return await data.json();
+  } catch (error) {
+    throw new Error('Algo salio mal');
+  }
+}
+export async function cobrarTurno(id: number | undefined) {
+  if(!id) return "Falta el id";
+  const cookieStore = await cookies();
+  const token = cookieStore.get('tkn')?.value;
+  try {
+    const data = await fetch(`${URL}/turnos/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      credentials: 'include',
+    })
+    return await data.json();
+  } catch (error) {
+    throw new Error('Algo salio mal');
+  }
+}
+
+//////////////////////// DELETE ////////////////////////
+export async function borrarCancha(id: number) {
+  // return { message: "Cancha borrada" }
+  const cookieStore = await cookies();
+  const token = cookieStore.get('tkn')?.value;
+  // if (!token) throw new Error('No autenticado', { cause: 401 });
+  try {
+    const data = await fetch(`${URL}/canchas/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      credentials: 'include'
+    })
+    return await data.json();
+  } catch (error) {
+    throw new Error('Algo salio mal');
+  }
+}
+export async function borrarDeporte(id: number) {
+  // return { message: "Cancha borrada" }
+  const cookieStore = await cookies();
+  const token = cookieStore.get('tkn')?.value;
+  // if (!token) throw new Error('No autenticado', { cause: 401 });
+  try {
+    const data = await fetch(`${URL}/deportes/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      credentials: 'include'
+    })
+    return await data.json();
+  } catch (error) {
+    throw new Error('Algo salio mal');
+  }
 }

@@ -13,79 +13,97 @@ export default function Page(this: any, {
     };
 }) {
     let [loading, setLoading] = useState(false);
+    let [info, setInfo] = useState<string | undefined>("");
     let url = useSearchParams().get('returnUrl') || "";
-    
-    return <div className='content-center w-screen h-screen'>
-        {loading ? <Loading message={"Verificando usuario..."} /> :
-            <form action={ingresarUsuario} method='POST' className="bg-white/70 shadow-xl shadow-black/50 m-auto py-2 w-3/4 xl:w-2/4 rounded-md">
-                <div className="text-center content-center">
-                    <input type="text" name='returnUrl' value={url} hidden />
-                    <h1 className="text-black text-3xl font-bold leading-7 text-neutral-950">Iniciar sesion</h1>
-                    <div className="mt-10 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-1 w-3/5 m-auto content-center">
 
-                        <div className="sm:col-span-1 sm:col-start-2.">
-                            <label htmlFor="city" className="block text-sm font-semibold leading-6 text-neutral-950">
-                                Nombre de usuario
-                            </label>
-                            <div className="mt-2">
-                                <input
-                                    type="text"
-                                    name="mail"
-                                    id="user"
-                                    autoComplete="address-level2"
-                                    required
-                                    className="text-center block w-full rounded-md border-2 border-transparent py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 focus:outline-none focus:border-black sm:text-sm sm:leading-6"
-                                />
-                            </div>
-                        </div>
-
-                        <div className="sm:col-span-1 sm:col-start-2.">
-                            <label htmlFor="city" className="block text-sm font-semibold leading-6 text-neutral-950">
-                                Contraseña
-                            </label>
-                            <div className="mt-2">
-                                <input
-                                    type="password"
-                                    name="pass"
-                                    id="pass"
-                                    autoComplete="address-level2"
-                                    required
-                                    className="text-center block w-full rounded-md border-2 border-transparent py-1.5 text-gray-900 shadow-sm ring-2. ring-inset ring-neutral-950 placeholder:text-gray-400 focus:outline-none focus:border-black sm:text-sm sm:leading-6"
-                                />
-                            </div>
-                        </div>
-
-                        <div className="sm:col-span-1 self-end">
-                            <button
-                                type="submit"
-                                className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-yellow hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                            >
-                                Ingresar
-                            </button>
-                        </div>
-                        <div className="sm:col-span-1 self-end">
-                            <h6>No tenes una cuenta?
-                                <Link
-                                    href={'/registro'}
-                                    className="xl:w-min group rounded-lg border border-2 border-transparent px-1 transition-colors hover:text-greenpitch hover:underline hover:underline-offset-2"
-                                    rel="noopener noreferrer"
-                                >
-                                    Registrate aca
-                                </Link>
-                            </h6>
-                        </div>
-                        <div className="sm:col-span-1 self-end">
-                            <button
-                                className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-800 hover:text-black. focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                            >
-                                <Link href="/">
-                                    Volver
-                                </Link>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </form>
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setInfo("")
+        const formData = new FormData(e.currentTarget);
+        formData.set('mail', "cficticio@gmail.com");
+        formData.set('clave', "amarillo");
+        let data;
+        try {
+            data = await ingresarUsuario(formData);
+        } catch (err) {
+            // setErrorMsg(err.message);
+            console.log(err)
         }
+        if (data?.success) redirect('/horarios');
+        else setInfo(data?.error)
+    };
+
+    return <div className="w-screen h-screen flex items-center justify-center relative bg-cover bg-center" >
+        {/* Capa de contraste traslúcida sobre el fondo */}
+        <div className="absolute inset-0 bg-black/40 backdrop-blur-xs" />
+
+        {/* {loading ? <Loading message={"Verificando usuario..."} /> : */}
+        <form
+            onSubmit={handleSubmit}
+            className="relative z-10 w-full max-w-sm mx-4 bg-white/90 backdrop-blur-md p-8 rounded-2xl shadow-2xl border border-white/30"
+        >
+            <h1 className="text-2xl font-bold text-slate-800 text-center mb-6">
+                Iniciar sesión
+            </h1>
+
+            <div className="flex flex-col gap-4">
+                {/* Campo Usuario */}
+                <div className="flex flex-col text-left">
+                    <label htmlFor="mail" className="text-xs font-bold text-slate-600 mb-1 uppercase tracking-wide">
+                        Nombre de usuario
+                    </label>
+                    <input
+                        id="mail"
+                        type="text"
+                        name="mail"
+                        required
+                        placeholder="Ingresá tu usuario"
+                        className="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white/80 text-black text-sm transition-all"
+                    />
+                </div>
+
+                {/* Campo Contraseña */}
+                <div className="flex flex-col text-left">
+                    <label htmlFor="clave" className="text-xs font-bold text-slate-600 mb-1 uppercase tracking-wide">
+                        Contraseña
+                    </label>
+                    <input
+                        id="clave"
+                        type="password"
+                        name="clave"
+                        required
+                        placeholder="••••••••"
+                        className="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white/80 text-black text-sm transition-all"
+                    />
+                </div>
+
+                {/* Mensaje de error / Info */}
+                {info && (
+                    <p className="text-red-600 font-bold text-xs text-center mt-1">
+                        {info}
+                    </p>
+                )}
+
+                {/* Botón Ingresar */}
+                <button
+                    type="submit"
+                    className="w-full mt-2 py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold text-sm rounded-lg shadow-lg shadow-emerald-500/20 transition-all duration-200 cursor-pointer active:scale-[0.98]"
+                >
+                    Ingresar
+                </button>
+
+                {/* Footer de Registro */}
+                <div className="mt-4 text-center text-xs text-slate-600 border-t border-slate-200/60 pt-4">
+                    ¿No tenés una cuenta?{" "}
+                    <Link
+                        href={'/registro'}
+                        className="font-bold text-emerald-600 hover:text-emerald-700 hover:underline transition-colors"
+                    >
+                        Registrate acá
+                    </Link>
+                </div>
+            </div>
+        </form>
+        {/* } */}
     </div>
 }
