@@ -287,7 +287,7 @@ export default function Page() {
         setHora(0);
     };
 
-    return <div className="w-full h-[95%] flex flex-col justify-evenly items-center text-center">
+    return <div className="w-full h-full md:h-[95%] flex flex-col justify-evenly items-center text-center self-start">
         {/* Mensaje informativo */}
         {mensaje_info !== "" ? <div className="w-full h-full fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex flex-col justify-center items-center px-4 animate-in fade-in duration-200">
             <div className="bg-white shadow-2xl shadow-black/50 rounded-2xl w-full max-w-md p-8 flex flex-col items-center gap-4 animate-in zoom-in-95 duration-200">
@@ -303,13 +303,11 @@ export default function Page() {
                 </button>
             </div>
         </div> : <></>}
-        {/* Bloque superior */}
-        <div className="w-full h-[90%] flex flex-col md:flex-row. justify-evenly items-center bg-transparent rounded-lg">
-            {/* Bloque inferior */}
+        <div className="w-full h-[100%] md:h-[90%] flex flex-col md:flex-row. justify-evenly items-center bg-transparent rounded-lg">
             <div className="w-full md:w-[95%] min-h-full max-h-full rounded-none md:rounded-xl flex flex-col justify-between gap-6 p-4 bg-black/70 shadow-lg shadow-black/50">
                 {/* Selector de Deporte */}
-                <div className="w-full flex flex-col-reverse md:flex-col md:flex-row justify-start items-center">
-                    <Field className="min-w-[15%] flex flex-row items-center content-center rounded-l-md border-r-2 border-slate-200 bg-white p-0 md:p-2">
+                <div className="w-full flex flex-col-reverse md: flex-col md:flex-row justify-start items-center">
+                    <Field className="min-w-full md:min-w-[15%] flex flex-row items-center content-center rounded-b-xl md:rounded-r-none md:rounded-l-md border-r-2 border-slate-200 bg-white p-0 md:p-2">
                         <Listbox value={deporte ?? null} onChange={setDeporte}>
                             <ListboxButton className="w-full p-2 cursor-pointer font-bold rounded-md flex flex-row justify-center items-center gap-2">
                                 {deporte ? (
@@ -356,7 +354,7 @@ export default function Page() {
                             </ListboxOptions>
                         </Listbox>
                     </Field>
-                    <div className='w-full md:w-[20%] h-full flex flex-row justify-between items-center bg-white rounded-r-md px-2'>
+                    <div className='w-full md:w-[20%] h-full flex flex-row justify-between items-center bg-white rounded-t-md md:rounded-l-none md:rounded-r-md p-2'>
                         <button className="cursor-pointer hover:bg-slate-200 rounded-lg" onClick={() => cambiarDia(-1)}><img src="flecha_izq.svg" alt="izq" className="w-6 h-6" /></button>
                         <div className="overflow-x-auto font-bold text-xl rounded-lg flex flex-row justify-start items-center gap-2">
                             <input
@@ -389,7 +387,7 @@ export default function Page() {
                             canchas.map((c) => (
                                 <div
                                     key={c.id}
-                                    className="flex flex-row items-center odd: bg-gray-200 even:bg-slate-200. border-b border-slate-900 last:border-b-0 hover:bg-slate-50/50. transition-colors"
+                                    className="flex flex-row items-center bg-gray-200 border-b border-slate-900 last:border-b-0 transition-colors px-3 py-1"
                                 >
                                     {/* Nombre de la Cancha (Fixed al scrollear hacia la derecha) */}
                                     <div className="w-20 break-words md:min-w-50 min-h-[3rem] font-bold text-slate-900 content-center bg-inherit text-center sticky left-0">
@@ -477,7 +475,7 @@ export default function Page() {
                         <div className='w-full md:w-[20%] h-full md:h-fit flex flex-row justify-center items-center'>
                             <button
                                 onClick={manipularModal}
-                                className="w-fit md:w-full h-fit text-lg font-bold flex items-center justify-center rounded-lg bg-green-300 hover:bg-green-200 text-slate-900 border border-slate-400 px-8 py-2 transition-colors duration-200"
+                                className="w-full md:w-full h-fit text-lg font-bold flex items-center justify-center rounded-lg bg-green-300 hover:bg-green-200 text-slate-900 border border-slate-400 px-8 py-2 transition-colors duration-200"
                             >
                                 Revisar reserva
                             </button>
@@ -487,62 +485,64 @@ export default function Page() {
             </div>
         </div>
         {lista_llena ? <div className="fixed top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black/70">
-            <div className="w-full md:w-[50%] h-[70%] md:h-[60%] flex flex-col justify-between items-center bg-[#516d5c] p-3 rounded-lg shadow-md shadow-black">
-                <div className="w-[90%] md:w-[50%] h-full flex flex-col justify-between items-center">
-                    <h1 className="w-full font-bold text-3xl text-white text-center border-b-2 border-white/60">DETALLES DE LA RESERVA</h1>
-                    <div className="w-full flex flex-row justify-evenly text-2xl text-white">
-                        <img src="sports.svg" alt="deporte" className="w-8" />
-                        <h1 className="w-[30%] font-thin text-start">Deporte:</h1>
-                        <h1 className="w-[70%] font-bold text-center">{deporte?.nombre}</h1>
-                    </div>
-                    <div className="w-full flex flex-row justify-evenly text-2xl text-white">
-                        <img src="field.svg" alt={deporte?.nombre} className="w-8" />
-                        <h1 className="w-[30%] font-thin text-start">Cancha:</h1>
-                        <h1 className="w-[70%] font-bold text-center">{cancha?.nombre}</h1>
-                    </div>
-                    <div className="w-full flex flex-row justify-evenly text-2xl text-white">
-                        <img src="date.svg" alt="date" className="w-8" />
-                        <h1 className="w-[30%] font-thin text-start">Fecha:</h1>
-                        <h1 className="w-[70%] font-bold text-center">{fecha.toLocaleDateString('es-AR', { timeZone: 'UTC' })}</h1>
-                    </div>
-                    <div className="w-full flex flex-row justify-evenly text-2xl text-white">
-                        <img src="time.svg" alt="time" className="w-8" />
-                        <h1 className="w-[30%] font-thin text-start">Horario:</h1>
-                        <h1 className="w-[70%] font-bold text-center">{formatMinutosAHora(hora)} hs</h1>
-                    </div>
-                    <div className="w-full flex flex-row justify-evenly text-2xl text-white">
-                        <img src="price.svg" alt="time" className="w-8" />
-                        <h1 className="w-[20%] font-thin text-start">Precio:</h1>
-                        <h1 className="w-[70%] font-bold text-center">{new Intl.NumberFormat("es-AR", {
-                            style: "currency",
-                            currency: "ARS",
-                            minimumFractionDigits: 0, // Cambia a 2 si necesitas centavos
-                            maximumFractionDigits: 2,
-                        }).format(Number(deporte?.precio))}</h1>
-                    </div>
-                    <div className="w-full flex flex-row justify-evenly text-2xl text-white">
-                        <img src="person_white.svg" alt="time" className="w-8" />
-                        <h1 className="w-[20%] font-thin text-start">Nombre:</h1>
-                        <h1 className="w-[70%] font-bold text-center">{nombre}</h1>
-                    </div>
-                    <div className="w-full flex flex-row justify-evenly text-2xl text-white">
-                        <img src="contact.svg" alt="time" className="w-8" />
-                        <h1 className="w-[20%] font-thin text-start">Contacto:</h1>
-                        <h1 className="w-[70%] font-bold text-center">{contacto}</h1>
-                    </div>
-                    <div className="w-full h-[15%] flex flex-row justify-evenly items-center">
-                        <button
-                            onClick={() => { setHora(0); setListaLlena(false) }}
-                            className="max-w-[220px] h-fit flex items-center justify-center gap-2 rounded-full bg-white/80 hover:bg-slate-500 hover:text-white shadow-lg shadow-black/20 backdrop-blur-sm px-4 py-3 transition-colors duration-200"
-                        >
-                            Volver
-                        </button>
-                        <button
-                            onClick={guardarTurno}
-                            className="max-w-[220px] h-fit flex items-center justify-center gap-2 rounded-full bg-green-400 hover:bg-emerald-600 hover:text-white shadow-lg shadow-black/20 backdrop-blur-sm px-4 py-3 transition-colors duration-200"
-                        >
-                            Confirmar reserva
-                        </button>
+            <div className="w-full md:w-[50%] h-[85%] md:h-[60%] flex flex-col justify-between items-center bg-[#516d5c] p-1 md:p-3 rounded-lg shadow-md shadow-black">
+                <div className="w-[90%] md:w-[50%]. h-full flex flex-col justify-between items-center">
+                    <h1 className="w-full h-fit font-bold text-3xl text-white text-center border-b-2 border-white/60">DETALLES DE LA RESERVA</h1>
+                    <div className="w-full h-full flex flex-col md:flex-row justify-evenly flex-wrap items-center">
+                        <div className="w-[90%] md:w-[40%] flex flex-col justify-center text-2xl text-white">
+                            {/* <img src="sports.svg" alt="deporte" className="w-8" /> */}
+                            <h1 className="w-full font-bold text-center bg-white text-black rounded-t-lg">Deporte</h1>
+                            <h1 className="w-full font-thin text-center">{deporte?.nombre}</h1>
+                        </div>
+                        <div className="w-[90%] md:w-[40%] flex flex-col justify-center text-2xl text-white">
+                            {/* <img src="field.svg" alt={deporte?.nombre} className="w-8" /> */}
+                            <h1 className="w-full font-bold text-center bg-white text-black rounded-t-lg">Cancha:</h1>
+                            <h1 className="w-full font-thin text-center">{cancha?.nombre}</h1>
+                        </div>
+                        <div className="w-[90%] md:w-[40%] flex flex-col justify-center text-2xl text-white">
+                            {/* <img src="date.svg" alt="date" className="w-8" /> */}
+                            <h1 className="w-full font-bold text-center bg-white text-black rounded-t-lg">Fecha:</h1>
+                            <h1 className="w-full font-thin text-center">{fecha.toLocaleDateString('es-AR', { timeZone: 'UTC' })}</h1>
+                        </div>
+                        <div className="w-[90%] md:w-[40%] flex flex-col justify-center text-2xl text-white">
+                            {/* <img src="time.svg" alt="time" className="w-8" /> */}
+                            <h1 className="w-full font-bold text-center bg-white text-black rounded-t-lg">Horario:</h1>
+                            <h1 className="w-full font-thin text-center">{formatMinutosAHora(hora)} hs</h1>
+                        </div>
+                       <div className="w-[90%] md:w-[40%] flex flex-col justify-center text-2xl text-white">
+                            {/* <img src="price.svg" alt="time" className="w-8" /> */}
+                            <h1 className="w-full font-bold text-center bg-white text-black rounded-t-lg">Precio:</h1>
+                            <h1 className="w-full font-thin text-center">{new Intl.NumberFormat("es-AR", {
+                                style: "currency",
+                                currency: "ARS",
+                                minimumFractionDigits: 0, // Cambia a 2 si necesitas centavos
+                                maximumFractionDigits: 2,
+                            }).format(Number(deporte?.precio))}</h1>
+                        </div>
+                        <div className="w-[90%] md:w-[40%] flex flex-col justify-center text-2xl text-white">
+                            {/* <img src="person_white.svg" alt="time" className="w-8" /> */}
+                            <h1 className="w-full font-bold text-center bg-white text-black rounded-t-lg">Nombre:</h1>
+                            <h1 className="w-full font-thin text-center">{nombre}</h1>
+                        </div>
+                       <div className="w-[90%] md:w-[40%] flex flex-col justify-center text-2xl text-white">
+                            {/* <img src="contact.svg" alt="time" className="w-8" /> */}
+                            <h1 className="w-full font-bold text-center bg-white text-black rounded-t-lg">Contacto:</h1>
+                            <h1 className="w-full font-thin text-center">{contacto}</h1>
+                        </div>
+                        <div className="w-full h-fit flex flex-row justify-evenly items-center">
+                            <button
+                                onClick={() => { setHora(0); setListaLlena(false) }}
+                                className="max-w-[220px] h-fit flex items-center justify-center gap-2 rounded-full bg-white/80 hover:bg-slate-500 hover:text-white shadow-lg shadow-black/20 backdrop-blur-sm px-4 py-3 transition-colors duration-200"
+                            >
+                                Volver
+                            </button>
+                            <button
+                                onClick={guardarTurno}
+                                className="max-w-[220px] h-fit flex items-center justify-center gap-2 rounded-full bg-green-400 hover:bg-emerald-600 hover:text-white shadow-lg shadow-black/20 backdrop-blur-sm px-4 py-3 transition-colors duration-200"
+                            >
+                                Confirmar reserva
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

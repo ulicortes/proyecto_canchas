@@ -122,11 +122,10 @@ export default function Page() {
             console.log(error)
         }
     }
-
-    console.log(turnos)
+    
     return <Suspense fallback={<Loading message={"Cargando turnos..."} />}>
         <div className="w-full h-[95%] flex flex-col justify-evenly items-center text-center">
-            <div className="w-full h-[95%] md:h-[90%] flex flex-col md:flex-row. justify-center items-center bg-transparent rounded-lg">
+            <div className="w-full h-[100%] md:h-[90%] flex flex-col md:flex-row. justify-center items-center bg-transparent rounded-lg">
                 {/* Bloque inferior */}
                 {cobro ? <div className="w-full h-full fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex flex-col justify-center items-center px-4 animate-in fade-in duration-200">
                     <form

@@ -1,8 +1,6 @@
 'use server';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { NextRequest } from 'next/server';
-import { usuario } from './tipos';
 import { cookies } from 'next/headers';
 
 const URL = process.env.NEXT_PUBLIC_AUTH_URL;

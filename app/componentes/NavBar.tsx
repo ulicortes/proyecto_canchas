@@ -22,7 +22,6 @@ export default function NavBar() {
         async function cargarDeportes() {
             try {
                 const usuarioResult = await datos_admin();
-                console.log(usuarioResult)
                 setUsuario(usuarioResult);
             } catch (error) {
                 console.log(error)

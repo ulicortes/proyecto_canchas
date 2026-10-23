@@ -17,3 +17,18 @@ export type turno = {
 export type jugadores = {lista: string};
 
 export type horarios = {hora: string; cancha: string};
+
+export interface Cancha {
+    "id": number;
+    "nombre": string;
+    "deporte": number;
+    "superficie": string;
+    "estado": number;
+}
+
+export interface Deporte {
+    "id": number;
+    "nombre": string;
+    "duracion": string;
+    "precio": string;
+}
